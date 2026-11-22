@@ -622,14 +622,151 @@
     background: #fee2e2;
   }
 
+
+  /* ===== Professional, Unique & Colorful UI Enhancements ===== */
+  .topbar {
+    background: linear-gradient(125deg, #0b3954 0%, #0f4c5c 45%, #1b8a6b 100%);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.18);
+  }
+  .sheet-nav-bar {
+    background: linear-gradient(90deg, #ffffff 0%, #f0fdfa 100%);
+    border-bottom: 2px solid #cbd5e1;
+  }
+  .hamburger-btn {
+    background: linear-gradient(135deg, #0f4c5c, #1b8a6b);
+    box-shadow: 0 3px 10px rgba(15, 76, 92, 0.28);
+  }
+  .hamburger-btn:hover {
+    background: linear-gradient(135deg, #09323d, #146c53);
+    transform: translateY(-1px);
+  }
+  .sheet-header {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    border-left: 5px solid #0ea5e9;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.07);
+  }
+  .kpi-card {
+    background: linear-gradient(160deg, #ffffff 0%, #f0f9ff 100%);
+    border-top: 4px solid #0284c7;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.11);
+  }
+  .kpi-card.green {
+    background: linear-gradient(160deg, #ffffff 0%, #ecfdf5 100%);
+    border-top-color: #10b981;
+  }
+  .kpi-card.red {
+    background: linear-gradient(160deg, #ffffff 0%, #fef2f2 100%);
+    border-top-color: #ef4444;
+  }
+  .kpi-card.amber {
+    background: linear-gradient(160deg, #ffffff 0%, #fffbeb 100%);
+    border-top-color: #f59e0b;
+  }
+  .kpi-card.amber .kpi-value { color: #b45309; }
+  th {
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  }
+  .sheet-drawer-header {
+    background: linear-gradient(135deg, #0b3954 0%, #0f4c5c 55%, #1b8a6b 100%);
+  }
+  .sheet-drawer-list .tab-btn.active {
+    background: linear-gradient(135deg, #0f4c5c, #1b8a6b);
+    border-color: #0f4c5c;
+  }
+
+  /* ===== Contact Card below App Configure ===== */
+  .drawer-contact-card {
+    margin-top: 14px;
+    padding: 13px 12px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #f0f9ff 0%, #ecfdf5 55%, #fefce8 100%);
+    border: 1px solid #bae6fd;
+    box-shadow: 0 3px 10px rgba(15, 76, 92, 0.08);
+  }
+  .drawer-contact-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #0f4c5c;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .drawer-contact-sub {
+    font-size: 11.5px;
+    color: #475569;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #ffffff !important;
+    font-size: 12.5px;
+    font-weight: 700;
+    transition: transform 0.15s ease, filter 0.15s ease;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.14);
+  }
+  .contact-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.06);
+  }
+  .contact-btn svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    fill: currentColor;
+  }
+  .contact-btn.fb {
+    background: linear-gradient(135deg, #1877f2, #0c5dc7);
+  }
+  .contact-btn.wa {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+  }
+  .contact-btn.ph {
+    background: linear-gradient(135deg, #6366f1, #4338ca);
+  }
+
+
+  /* Keep topbar title on left and Print button always on the right */
+  .topbar {
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+  }
+  .topbar-title {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .topbar-title h1 {
+    font-size: clamp(13.5px, 3.6vw, 17.5px);
+    line-height: 1.35;
+  }
+  .topbar-actions {
+    flex-shrink: 0;
+  }
+
 </style>
 </head>
 <body>
 
 <div class="topbar">
   <div class="topbar-title">
-    <h1>📊 কর্মকর্তা-কর্মচারী ফান্ড হিসাব বিবরণী - ২০২৬ (Staff Fund 2026)</h1>
-    <p>সকল ৯টি শিট ও ফর্মুলা এক ফাইলে • ডুয়াল Google Drive ক্লাউড সিঙ্ক (rabiul.baishari &amp; rabiul6118)</p>
+    <h1>DMCB ভৈরব বাজার শাখার কর্মকর্তা-কর্মচারী ফান্ড হিসাব বিবরণী - ২০২৬ (Staff Fund 2026)</h1>
   </div>
   <div class="topbar-actions">
     <button class="btn btn-light" onclick="window.print()">🖨 Print</button>
@@ -662,12 +799,12 @@
     <button class="tab-btn" onclick="switchTab('mcsp', this)">9. M. C. S. P</button>
 
     <div class="app-config-section">
-      <button class="app-config-toggle open" id="appConfigToggleBtn" onclick="toggleAppConfig()" aria-expanded="true">
+      <button class="app-config-toggle" id="appConfigToggleBtn" onclick="toggleAppConfig()" aria-expanded="false">
         <span>⚙️ App Configure</span>
         <span class="app-config-arrow" id="appConfigArrow">▾</span>
       </button>
-      <div class="app-config-panel open" id="appConfigPanel">
-        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 01:31 PM</button>
+      <div class="app-config-panel" id="appConfigPanel">
+        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 09:39 PM</button>
         <button class="btn btn-light" onclick="syncFromCloud(true)" title="গুগল ড্রাইভ থেকে সর্বশেষ ডাটা লোড করুন">🔄 Sync Now</button>
         <button id="editModeBtn" class="btn btn-warning" onclick="closeSheetDrawer(); toggleEditModal();">🔒 Read-Only (Unlock Edit)</button>
         <button class="btn btn-light" onclick="exportBackup()">💾 Backup JSON</button>
@@ -675,6 +812,25 @@
         <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(event)">
         <button class="btn btn-light" onclick="exportCurrentCSV()">⬇ Export CSV</button>
         <button class="btn btn-light btn-reset-cfg" onclick="closeSheetDrawer(); resetOriginalData();">↺ Reset 2026</button>
+      </div>
+    </div>
+
+    <div class="drawer-contact-card">
+      <div class="drawer-contact-title">📞 যেকোনো তথ্যের জন্য যোগাযোগ</div>
+      <div class="drawer-contact-sub">Md. Rabiul Islam • Staff Fund Admin</div>
+      <div class="contact-links">
+        <a class="contact-btn fb" href="https://www.facebook.com/rabiul.baishari" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"></path></svg>
+          <span>Facebook প্রোফাইল</span>
+        </a>
+        <a class="contact-btn wa" href="https://wa.me/qr/WCXLAKI7KLQ4I1" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.07c-.24.68-1.41 1.3-1.95 1.38-.5.08-1.14.11-1.84-.11-.43-.14-.98-.32-1.69-.63-2.97-1.28-4.91-4.29-5.06-4.49-.15-.2-1.21-1.61-1.21-3.07 0-1.46.76-2.18 1.03-2.48.27-.3.59-.37.79-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.24.59.83 2.04.9 2.19.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.45.52-.15.15-.3.31-.13.61.17.3.77 1.27 1.65 2.06 1.14 1.01 2.09 1.33 2.39 1.48.3.15.47.12.65-.07.18-.2.74-.86.94-1.16.2-.3.4-.25.67-.15.27.1 1.73.82 2.03.97.3.15.5.22.57.34.07.12.07.72-.17 1.4z"></path></svg>
+          <span>WhatsApp মেসেজ</span>
+        </a>
+        <a class="contact-btn ph" href="tel:+8801785957704">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"></path></svg>
+          <span>কল করুন: 01785-957704</span>
+        </a>
       </div>
     </div>
   </div>
@@ -690,9 +846,9 @@
     </div>
     <div class="kpi-grid" id="dash-kpis">
     <div class="kpi-card"><div class="kpi-label">মোট স্টাফ সংখ্যা (Total Staff)</div><div class="kpi-value">25 জন</div></div>
-    <div class="kpi-card green"><div class="kpi-label">সর্বমোট আয় (Total Income)</div><div class="kpi-value">৳ 1,60,252.70</div></div>
+    <div class="kpi-card green"><div class="kpi-label">সর্বমোট আয় (Total Income)</div><div class="kpi-value">৳ 1,60,253.00</div></div>
     <div class="kpi-card red"><div class="kpi-label">সর্বমোট ব্যয় (Total Expense)</div><div class="kpi-value">৳ 70,770.00</div></div>
-    <div class="kpi-card amber"><div class="kpi-label">অবশিষ্ট ফান্ডের স্থিতি (Net Balance)</div><div class="kpi-value">৳ 89,482.70</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">অবশিষ্ট ফান্ডের স্থিতি (Net Balance)</div><div class="kpi-value">৳ 89,483.00</div></div>
   </div>
     <div class="card">
       <div class="card-title">১. আয় ও ব্যয়ের মাসভিত্তিক সামারি (Monthly Income &amp; Expense Overview)</div>
@@ -803,21 +959,21 @@
     <tr>
       <td><strong>October 2026</strong></td>
       <td class="num">22,500</td>
-      <td class="num">15,277.40</td>
-      <td class="num"><strong>37,777.40</strong></td>
+      <td class="num">15,278</td>
+      <td class="num"><strong>37,778</strong></td>
       <td class="num">23,095</td>
-      <td class="num" style="color:var(--accent);font-weight:600">14,682.40</td>
-      <td class="num"><strong>57,112.40</strong></td>
+      <td class="num" style="color:var(--accent);font-weight:600">14,683</td>
+      <td class="num"><strong>57,113</strong></td>
     </tr>
   
     <tr>
       <td><strong>November 2026</strong></td>
       <td class="num">22,500</td>
-      <td class="num">17,100.30</td>
-      <td class="num"><strong>39,600.30</strong></td>
+      <td class="num">17,100</td>
+      <td class="num"><strong>39,600</strong></td>
       <td class="num">7,230</td>
-      <td class="num" style="color:var(--accent);font-weight:600">32,370.30</td>
-      <td class="num"><strong>89,482.70</strong></td>
+      <td class="num" style="color:var(--accent);font-weight:600">32,370</td>
+      <td class="num"><strong>89,483</strong></td>
     </tr>
   
     <tr>
@@ -827,18 +983,18 @@
       <td class="num"><strong>0</strong></td>
       <td class="num">0</td>
       <td class="num" style="color:var(--accent);font-weight:600">0</td>
-      <td class="num"><strong>89,482.70</strong></td>
+      <td class="num"><strong>89,483</strong></td>
     </tr>
   </tbody>
           <tfoot>
     <tr>
       <td>সর্বমোট (Grand Total)</td>
       <td class="num">92,000</td>
-      <td class="num">68,252.70</td>
-      <td class="num">1,60,252.70</td>
+      <td class="num">68,253</td>
+      <td class="num">1,60,253</td>
       <td class="num">70,770</td>
-      <td class="num">89,482.70</td>
-      <td class="num">89,482.70</td>
+      <td class="num">89,483</td>
+      <td class="num">89,483</td>
     </tr>
   </tfoot>
         </table>
@@ -850,8 +1006,8 @@
         <div class="table-wrap">
           <table id="dash-inc-breakdown">
             <thead><tr><th>আয়ের খাত (Income Head)</th><th class="num">পরিমাণ (Amount)</th></tr></thead>
-            <tbody><tr><td>মাসিক স্টাফ চাঁদা (Monthly Subscription)</td><td class="num">92,000</td></tr><tr><td>ইনসেন্টিভ (Incentive)</td><td class="num">18,877.70</td></tr><tr><td>কমিশন (Commission)</td><td class="num">11,875</td></tr><tr><td>লিভ এনক্যাশমেন্ট (Leave Encashment)</td><td class="num">10,000</td></tr><tr><td>ইনক্রিমেন্ট</td><td class="num">5,000</td></tr><tr><td>লোন জরিমানা</td><td class="num">22,500</td></tr></tbody>
-            <tfoot><tr><td>মোট আয় (Total Income)</td><td class="num">৳ 1,60,252.70</td></tr></tfoot>
+            <tbody><tr><td>মাসিক স্টাফ চাঁদা (Monthly Subscription)</td><td class="num">92,000</td></tr><tr><td>ইনসেন্টিভ (Incentive)</td><td class="num">18,878</td></tr><tr><td>কমিশন (Commission)</td><td class="num">11,875</td></tr><tr><td>লিভ এনক্যাশমেন্ট (Leave Encashment)</td><td class="num">10,000</td></tr><tr><td>ইনক্রিমেন্ট</td><td class="num">5,000</td></tr><tr><td>লোন জরিমানা</td><td class="num">22,500</td></tr></tbody>
+            <tfoot><tr><td>মোট আয় (Total Income)</td><td class="num">৳ 1,60,253.00</td></tr></tfoot>
           </table>
         </div>
       </div>
@@ -876,10 +1032,10 @@
     </div>
     <div class="kpi-grid" id="de-live-kpis">
     <div class="kpi-card"><div class="kpi-label">মাসিক চাঁদা (Subscription)</div><div class="kpi-value">৳ 92,000</div></div>
-    <div class="kpi-card"><div class="kpi-label">অন্যান্য আয় (Other Income)</div><div class="kpi-value">৳ 68,252.70</div></div>
-    <div class="kpi-card green"><div class="kpi-label">সর্বমোট আয় (Total Income)</div><div class="kpi-value">৳ 1,60,252.70</div></div>
+    <div class="kpi-card"><div class="kpi-label">অন্যান্য আয় (Other Income)</div><div class="kpi-value">৳ 68,253</div></div>
+    <div class="kpi-card green"><div class="kpi-label">সর্বমোট আয় (Total Income)</div><div class="kpi-value">৳ 1,60,253</div></div>
     <div class="kpi-card red"><div class="kpi-label">সর্বমোট ব্যয় (Total Expense)</div><div class="kpi-value">৳ 70,770</div></div>
-    <div class="kpi-card amber"><div class="kpi-label">নিট ব্যালেন্স (Net Balance)</div><div class="kpi-value">৳ 89,482.70</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">নিট ব্যালেন্স (Net Balance)</div><div class="kpi-value">৳ 89,483</div></div>
   </div>
     <div class="grid-2">
       <div class="card">
@@ -984,10 +1140,10 @@
       <p>প্রতি মাসে কত টাকা জমা/উঠেছে, কত খরচ হয়েছে, আগের স্থিতি ও মাস শেষে মোট ব্যালেন্স • তারিখ: <strong id="ledger-today">22 Nov 2026</strong></p>
     </div>
     <div class="kpi-grid" id="ledger-kpis">
-    <div class="kpi-card green"><div class="kpi-label">সর্বমোট জমা/আয়</div><div class="kpi-value">৳ 1,60,252.70</div></div>
+    <div class="kpi-card green"><div class="kpi-label">সর্বমোট জমা/আয়</div><div class="kpi-value">৳ 1,60,253.00</div></div>
     <div class="kpi-card red"><div class="kpi-label">সর্বমোট খরচ</div><div class="kpi-value">৳ 70,770.00</div></div>
-    <div class="kpi-card amber"><div class="kpi-label">বর্তমান মোট ব্যালেন্স</div><div class="kpi-value">৳ 89,482.70</div></div>
-    <div class="kpi-card"><div class="kpi-label">চলতি মাসে জমা (November 2026)</div><div class="kpi-value">৳ 39,600.30</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">বর্তমান মোট ব্যালেন্স</div><div class="kpi-value">৳ 89,483.00</div></div>
+    <div class="kpi-card"><div class="kpi-label">চলতি মাসে জমা (November 2026)</div><div class="kpi-value">৳ 39,600.00</div></div>
   </div>
     <div class="card">
       <div class="card-title">মাসভিত্তিক লেজার বিবরণী (Monthly Fund Ledger)</div>
@@ -1109,45 +1265,45 @@
       <td><strong>October 2026</strong></td>
       <td class="num">42,430</td>
       <td class="num">22,500</td>
-      <td class="num">15,277.40</td>
-      <td class="num"><strong>37,777.40</strong></td>
+      <td class="num">15,278</td>
+      <td class="num"><strong>37,778</strong></td>
       <td class="num">23,095</td>
-      <td class="num" style="color:var(--accent);font-weight:600">14,682.40</td>
-      <td class="num"><strong>57,112.40</strong></td>
+      <td class="num" style="color:var(--accent);font-weight:600">14,683</td>
+      <td class="num"><strong>57,113</strong></td>
     </tr>
   
     <tr>
       <td><strong>November 2026</strong></td>
-      <td class="num">57,112.40</td>
+      <td class="num">57,113</td>
       <td class="num">22,500</td>
-      <td class="num">17,100.30</td>
-      <td class="num"><strong>39,600.30</strong></td>
+      <td class="num">17,100</td>
+      <td class="num"><strong>39,600</strong></td>
       <td class="num">7,230</td>
-      <td class="num" style="color:var(--accent);font-weight:600">32,370.30</td>
-      <td class="num"><strong>89,482.70</strong></td>
+      <td class="num" style="color:var(--accent);font-weight:600">32,370</td>
+      <td class="num"><strong>89,483</strong></td>
     </tr>
   
     <tr>
       <td><strong>December 2026</strong></td>
-      <td class="num">89,482.70</td>
+      <td class="num">89,483</td>
       <td class="num">0</td>
       <td class="num">0</td>
       <td class="num"><strong>0</strong></td>
       <td class="num">0</td>
       <td class="num" style="color:var(--accent);font-weight:600">0</td>
-      <td class="num"><strong>89,482.70</strong></td>
+      <td class="num"><strong>89,483</strong></td>
     </tr>
   </tbody>
           <tfoot>
     <tr>
       <td>সর্বমোট / বর্তমান স্থিতি</td>
-      <td class="num">89,482.70</td>
+      <td class="num">89,483</td>
       <td class="num">92,000</td>
-      <td class="num">68,252.70</td>
-      <td class="num">1,60,252.70</td>
+      <td class="num">68,253</td>
+      <td class="num">1,60,253</td>
       <td class="num">70,770</td>
-      <td class="num">89,482.70</td>
-      <td class="num">89,482.70</td>
+      <td class="num">89,483</td>
+      <td class="num">89,483</td>
     </tr>
   </tfoot>
         </table>
@@ -2415,9 +2571,9 @@
           <td>2026-10-01</td>
           <td>October 2026</td>
           <td>ইনসেন্টিভ</td>
-          <td>2757</td>
+          <td>2760</td>
           <td>0.1</td>
-          <td class="num"><strong>275.70</strong> <span class="badge-formula">fx</span></td>
+          <td class="num"><strong>276</strong> <span class="badge-formula">fx</span></td>
           <td class="center no-print">—</td>
         </tr>
       
@@ -2428,9 +2584,9 @@
           <td>2026-10-01</td>
           <td>October 2026</td>
           <td>ইনসেন্টিভ</td>
-          <td>3779</td>
+          <td>3780</td>
           <td>0.1</td>
-          <td class="num"><strong>377.90</strong> <span class="badge-formula">fx</span></td>
+          <td class="num"><strong>378</strong> <span class="badge-formula">fx</span></td>
           <td class="center no-print">—</td>
         </tr>
       
@@ -2441,9 +2597,9 @@
           <td>2026-10-01</td>
           <td>October 2026</td>
           <td>ইনসেন্টিভ</td>
-          <td>4212</td>
+          <td>4210</td>
           <td>0.1</td>
-          <td class="num"><strong>421.20</strong> <span class="badge-formula">fx</span></td>
+          <td class="num"><strong>421</strong> <span class="badge-formula">fx</span></td>
           <td class="center no-print">—</td>
         </tr>
       
@@ -2454,9 +2610,9 @@
           <td>2026-10-01</td>
           <td>October 2026</td>
           <td>ইনসেন্টিভ</td>
-          <td>6462</td>
+          <td>6460</td>
           <td>0.1</td>
-          <td class="num"><strong>646.20</strong> <span class="badge-formula">fx</span></td>
+          <td class="num"><strong>646</strong> <span class="badge-formula">fx</span></td>
           <td class="center no-print">—</td>
         </tr>
       
@@ -2467,9 +2623,9 @@
           <td>2026-10-01</td>
           <td>October 2026</td>
           <td>ইনসেন্টিভ</td>
-          <td>6482</td>
+          <td>6480</td>
           <td>0.1</td>
-          <td class="num"><strong>648.20</strong> <span class="badge-formula">fx</span></td>
+          <td class="num"><strong>648</strong> <span class="badge-formula">fx</span></td>
           <td class="center no-print">—</td>
         </tr>
       
@@ -2480,9 +2636,9 @@
           <td>2026-10-01</td>
           <td>October 2026</td>
           <td>ইনসেন্টিভ</td>
-          <td>11027</td>
+          <td>11030</td>
           <td>0.1</td>
-          <td class="num"><strong>1,102.70</strong> <span class="badge-formula">fx</span></td>
+          <td class="num"><strong>1,103</strong> <span class="badge-formula">fx</span></td>
           <td class="center no-print">—</td>
         </tr>
       
@@ -2493,9 +2649,9 @@
           <td>2026-10-01</td>
           <td>October 2026</td>
           <td>ইনসেন্টিভ</td>
-          <td>26023</td>
+          <td>26025</td>
           <td>0.1</td>
-          <td class="num"><strong>2,602.30</strong> <span class="badge-formula">fx</span></td>
+          <td class="num"><strong>2,602.50</strong> <span class="badge-formula">fx</span></td>
           <td class="center no-print">—</td>
         </tr>
       
@@ -2506,27 +2662,14 @@
           <td>2026-10-01</td>
           <td>October 2026</td>
           <td>ইনসেন্টিভ</td>
-          <td>27032</td>
+          <td>27035</td>
           <td>0.1</td>
-          <td class="num"><strong>2,703.20</strong> <span class="badge-formula">fx</span></td>
+          <td class="num"><strong>2,703.50</strong> <span class="badge-formula">fx</span></td>
           <td class="center no-print">—</td>
         </tr>
       
         <tr>
           <td class="center">41</td>
-          <td class="center"><strong></strong></td>
-          <td></td>
-          <td>2026-10-01</td>
-          <td>October 2026</td>
-          <td>ইনসেন্টিভ</td>
-          <td></td>
-          <td></td>
-          <td class="num"><strong>0</strong></td>
-          <td class="center no-print">—</td>
-        </tr>
-      
-        <tr>
-          <td class="center">42</td>
           <td class="center"><strong>2959</strong></td>
           <td>Md. Zahedul Islam</td>
           <td>2026-10-01</td>
@@ -2539,7 +2682,7 @@
         </tr>
       
         <tr>
-          <td class="center">43</td>
+          <td class="center">42</td>
           <td class="center"><strong>5678</strong></td>
           <td>Md. Rabiul Islam</td>
           <td>2026-10-01</td>
@@ -2552,7 +2695,7 @@
         </tr>
       
         <tr>
-          <td class="center">44</td>
+          <td class="center">43</td>
           <td class="center"><strong>4402</strong></td>
           <td>Md. Elias</td>
           <td>2026-10-01</td>
@@ -2565,7 +2708,7 @@
         </tr>
       
         <tr>
-          <td class="center">45</td>
+          <td class="center">44</td>
           <td class="center"><strong>5585</strong></td>
           <td>Md. Almamun</td>
           <td>2026-10-01</td>
@@ -2578,7 +2721,7 @@
         </tr>
       
         <tr>
-          <td class="center">46</td>
+          <td class="center">45</td>
           <td class="center"><strong>5953</strong></td>
           <td>Md. Zehadul Islam</td>
           <td>2026-10-01</td>
@@ -2591,7 +2734,7 @@
         </tr>
       
         <tr>
-          <td class="center">47</td>
+          <td class="center">46</td>
           <td class="center"><strong>1496</strong></td>
           <td>Md Delowar Hossain</td>
           <td>2026-10-01</td>
@@ -2604,7 +2747,7 @@
         </tr>
       
         <tr>
-          <td class="center">48</td>
+          <td class="center">47</td>
           <td class="center"><strong>964</strong></td>
           <td>Md Golam Rabbani</td>
           <td>2026-11-01</td>
@@ -2617,7 +2760,7 @@
         </tr>
       
         <tr>
-          <td class="center">49</td>
+          <td class="center">48</td>
           <td class="center"><strong>4892</strong></td>
           <td>Md. Rakib Hasan</td>
           <td>2026-11-01</td>
@@ -2630,7 +2773,7 @@
         </tr>
       
         <tr>
-          <td class="center">50</td>
+          <td class="center">49</td>
           <td class="center"><strong>3394</strong></td>
           <td>Lakhman Biswas</td>
           <td>2026-11-01</td>
@@ -2643,7 +2786,7 @@
         </tr>
       
         <tr>
-          <td class="center">51</td>
+          <td class="center">50</td>
           <td class="center"><strong>6672</strong></td>
           <td>Md. Aminul Islam</td>
           <td>2026-11-01</td>
@@ -2656,7 +2799,7 @@
         </tr>
       
         <tr>
-          <td class="center">52</td>
+          <td class="center">51</td>
           <td class="center"><strong>3457</strong></td>
           <td>Md. Ariful Islam</td>
           <td>2026-11-01</td>
@@ -2669,7 +2812,7 @@
         </tr>
       
         <tr>
-          <td class="center">53</td>
+          <td class="center">52</td>
           <td class="center"><strong>5678</strong></td>
           <td>Md. Rabiul Islam</td>
           <td>2026-11-01</td>
@@ -2682,7 +2825,7 @@
         </tr>
       
         <tr>
-          <td class="center">54</td>
+          <td class="center">53</td>
           <td class="center"><strong>2959</strong></td>
           <td>Md. Zahedul Islam</td>
           <td>2026-11-01</td>
@@ -2695,20 +2838,20 @@
         </tr>
       
         <tr>
-          <td class="center">55</td>
+          <td class="center">54</td>
           <td class="center"><strong>1518</strong></td>
           <td>Md Tafazzal Hossain</td>
           <td>2026-11-01</td>
           <td>November 2026</td>
           <td>ইনসেন্টিভ</td>
-          <td>2793</td>
+          <td>2795</td>
           <td>0.1</td>
           <td class="num"><strong>280</strong></td>
           <td class="center no-print">—</td>
         </tr>
       
         <tr>
-          <td class="center">56</td>
+          <td class="center">55</td>
           <td class="center"><strong>4402</strong></td>
           <td>Md. Elias</td>
           <td>2026-11-01</td>
@@ -2721,20 +2864,20 @@
         </tr>
       
         <tr>
-          <td class="center">57</td>
+          <td class="center">56</td>
           <td class="center"><strong>3394</strong></td>
           <td>Lakhman Biswas</td>
           <td>2026-11-01</td>
           <td>November 2026</td>
           <td>ইনসেন্টিভ</td>
-          <td>3887</td>
+          <td>3890</td>
           <td>0.1</td>
           <td class="num"><strong>390</strong></td>
           <td class="center no-print">—</td>
         </tr>
       
         <tr>
-          <td class="center">58</td>
+          <td class="center">57</td>
           <td class="center"><strong>6672</strong></td>
           <td>Md. Aminul Islam</td>
           <td>2026-11-01</td>
@@ -2747,20 +2890,20 @@
         </tr>
       
         <tr>
-          <td class="center">59</td>
+          <td class="center">58</td>
           <td class="center"><strong>3457</strong></td>
           <td>Md. Ariful Islam</td>
           <td>2026-11-01</td>
           <td>November 2026</td>
           <td>ইনসেন্টিভ</td>
-          <td>30703</td>
+          <td>30700</td>
           <td>0.1</td>
-          <td class="num"><strong>3,070.30</strong> <span class="badge-formula">fx</span></td>
+          <td class="num"><strong>3,070</strong> <span class="badge-formula">fx</span></td>
           <td class="center no-print">—</td>
         </tr>
       
         <tr>
-          <td class="center">60</td>
+          <td class="center">59</td>
           <td class="center"><strong>5953</strong></td>
           <td>Md. Zehadul Islam</td>
           <td>2026-11-01</td>
@@ -2773,20 +2916,20 @@
         </tr>
       
         <tr>
-          <td class="center">61</td>
+          <td class="center">60</td>
           <td class="center"><strong>1496</strong></td>
           <td>Md Delowar Hossain</td>
           <td>2026-11-01</td>
           <td>November 2026</td>
           <td>ইনসেন্টিভ</td>
-          <td>34068</td>
+          <td>34070</td>
           <td>0.1</td>
           <td class="num"><strong>3,410</strong></td>
           <td class="center no-print">—</td>
         </tr>
       
         <tr>
-          <td class="center">62</td>
+          <td class="center">61</td>
           <td class="center"><strong>2959</strong></td>
           <td>Md. Zahedul Islam</td>
           <td>2026-11-01</td>
@@ -2799,7 +2942,7 @@
         </tr>
       
         <tr>
-          <td class="center">63</td>
+          <td class="center">62</td>
           <td class="center"><strong>5585</strong></td>
           <td>Md. Almamun</td>
           <td>2026-11-01</td>
@@ -2811,7 +2954,7 @@
           <td class="center no-print">—</td>
         </tr>
       </tbody>
-          <tfoot><tr><td colspan="8">সর্বমোট অন্যান্য আয় (Total Other Income)</td><td class="num">৳ 68,252.70</td><td class="no-print"></td></tr></tfoot>
+          <tfoot><tr><td colspan="8">সর্বমোট অন্যান্য আয় (Total Other Income)</td><td class="num">৳ 68,253.00</td><td class="no-print"></td></tr></tfoot>
         </table>
       </div>
     </div>
@@ -3789,7 +3932,7 @@ function doPost(e) {
       </div>
     </div>
 
-    <div id="cloudModalMsg" class="status-banner" style="margin-bottom:10px;"></div>
+    <div id="cloudModalMsg" class="status-banner show ok" style="margin-bottom:10px;">Google Drive সিঙ্ক সম্পন্ন! সব ডিভাইসে অটো-সিঙ্ক পেতে "Download Ready HTML" বাটনে ক্লিক করুন।</div>
 
     <div class="modal-actions" style="flex-wrap:wrap;">
       <button class="btn btn-outline" onclick="closeCloudModal()">বন্ধ করুন</button>
@@ -4073,6 +4216,10 @@ function closeSheetDrawer() {
   const backdrop = document.getElementById('sheetDrawerBackdrop');
   if (drawer) drawer.classList.remove('open');
   if (backdrop) backdrop.classList.remove('open');
+  const cfgP = document.getElementById('appConfigPanel');
+  const cfgB = document.getElementById('appConfigToggleBtn');
+  if (cfgP) cfgP.classList.remove('open');
+  if (cfgB) { cfgB.classList.remove('open'); cfgB.setAttribute('aria-expanded', 'false'); }
 }
 function toggleAppConfig() {
   const panel = document.getElementById('appConfigPanel');
@@ -4094,6 +4241,10 @@ function switchTab(id, btn) {
     if (lbl) lbl.textContent = btn.textContent.trim();
   }
   closeSheetDrawer();
+  const cfgP = document.getElementById('appConfigPanel');
+  const cfgB = document.getElementById('appConfigToggleBtn');
+  if (cfgP) cfgP.classList.remove('open');
+  if (cfgB) { cfgB.classList.remove('open'); cfgB.setAttribute('aria-expanded', 'false'); }
   renderAll();
 }
 
