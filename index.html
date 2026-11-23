@@ -1140,9 +1140,120 @@
     }
   }
 
+
+  /* ===== Password & Access Control Manager ===== */
+  .app-config-panel .cfg-c8 {
+    background: linear-gradient(145deg, #ec4899, #be185d) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 3px 0 #831843 !important;
+  }
+  .ac-section {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+  }
+  .ac-section-title {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .ac-toggle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 8px;
+  }
+  .ac-toggle-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: 7px;
+    padding: 8px 10px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .ac-toggle-item input[type="checkbox"] {
+    width: 18px !important;
+    height: 18px !important;
+    min-height: 18px !important;
+    margin: 0 !important;
+    cursor: pointer;
+    accent-color: var(--accent);
+  }
+  .ac-perm-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    gap: 6px;
+    margin: 8px 0 10px;
+  }
+  .ac-perm-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 6px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .ac-perm-label input[type="checkbox"] {
+    width: 16px !important;
+    height: 16px !important;
+    min-height: 16px !important;
+    margin: 0 !important;
+    accent-color: var(--primary);
+  }
+  .ac-pwd-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 11px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .ac-pwd-info {
+    flex: 1 1 220px;
+  }
+  .ac-pwd-name {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--primary-dark);
+  }
+  .ac-pwd-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 5px;
+  }
+  .ac-perm-chip {
+    display: inline-block;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    border: 1px solid #bae6fd;
+    border-radius: 99px;
+    padding: 1px 7px;
+    font-size: 10.5px;
+    font-weight: 700;
+  }
+
 </style>
 </head>
-<body>
+<body class="">
 
 <div class="topbar">
   <div class="topbar-title">
@@ -1159,7 +1270,7 @@
     <span class="hamburger-icon"><span></span><span></span><span></span></span>
     <span>শিট মেনু</span>
   </button>
-  <div class="active-sheet-indicator" id="activeSheetLabel">Staff Statement</div>
+  <div class="active-sheet-indicator" id="activeSheetLabel">Staff Search &amp; Directory</div>
 </div>
 
 <div class="sheet-drawer-backdrop no-print" id="sheetDrawerBackdrop" onclick="closeSheetDrawer()"></div>
@@ -1172,8 +1283,8 @@
     <button class="tab-btn tab-c1" onclick="switchTab('dashboard', this)">📊 Dashboard &amp; Summary</button>
     <button class="tab-btn tab-c2" onclick="switchTab('dataEntry', this)">📝 Data Entry</button>
     <button class="tab-btn tab-c3" onclick="switchTab('fundLedger', this)">📒 Fund Balance &amp; Monthly Ledger</button>
-    <button class="tab-btn tab-c4" onclick="switchTab('staffDir', this)">👥 Staff Search &amp; Directory</button>
-    <button class="tab-btn tab-c5 active" onclick="switchTab('staffStmt', this)">📄 Staff Statement</button>
+    <button class="tab-btn tab-c4 active" onclick="switchTab('staffDir', this)">👥 Staff Search &amp; Directory</button>
+    <button class="tab-btn tab-c5" onclick="switchTab('staffStmt', this)">📄 Staff Statement</button>
     <button class="tab-btn tab-c6" onclick="switchTab('monthlySub', this)">💳 Monthly Subscription</button>
     <button class="tab-btn tab-c7" onclick="switchTab('otherInc', this)">💰 Other Income</button>
     <button class="tab-btn tab-c8" onclick="switchTab('expenseReg', this)">🧾 Expense Register</button>
@@ -1185,12 +1296,13 @@
         <span class="app-config-arrow" id="appConfigArrow">▾</span>
       </button>
       <div class="app-config-panel" id="appConfigPanel">
-        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 12:55 AM</button>
+        <button id="syncStatusPill" class="sync-pill syncing" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">🔄 Loading from Drive...</button>
         <button class="btn btn-light cfg-c1" onclick="syncFromCloud(true)" title="গুগল ড্রাইভ থেকে সর্বশেষ ডাটা লোড করুন">🔄 Sync Now</button>
         <button id="editModeBtn" class="btn btn-warning cfg-c2" onclick="closeSheetDrawer(); toggleEditModal();">🔒 Read-Only (Unlock Edit)</button>
         <button class="btn btn-light cfg-c3" onclick="closeSheetDrawer(); openChangePwdModal();">🔑 Change Password</button>
+        <button class="btn btn-light cfg-c8" onclick="closeSheetDrawer(); openAccessControlModal();">🛡️ Password &amp; Access Control</button>
         <button class="btn btn-light cfg-c4" onclick="exportBackup()">💾 Backup JSON</button>
-        <button class="btn btn-light cfg-c5" onclick="document.getElementById('importFile').click()">📂 Restore JSON</button>
+        <button class="btn btn-light cfg-c5" onclick="triggerImportBackup()">📂 Restore JSON</button>
         <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(event)">
         <button class="btn btn-light cfg-c6" onclick="exportCurrentCSV()">⬇ Export CSV</button>
         <button class="btn btn-light btn-reset-cfg cfg-c7" onclick="closeSheetDrawer(); resetOriginalData();">↺ Reset 2026</button>
@@ -1221,7 +1333,7 @@
 <div class="main">
   <div class="print-header" id="printHeader">
     <h1 id="printMainTitle">DMCB ভৈরব বাজার শাখার কর্মকর্তা-কর্মচারী ফান্ড হিসাব বিবরণী - ২০২৬ (Staff Fund 2026)</h1>
-    <div class="print-sub" id="printSheetMeta">Staff Statement • প্রিন্ট তারিখ: 24 Nov 2026, 00:55</div>
+    <div class="print-sub" id="printSheetMeta">Staff Search &amp; Directory • প্রিন্ট তারিখ: 24 Nov 2026, 01:14</div>
   </div>
 
   <!-- 1. DASHBOARD & SUMMARY -->
@@ -1744,7 +1856,7 @@
   </section>
 
   <!-- 4. STAFF SEARCH & DIRECTORY -->
-  <section id="sheet-staffDir" class="sheet">
+  <section id="sheet-staffDir" class="sheet active">
     <div class="sheet-header">
       <h2><span id="txt-dirTitle">স্টাফ আইডি অনুসন্ধান ও ব্যক্তিগত বাৎসরিক ফান্ড বিবরণী (Individual Staff Statement Search)</span><button class="inline-edit-icon edit-only no-print" onclick="editCustomText('dirTitle', 'স্টাফ ডিরেক্টরি শিরোনাম')">✏️</button></h2>
       <p>যেকোনো স্টাফ আইডি লিখে বা নির্বাচন করে ব্যক্তিগত বাৎসরিক জমা, অন্যান্য আয় ও ব্যয়ের সারসংক্ষেপ দেখুন</p>
@@ -2180,7 +2292,7 @@
   </section>
 
   <!-- 5. STAFF STATEMENT -->
-  <section id="sheet-staffStmt" class="sheet active">
+  <section id="sheet-staffStmt" class="sheet">
     <div class="sheet-header">
       <h2><span id="txt-stmtTitle">স্টাফ ফান্ড - ব্যক্তিগত হিসাব বিবরণী (Personal Account Statement)</span><button class="inline-edit-icon edit-only no-print" onclick="editCustomText('stmtTitle', 'স্টাফ স্টেটমেন্ট শিরোনাম')">✏️</button></h2>
       <p>স্টাফ আইডি অনুযায়ী মাসিক চাঁদা, অন্যান্য আয় এবং ব্যয়ের বিস্তারিত বিবরণী</p>
@@ -2193,17 +2305,17 @@
         <button class="btn btn-outline btn-sm" onclick="handlePrint()">🖨 Print Statement</button>
       </div>
       <div id="stmt-header-info" style="display: flex; gap: 24px; flex-wrap: wrap; padding: 10px 14px; background: var(--primary-light); border-radius: 7px; margin-bottom: 14px; font-weight: 600; ">
-    <span>Staff ID: <strong>5147</strong></span>
-    <span>Staff Name: <strong>Md. Rokon</strong> <span class="badge badge-good">Transfer</span></span>
-    <span>Designation: <strong>I.O</strong></span>
+    <span>Staff ID: <strong>1500</strong></span>
+    <span>Staff Name: <strong>Md Shahidul Islam</strong> <span class="badge badge-best">Active</span></span>
+    <span>Designation: <strong>E.O &amp; BM.</strong></span>
     
   </div>
       <div class="kpi-grid" id="stmt-kpis">
-    <div class="kpi-card green"><div class="kpi-label">Total Income</div><div class="kpi-value">৳ 3,000.00</div></div>
-    <div class="kpi-card"><div class="kpi-label">Monthly Subscription Income</div><div class="kpi-value">৳ 2,000.00</div></div>
-    <div class="kpi-card"><div class="kpi-label">Other Income</div><div class="kpi-value">৳ 1,000.00</div></div>
-    <div class="kpi-card red"><div class="kpi-label">Expenditure</div><div class="kpi-value">৳ 826.00</div></div>
-    <div class="kpi-card amber"><div class="kpi-label">Net Balance</div><div class="kpi-value">৳ 2,174.00</div></div>
+    <div class="kpi-card green"><div class="kpi-label">Total Income</div><div class="kpi-value">৳ 4,000.00</div></div>
+    <div class="kpi-card"><div class="kpi-label">Monthly Subscription Income</div><div class="kpi-value">৳ 4,000.00</div></div>
+    <div class="kpi-card"><div class="kpi-label">Other Income</div><div class="kpi-value">৳ 0.00</div></div>
+    <div class="kpi-card red"><div class="kpi-label">Expenditure</div><div class="kpi-value">৳ 0.00</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Net Balance</div><div class="kpi-value">৳ 4,000.00</div></div>
   </div>
     </div>
 
@@ -2213,8 +2325,8 @@
         <div class="table-wrap">
           <table id="stmt-sub-table">
             <thead><tr><th>Month</th><th class="num">Subscription Amount</th></tr></thead>
-            <tbody><tr><td>January 2026</td><td class="num">0</td></tr><tr><td>February 2026</td><td class="num">0</td></tr><tr><td>March 2026</td><td class="num">0</td></tr><tr><td>April 2026</td><td class="num">0</td></tr><tr><td>May 2026</td><td class="num">0</td></tr><tr><td>June 2026</td><td class="num">0</td></tr><tr><td>July 2026</td><td class="num">0</td></tr><tr><td>August 2026</td><td class="num">1,000</td></tr><tr><td>September 2026</td><td class="num">1,000</td></tr><tr><td>October 2026</td><td class="num">0</td></tr><tr><td>November 2026</td><td class="num">0</td></tr><tr><td>December 2026</td><td class="num">0</td></tr></tbody>
-            <tfoot><tr><td>Total</td><td class="num">৳ 2,000</td></tr></tfoot>
+            <tbody><tr><td>January 2026</td><td class="num">0</td></tr><tr><td>February 2026</td><td class="num">0</td></tr><tr><td>March 2026</td><td class="num">0</td></tr><tr><td>April 2026</td><td class="num">0</td></tr><tr><td>May 2026</td><td class="num">0</td></tr><tr><td>June 2026</td><td class="num">0</td></tr><tr><td>July 2026</td><td class="num">0</td></tr><tr><td>August 2026</td><td class="num">1,000</td></tr><tr><td>September 2026</td><td class="num">1,000</td></tr><tr><td>October 2026</td><td class="num">1,000</td></tr><tr><td>November 2026</td><td class="num">1,000</td></tr><tr><td>December 2026</td><td class="num">0</td></tr></tbody>
+            <tfoot><tr><td>Total</td><td class="num">৳ 4,000</td></tr></tfoot>
           </table>
         </div>
       </div>
@@ -2224,11 +2336,11 @@
           <table id="stmt-final-table">
             <thead><tr><th>বিবরণ (Summary Head)</th><th class="num">পরিমাণ (BDT)</th></tr></thead>
             <tbody>
-    <tr><td>Monthly Subscription Income</td><td class="num">2,000.00</td></tr>
-    <tr><td>Other Income</td><td class="num">1,000.00</td></tr>
-    <tr><td><strong>Total Income</strong></td><td class="num"><strong>3,000.00</strong></td></tr>
-    <tr><td>Expenditure</td><td class="num" style="color:var(--danger)">826.00</td></tr>
-    <tr class="total-row"><td>Net Balance</td><td class="num">৳ 2,174.00</td></tr>
+    <tr><td>Monthly Subscription Income</td><td class="num">4,000.00</td></tr>
+    <tr><td>Other Income</td><td class="num">0.00</td></tr>
+    <tr><td><strong>Total Income</strong></td><td class="num"><strong>4,000.00</strong></td></tr>
+    <tr><td>Expenditure</td><td class="num" style="color:var(--danger)">0.00</td></tr>
+    <tr class="total-row"><td>Net Balance</td><td class="num">৳ 4,000.00</td></tr>
   </tbody>
           </table>
         </div>
@@ -2240,18 +2352,8 @@
       <div class="table-wrap">
         <table id="stmt-oi-table">
           <thead><tr><th>Staff ID</th><th>Date</th><th>Month</th><th>Category</th><th>Fund Source</th><th>Description</th><th class="num">Amount</th><th class="center edit-only-cell no-print">Edit</th></tr></thead>
-          <tbody>
-    <tr>
-      <td>5147</td><td>2026-09-09</td><td>September 2026</td>
-      <td>লোন জরিমানা</td><td>1</td><td>1000</td>
-      <td class="num">1,000</td>
-      <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-        <button class="btn btn-warning btn-sm" onclick="editOiQuick(25)">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteOi(25)">🗑</button>
-      </td>
-    </tr>
-  </tbody>
-          <tfoot><tr><td colspan="6" class="num">Other Income Total</td><td class="num">৳ 1,000.00</td><td class="edit-only-cell no-print"></td></tr></tfoot>
+          <tbody><tr><td colspan="8" class="center" style="color:var(--muted)">কোনো অন্যান্য আয় পাওয়া যায়নি</td></tr></tbody>
+          <tfoot><tr><td colspan="6" class="num">Other Income Total</td><td class="num">৳ 0.00</td><td class="edit-only-cell no-print"></td></tr></tfoot>
         </table>
       </div>
     </div>
@@ -2261,28 +2363,8 @@
       <div class="table-wrap">
         <table id="stmt-exp-table">
           <thead><tr><th>Date</th><th>Staff ID</th><th>Month</th><th>Expense Head</th><th>Description</th><th class="num">Amount</th><th class="center edit-only-cell no-print">Edit</th></tr></thead>
-          <tbody>
-    <tr>
-      <td>2026-09-09</td><td>5147</td><td>September 2026</td>
-      <td>শেয়ার</td><td>1</td>
-      <td class="num">413</td>
-      <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-        <button class="btn btn-warning btn-sm" onclick="editExpQuick(14)">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteExp(14)">🗑</button>
-      </td>
-    </tr>
-  
-    <tr>
-      <td>2026-09-17</td><td>5147</td><td>September 2026</td>
-      <td>শেয়ার</td><td>1</td>
-      <td class="num">413</td>
-      <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-        <button class="btn btn-warning btn-sm" onclick="editExpQuick(19)">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteExp(19)">🗑</button>
-      </td>
-    </tr>
-  </tbody>
-          <tfoot><tr><td colspan="5" class="num">Expenditure Total</td><td class="num">৳ 826.00</td><td class="edit-only-cell no-print"></td></tr></tfoot>
+          <tbody><tr><td colspan="7" class="center" style="color:var(--muted)">কোনো ব্যয়ের রেকর্ড পাওয়া যায়নি</td></tr></tbody>
+          <tfoot><tr><td colspan="5" class="num">Expenditure Total</td><td class="num">৳ 0.00</td><td class="edit-only-cell no-print"></td></tr></tfoot>
         </table>
       </div>
     </div>
@@ -4424,7 +4506,7 @@
   <div class="modal" style="text-align:center; max-width:340px;">
     <div class="save-popup-icon">✓</div>
     <h3 style="margin-bottom:6px;">Save Complete!</h3>
-    <p id="saveCompleteMsg" style="margin-bottom:16px;">সকল তথ্য সফলভাবে সেভ করা হয়েছে।</p>
+    <p id="saveCompleteMsg" style="margin-bottom:16px;">সকল তথ্য লোকাল এবং Google Drive-এ সফলভাবে সেভ করা হয়েছে।</p>
     <div class="modal-actions" style="justify-content:center;">
       <button class="btn btn-success" onclick="closeSaveCompleteModal()" style="min-width:110px;justify-content:center;">ঠিক আছে (OK)</button>
     </div>
@@ -4526,7 +4608,7 @@ function doPost(e) {
       </div>
     </div>
 
-    <div id="cloudModalMsg" class="status-banner" style="margin-bottom:10px;">Google Drive সিঙ্ক সম্পন্ন! সব ডিভাইসে অটো-সিঙ্ক পেতে "Download Ready HTML" বাটনে ক্লিক করুন।</div>
+    <div id="cloudModalMsg" class="status-banner show ok" style="margin-bottom:10px;">URL সেভ হয়েছে! Google Drive-এর সাথে সিঙ্ক হচ্ছে...</div>
 
     <div class="modal-actions" style="flex-wrap:wrap;">
       <button class="btn btn-outline" onclick="closeCloudModal()">বন্ধ করুন</button>
@@ -4628,6 +4710,99 @@ function doPost(e) {
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="closeEntryQuickModal()">বাতিল</button>
       <button class="btn btn-success" onclick="saveEntryQuickModal()">💾 সেভ করুন</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Password & Access Control Modal (ON/OFF Toggles + 10 Custom Passwords) -->
+<div class="modal-backdrop" id="accessControlModal">
+  <div class="modal modal-lg">
+    <h3>🛡️ পাসওয়ার্ড কন্ট্রোল ও ১০টি আলাদা পাসওয়ার্ড (Password &amp; Access Control)</h3>
+    <p>কোথায় কোথায় পাসওয়ার্ড লাগবে বা লাগবে না তা চালু/বন্ধ করুন এবং সর্বোচ্চ ১০টি আলাদা পাসওয়ার্ড ও তাদের কাজের অনুমতি নির্ধারণ করুন।</p>
+
+    <div class="ac-section">
+      <div class="ac-section-title">
+        <span>১. কোথায় পাসওয়ার্ড চালু / বন্ধ থাকবে (Password Protection ON / OFF)</span>
+      </div>
+      <div class="ac-toggle-grid">
+        <label class="ac-toggle-item">
+          <span>⚙️ App Configure ওপেন</span>
+          <input type="checkbox" id="ac-req-appConfig" onchange="savePasswordToggles()">
+        </label>
+        <label class="ac-toggle-item">
+          <span>✏️ Edit Mode আনলক</span>
+          <input type="checkbox" id="ac-req-editMode" onchange="savePasswordToggles()">
+        </label>
+        <label class="ac-toggle-item">
+          <span>☁️ Google Drive Sync সেটআপ</span>
+          <input type="checkbox" id="ac-req-cloudSync" onchange="savePasswordToggles()">
+        </label>
+        <label class="ac-toggle-item">
+          <span>💾 Backup / Restore / CSV</span>
+          <input type="checkbox" id="ac-req-backupRestore" onchange="savePasswordToggles()">
+        </label>
+        <label class="ac-toggle-item">
+          <span>↺ Reset 2026</span>
+          <input type="checkbox" id="ac-req-resetData" onchange="savePasswordToggles()">
+        </label>
+      </div>
+    </div>
+
+    <div class="ac-section">
+      <div class="ac-section-title">
+        <span>২. আলাদা পাসওয়ার্ড যোগ / এডিট করুন (সর্বোচ্চ ১০টি)</span>
+        <span id="ac-slot-count" class="badge badge-good">1 / 10</span>
+      </div>
+      <input type="hidden" id="ac-edit-idx" value="-1">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div>
+          <label style="font-size:12px;font-weight:700;display:block;margin-bottom:3px;">ব্যবহারকারীর নাম / পদবী (Label):</label>
+          <input type="text" id="ac-user-name" placeholder="যেমন: 2nd Officer, Cashier" style="margin-bottom:6px;">
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:700;display:block;margin-bottom:3px;">পাসওয়ার্ড (Password):</label>
+          <input type="text" id="ac-user-pwd" placeholder="নতুন পাসওয়ার্ড লিখুন" style="margin-bottom:6px;">
+        </div>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:var(--primary-dark);margin-top:4px;">এই পাসওয়ার্ড দিয়ে কী কী কাজ করতে পারবে (সিলেক্ট করুন):</div>
+      <div class="ac-perm-grid">
+        <label class="ac-perm-label"><input type="checkbox" id="ac-p-appConfig"> ⚙️ App Configure</label>
+        <label class="ac-perm-label"><input type="checkbox" id="ac-p-editMode"> ✏️ Edit Mode (সকল শিট)</label>
+        <label class="ac-perm-label"><input type="checkbox" id="ac-p-dataEntry"> 📝 Data Entry পোস্টিং</label>
+        <label class="ac-perm-label"><input type="checkbox" id="ac-p-staffEdit"> 👥 Staff যোগ/এডিট/ডিলিট</label>
+        <label class="ac-perm-label"><input type="checkbox" id="ac-p-mcspPost"> 🧮 M.C.S.P পোস্টিং/ক্লিয়ার</label>
+        <label class="ac-perm-label"><input type="checkbox" id="ac-p-cloudSync"> ☁️ Google Drive Sync</label>
+        <label class="ac-perm-label"><input type="checkbox" id="ac-p-backupRestore"> 💾 Backup / Restore / CSV</label>
+        <label class="ac-perm-label"><input type="checkbox" id="ac-p-resetData"> ↺ Reset 2026</label>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn btn-success btn-sm" id="ac-save-user-btn" onclick="saveCustomPassword()">➕ পাসওয়ার্ড যোগ করুন</button>
+        <button class="btn btn-outline btn-sm" id="ac-cancel-edit-btn" onclick="resetCustomPwdForm()" style="display:none;">বাতিল</button>
+      </div>
+      <div id="acStatus" class="status-banner show ok" style="margin-top:8px;">✓ "EO. BM" পাসওয়ার্ড সফলভাবে যোগ করা হয়েছে!</div>
+    </div>
+
+    <div class="ac-section">
+      <div class="ac-section-title">
+        <span>৩. যুক্ত করা পাসওয়ার্ড তালিকা (Added Passwords)</span>
+      </div>
+      <div id="ac-pwd-list">
+      <div class="ac-pwd-card">
+        <div class="ac-pwd-info">
+          <div class="ac-pwd-name">1. EO. BM <span style="font-weight:600;color:var(--muted);font-size:12px;">(পাসওয়ার্ড: <code>1500</code>)</span></div>
+          <div class="ac-pwd-badges"><span class="ac-perm-chip">App Configure</span></div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-warning btn-sm" onclick="editCustomPassword(0)">✏️</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteCustomPassword(0)">🗑</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-success" onclick="closeAccessControlModal()">সম্পন্ন (Done)</button>
     </div>
   </div>
 </div>
@@ -4769,6 +4944,18 @@ function normalizeState(st) {
       });
     }
     st._migratedCommToInc = true;
+  }
+  if (!st.passwordSettings || typeof st.passwordSettings !== 'object') {
+    st.passwordSettings = {
+      appConfig: true,
+      editMode: true,
+      cloudSync: true,
+      backupRestore: false,
+      resetData: true
+    };
+  }
+  if (!Array.isArray(st.customPasswords)) {
+    st.customPasswords = [];
   }
   return st;
 }
@@ -4994,7 +5181,8 @@ function toggleAppConfig() {
       panel.classList.add('open');
       btn.classList.add('open');
       btn.setAttribute('aria-expanded', 'true');
-    }
+    },
+    'appConfig'
   );
 }
 
@@ -5026,15 +5214,76 @@ function switchTabByName(id, preselectType) {
   }
 }
 
-// Edit Mode & Protected Action Lock / Unlock
+// Edit Mode & Role-Based Password Control
+const PERM_LABELS = {
+  appConfig: 'App Configure',
+  editMode: 'Edit Mode',
+  dataEntry: 'Data Entry',
+  staffEdit: 'Staff Manage',
+  mcspPost: 'M.C.S.P Post',
+  cloudSync: 'Drive Sync',
+  backupRestore: 'Backup/CSV',
+  resetData: 'Reset 2026'
+};
 let pendingPwdAction = null;
+let pendingPwdPerm = null;
+let activeUserSession = null; // { isMaster: bool, name: string, perms: {} }
 
-function requestPassword(title, desc, onSuccess) {
+function isPasswordRequired(areaKey) {
+  if (!areaKey) return true;
+  if (areaKey === 'masterOnly') return true;
+  if (!state || !state.passwordSettings) return true;
+  return state.passwordSettings[areaKey] !== false;
+}
+
+function verifyPasswordForPerm(inputPwd, requiredPerm) {
+  const pwd = String(inputPwd || '');
+  if (pwd === getAppPassword()) {
+    return { ok: true, isMaster: true, name: 'Master Admin', perms: null };
+  }
+  if (requiredPerm === 'masterOnly') {
+    return { ok: false, reason: 'master' };
+  }
+  const list = (state && Array.isArray(state.customPasswords)) ? state.customPasswords : [];
+  const found = list.find(u => String(u.password) === pwd);
+  if (!found) {
+    return { ok: false, reason: 'invalid' };
+  }
+  if (requiredPerm && (!found.perms || !found.perms[requiredPerm])) {
+    return { ok: false, reason: 'denied', name: found.name };
+  }
+  return { ok: true, isMaster: false, name: found.name, perms: found.perms || {} };
+}
+
+function checkEditPerm(permKey, actionLabel) {
+  if (!requireEdit()) return false;
+  if (!activeUserSession || activeUserSession.isMaster) return true;
+  if (activeUserSession.perms && activeUserSession.perms[permKey]) return true;
+  alert(`⛔ অনুমতি নেই! "${activeUserSession.name}" পাসওয়ার্ডের ${actionLabel || permKey} করার অনুমতি দেওয়া নেই।`);
+  return false;
+}
+
+function requestPassword(title, desc, onSuccess, requiredPerm) {
+  const perm = requiredPerm || null;
+  if (perm && !isPasswordRequired(perm)) {
+    if (typeof onSuccess === 'function') {
+      onSuccess({ isMaster: true, name: 'Open Access', perms: null });
+    } else if (perm === 'editMode') {
+      activeUserSession = { isMaster: true, name: 'Open Access', perms: null };
+      isEditMode = true;
+      updateEditBtn();
+      renderAll();
+    }
+    return;
+  }
   pendingPwdAction = onSuccess || null;
+  pendingPwdPerm = perm;
   document.getElementById('pwdModalTitle').textContent = title || '🔐 Edit Mode আনলক করুন';
-  document.getElementById('pwdModalDesc').textContent = desc || 'ডাটা এন্ট্রি, এডিট বা ডিলিট করতে সঠিক Edit Password দিন।';
+  document.getElementById('pwdModalDesc').textContent = desc || 'ডাটা এন্ট্রি, এডিট বা ডিলিট করতে সঠিক পাসওয়ার্ড দিন।';
   document.getElementById('pwdInput').value = '';
-  document.getElementById('pwdErr').style.display = 'none';
+  const errEl = document.getElementById('pwdErr');
+  errEl.style.display = 'none';
+  errEl.textContent = 'ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।';
   document.getElementById('pwdModal').classList.add('open');
   setTimeout(() => document.getElementById('pwdInput').focus(), 60);
 }
@@ -5042,31 +5291,184 @@ function requestPassword(title, desc, onSuccess) {
 function toggleEditModal() {
   if (isEditMode) {
     isEditMode = false;
+    activeUserSession = null;
     updateEditBtn();
     renderAll();
     return;
   }
-  requestPassword('🔐 Edit Mode আনলক করুন', 'ডাটা এন্ট্রি, এডিট বা ডিলিট করতে সঠিক Edit Password দিন।', null);
+  requestPassword('🔐 Edit Mode আনলক করুন', 'ডাটা এন্ট্রি, এডিট বা ডিলিট করতে সঠিক পাসওয়ার্ড দিন।', null, 'editMode');
 }
 function closeModal() {
   pendingPwdAction = null;
+  pendingPwdPerm = null;
   document.getElementById('pwdModal').classList.remove('open');
 }
 function confirmUnlock() {
-  if (document.getElementById('pwdInput').value === getAppPassword()) {
+  const inputVal = document.getElementById('pwdInput').value;
+  const check = verifyPasswordForPerm(inputVal, pendingPwdPerm);
+  const errEl = document.getElementById('pwdErr');
+  if (check.ok) {
     const action = pendingPwdAction;
+    const perm = pendingPwdPerm;
     pendingPwdAction = null;
+    pendingPwdPerm = null;
     document.getElementById('pwdModal').classList.remove('open');
     if (typeof action === 'function') {
-      action();
+      action(check);
     } else {
+      activeUserSession = check;
       isEditMode = true;
       updateEditBtn();
       renderAll();
     }
   } else {
-    document.getElementById('pwdErr').style.display = 'block';
+    if (check.reason === 'denied') {
+      errEl.textContent = `⛔ "${check.name}" পাসওয়ার্ডের এই কাজটি করার অনুমতি নেই!`;
+    } else if (check.reason === 'master') {
+      errEl.textContent = '⛔ এই অপশনটি শুধুমাত্র Master Admin পাসওয়ার্ড দিয়ে খোলা যাবে।';
+    } else {
+      errEl.textContent = 'ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।';
+    }
+    errEl.style.display = 'block';
   }
+}
+
+// ===== Access Control & 10 Custom Passwords Manager =====
+function openAccessControlModal() {
+  requestPassword(
+    '🛡️ Master Admin পাসওয়ার্ড দিন',
+    'পাসওয়ার্ড চালু/বন্ধ এবং ১০টি আলাদা পাসওয়ার্ড পরিচালনা করতে Master Admin পাসওয়ার্ড দিন।',
+    () => {
+      renderAccessControlModal();
+      document.getElementById('accessControlModal').classList.add('open');
+    },
+    'masterOnly'
+  );
+}
+function closeAccessControlModal() {
+  document.getElementById('accessControlModal').classList.remove('open');
+}
+function renderAccessControlModal() {
+  const ps = state.passwordSettings || {};
+  document.getElementById('ac-req-appConfig').checked = ps.appConfig !== false;
+  document.getElementById('ac-req-editMode').checked = ps.editMode !== false;
+  document.getElementById('ac-req-cloudSync').checked = ps.cloudSync !== false;
+  document.getElementById('ac-req-backupRestore').checked = ps.backupRestore === true;
+  document.getElementById('ac-req-resetData').checked = ps.resetData !== false;
+
+  resetCustomPwdForm();
+  renderCustomPwdList();
+}
+function savePasswordToggles() {
+  if (!state.passwordSettings) state.passwordSettings = {};
+  state.passwordSettings.appConfig = document.getElementById('ac-req-appConfig').checked;
+  state.passwordSettings.editMode = document.getElementById('ac-req-editMode').checked;
+  state.passwordSettings.cloudSync = document.getElementById('ac-req-cloudSync').checked;
+  state.passwordSettings.backupRestore = document.getElementById('ac-req-backupRestore').checked;
+  state.passwordSettings.resetData = document.getElementById('ac-req-resetData').checked;
+  saveState();
+  showAcStatus('✓ পাসওয়ার্ড সেটিংস সেভ করা হয়েছে!', false);
+}
+function showAcStatus(msg, isErr) {
+  const el = document.getElementById('acStatus');
+  if (!el) return;
+  el.textContent = msg;
+  el.className = 'status-banner show ' + (isErr ? 'err' : 'ok');
+}
+function resetCustomPwdForm() {
+  document.getElementById('ac-edit-idx').value = '-1';
+  document.getElementById('ac-user-name').value = '';
+  document.getElementById('ac-user-pwd').value = '';
+  Object.keys(PERM_LABELS).forEach(k => {
+    const cb = document.getElementById('ac-p-' + k);
+    if (cb) cb.checked = false;
+  });
+  document.getElementById('ac-save-user-btn').textContent = '➕ পাসওয়ার্ড যোগ করুন';
+  document.getElementById('ac-cancel-edit-btn').style.display = 'none';
+}
+function renderCustomPwdList() {
+  const list = state.customPasswords || [];
+  document.getElementById('ac-slot-count').textContent = `${list.length} / 10`;
+  const container = document.getElementById('ac-pwd-list');
+  if (!list.length) {
+    container.innerHTML = '<div style="font-size:12px;color:var(--muted);text-align:center;padding:10px;">এখনও কোনো আলাদা পাসওয়ার্ড যোগ করা হয়নি। উপরে নাম, পাসওয়ার্ড ও কাজের অনুমতি সিলেক্ট করে যোগ করুন।</div>';
+    return;
+  }
+  container.innerHTML = list.map((u, i) => {
+    const badges = Object.keys(PERM_LABELS)
+      .filter(k => u.perms && u.perms[k])
+      .map(k => `<span class="ac-perm-chip">${PERM_LABELS[k]}</span>`)
+      .join('');
+    return `
+      <div class="ac-pwd-card">
+        <div class="ac-pwd-info">
+          <div class="ac-pwd-name">${i + 1}. ${esc(u.name)} <span style="font-weight:600;color:var(--muted);font-size:12px;">(পাসওয়ার্ড: <code>${esc(u.password)}</code>)</span></div>
+          <div class="ac-pwd-badges">${badges || '<span style="font-size:11px;color:var(--danger);">কোনো অনুমতি সিলেক্ট করা নেই</span>'}</div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-warning btn-sm" onclick="editCustomPassword(${i})">✏️</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteCustomPassword(${i})">🗑</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+function saveCustomPassword() {
+  if (!Array.isArray(state.customPasswords)) state.customPasswords = [];
+  const editIdx = parseInt(document.getElementById('ac-edit-idx').value, 10);
+  const name = document.getElementById('ac-user-name').value.trim();
+  const pwd = document.getElementById('ac-user-pwd').value.trim();
+  if (!name) return showAcStatus('ব্যবহারকারীর নাম / পদবী লিখুন।', true);
+  if (!pwd) return showAcStatus('পাসওয়ার্ড খালি রাখা যাবে না।', true);
+  if (pwd === getAppPassword()) return showAcStatus('এটি Master Admin পাসওয়ার্ড — অন্য পাসওয়ার্ড দিন।', true);
+  const dup = state.customPasswords.some((u, i) => i !== editIdx && String(u.password) === pwd);
+  if (dup) return showAcStatus('এই পাসওয়ার্ডটি ইতিমধ্যে অন্য একটি স্লটে ব্যবহৃত হয়েছে!', true);
+  if (editIdx < 0 && state.customPasswords.length >= 10) {
+    return showAcStatus('সর্বোচ্চ ১০টি পাসওয়ার্ড যোগ করা যাবে! নতুন যোগ করতে পুরনো একটি ডিলিট বা এডিট করুন।', true);
+  }
+  const perms = {};
+  let anyPerm = false;
+  Object.keys(PERM_LABELS).forEach(k => {
+    const cb = document.getElementById('ac-p-' + k);
+    perms[k] = !!(cb && cb.checked);
+    if (perms[k]) anyPerm = true;
+  });
+  if (!anyPerm) return showAcStatus('অন্তত একটি কাজের অনুমতি (Permission) সিলেক্ট করুন।', true);
+
+  const entry = { name, password: pwd, perms };
+  if (editIdx >= 0) {
+    state.customPasswords[editIdx] = entry;
+    showAcStatus(`✓ "${name}" পাসওয়ার্ড আপডেট করা হয়েছে!`, false);
+  } else {
+    state.customPasswords.push(entry);
+    showAcStatus(`✓ "${name}" পাসওয়ার্ড সফলভাবে যোগ করা হয়েছে!`, false);
+  }
+  saveState();
+  resetCustomPwdForm();
+  renderCustomPwdList();
+}
+function editCustomPassword(idx) {
+  const u = state.customPasswords[idx];
+  if (!u) return;
+  document.getElementById('ac-edit-idx').value = idx;
+  document.getElementById('ac-user-name').value = u.name;
+  document.getElementById('ac-user-pwd').value = u.password;
+  Object.keys(PERM_LABELS).forEach(k => {
+    const cb = document.getElementById('ac-p-' + k);
+    if (cb) cb.checked = !!(u.perms && u.perms[k]);
+  });
+  document.getElementById('ac-save-user-btn').textContent = '💾 আপডেট করুন';
+  document.getElementById('ac-cancel-edit-btn').style.display = 'inline-flex';
+}
+function deleteCustomPassword(idx) {
+  const u = state.customPasswords[idx];
+  if (!u) return;
+  if (!confirm(`"${u.name}" পাসওয়ার্ডটি মুছে ফেলতে চান?`)) return;
+  state.customPasswords.splice(idx, 1);
+  saveState();
+  resetCustomPwdForm();
+  renderCustomPwdList();
+  showAcStatus(`✓ "${u.name}" পাসওয়ার্ড মুছে ফেলা হয়েছে।`, false);
 }
 function updateEditBtn() {
   document.body.classList.toggle('edit-mode', isEditMode);
@@ -5487,7 +5889,7 @@ function clearDeForm() {
   document.getElementById('de-status').className = 'status-banner';
 }
 function postFundEntry() {
-  if (!requireEdit()) return;
+  if (!checkEditPerm('dataEntry', 'Data Entry পোস্টিং')) return;
   const type = document.getElementById('de-type').value;
   const date = document.getElementById('de-date').value;
   const month = document.getElementById('de-month').value;
@@ -5827,7 +6229,7 @@ function renderStaffDir() {
 }
 
 function addNewStaffPrompt() {
-  if (!requireEdit()) return;
+  if (!checkEditPerm('staffEdit', 'নতুন স্টাফ যোগ')) return;
   const idStr = prompt('নতুন স্টাফ আইডি (Staff ID) লিখুন:');
   if (!idStr || !idStr.trim()) return;
   if (getStaffInfo(idStr.trim())) return alert('এই স্টাফ আইডি ইতিমধ্যে তালিকায় আছে!');
@@ -5845,7 +6247,7 @@ function addNewStaffPrompt() {
 }
 
 function editStaffPrompt(idx) {
-  if (!requireEdit()) return;
+  if (!checkEditPerm('staffEdit', 'স্টাফ এডিট')) return;
   const s = state.staffDir[idx];
   if (!s) return;
   document.getElementById('seIdx').value = idx;
@@ -5917,7 +6319,7 @@ function saveStaffEdit() {
 }
 
 function deleteStaffPrompt(idx) {
-  if (!requireEdit()) return;
+  if (!checkEditPerm('staffEdit', 'স্টাফ ডিলিট')) return;
   const s = state.staffDir[idx];
   if (!s) return;
   if (String(s.id) === '46') return alert('Office (ID 46) ডিলিট করা যাবে না।');
@@ -6443,7 +6845,7 @@ function showMcspStatus(msg, isErr) {
 }
 
 function postMcspAll() {
-  if (!requireEdit()) return;
+  if (!checkEditPerm('mcspPost', 'M.C.S.P পোস্টিং')) return;
   const dateEl = document.getElementById('mcsp-post-date');
   const date = (dateEl && dateEl.value) ? dateEl.value : new Date().toISOString().split('T')[0];
   if (dateEl && !dateEl.value) dateEl.value = date;
@@ -6579,7 +6981,7 @@ function postMcspAll() {
 }
 
 function clearMcspInputs() {
-  if (!requireEdit()) return;
+  if (!checkEditPerm('mcspPost', 'M.C.S.P ক্লিয়ার')) return;
   const clearSub = !!(document.getElementById('mcsp-clear-sub') && document.getElementById('mcsp-clear-sub').checked);
   const confirmMsg = clearSub
     ? 'ফর্মুলা ঠিক রেখে মাসিক চাঁদা, Total Loan (L) এবং Total Comm (M)-এর সব ব্যালেন্স মুছে ফেলতে চান?'
@@ -6602,11 +7004,28 @@ function round2(n) { return Math.round((Number(n) + Number.EPSILON) * 100) / 100
 
 // Backup, Restore, Export CSV, Reset
 function exportBackup() {
-  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'Staff_Fund_2026_Backup_' + new Date().toISOString().slice(0,10) + '.json';
-  a.click();
+  requestPassword(
+    '🔐 Backup JSON পাসওয়ার্ড',
+    'JSON ব্যাকআপ ডাউনলোড করতে পাসওয়ার্ড দিন।',
+    () => {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Staff_Fund_2026_Backup_' + new Date().toISOString().slice(0,10) + '.json';
+      a.click();
+    },
+    'backupRestore'
+  );
+}
+function triggerImportBackup() {
+  requestPassword(
+    '🔐 Restore JSON পাসওয়ার্ড',
+    'JSON ব্যাকআপ রিস্টোর করতে পাসওয়ার্ড দিন।',
+    () => {
+      document.getElementById('importFile').click();
+    },
+    'backupRestore'
+  );
 }
 function importBackup(e) {
   const file = e.target.files[0];
@@ -6639,10 +7058,19 @@ function resetOriginalData() {
       populateDropdowns();
       renderAll();
       alert('মূল Excel ডাটা রিস্টোর করা হয়েছে।');
-    }
+    },
+    'resetData'
   );
 }
 function exportCurrentCSV() {
+  requestPassword(
+    '🔐 Export CSV পাসওয়ার্ড',
+    'CSV এক্সপোর্ট করতে পাসওয়ার্ড দিন।',
+    () => { _doExportCurrentCSV(); },
+    'backupRestore'
+  );
+}
+function _doExportCurrentCSV() {
   const activeSheet = document.querySelector('.sheet.active');
   const table = activeSheet ? activeSheet.querySelector('table') : null;
   if (!table) return;
@@ -6785,7 +7213,8 @@ function openCloudModal() {
   requestPassword(
     '🔐 Google Drive সেটআপ পাসওয়ার্ড',
     'Google Drive সিঙ্ক সেটিংস খুলতে সঠিক পাসওয়ার্ড দিন।',
-    showCloudModalActual
+    showCloudModalActual,
+    'cloudSync'
   );
 }
 
@@ -7001,20 +7430,31 @@ function closeSaveCompleteModal() {
   document.getElementById('saveCompleteModal').classList.remove('open');
 }
 
-// ===== Prevent Pull-to-Refresh on Mobile & WebView =====
+// ===== Prevent Pull-to-Refresh Only When Already At Very Top (Smooth Scroll Safe) =====
 (function preventPullToRefresh() {
   let startY = 0;
+  let startedAtTop = false;
+
+  function getPageScrollTop() {
+    return Math.max(
+      window.pageYOffset || 0,
+      window.scrollY || 0,
+      document.documentElement ? document.documentElement.scrollTop : 0,
+      document.body ? document.body.scrollTop : 0
+    );
+  }
+
   document.addEventListener('touchstart', function(e) {
     if (e.touches && e.touches.length === 1) {
       startY = e.touches[0].clientY;
+      startedAtTop = (getPageScrollTop() <= 0);
     }
   }, { passive: true });
 
   document.addEventListener('touchmove', function(e) {
-    if (!e.touches || e.touches.length !== 1) return;
+    if (!startedAtTop || !e.touches || e.touches.length !== 1) return;
     const curY = e.touches[0].clientY;
-    const pullingDown = curY > startY;
-    if (!pullingDown) return;
+    if (curY <= startY) return; // scrolling down the page is always allowed
 
     // Allow scrolling inside inner scrollable containers if they are not at top
     let el = e.target;
@@ -7024,7 +7464,7 @@ function closeSaveCompleteModal() {
       if (canScrollY && el.scrollTop > 0) return;
       el = el.parentElement;
     }
-    if ((window.scrollY || document.documentElement.scrollTop || 0) <= 0) {
+    if (getPageScrollTop() <= 0) {
       e.preventDefault();
     }
   }, { passive: false });
