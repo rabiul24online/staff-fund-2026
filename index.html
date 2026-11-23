@@ -1251,9 +1251,348 @@
     font-weight: 700;
   }
 
+
+  /* ===== Dynamic Theme Variable Wiring ===== */
+  :root {
+    --topbar-grad: linear-gradient(125deg, #0b3954 0%, #0f4c5c 45%, #1b8a6b 100%);
+    --drawer-grad: linear-gradient(135deg, #0b3954 0%, #0f4c5c 55%, #1b8a6b 100%);
+    --nav-grad: linear-gradient(90deg, #ffffff 0%, #f0fdfa 100%);
+    --header-grad: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    --th-grad: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    --header-accent: #0ea5e9;
+  }
+  .topbar {
+    background: var(--topbar-grad) !important;
+  }
+  .sheet-nav-bar {
+    background: var(--nav-grad) !important;
+  }
+  .hamburger-btn {
+    background: linear-gradient(135deg, var(--primary), var(--accent)) !important;
+  }
+  .sheet-drawer-header {
+    background: var(--drawer-grad) !important;
+  }
+  .sheet-header {
+    background: var(--header-grad) !important;
+    border-left-color: var(--header-accent) !important;
+  }
+  th {
+    background: var(--th-grad) !important;
+  }
+
+  /* ===== Day / Night Mode Toggle Button (Above App Configure) ===== */
+  .mode-switch-section {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 2px solid var(--border-light);
+  }
+  .mode-toggle-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 14px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(145deg, #0284c7 0%, #0369a1 100%);
+    color: #ffffff !important;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 4px 0 #075985, 0 7px 14px rgba(7, 89, 133, 0.28);
+    transition: transform 0.14s ease, filter 0.14s ease;
+  }
+  .mode-toggle-btn:hover {
+    filter: brightness(1.07);
+    transform: translateY(-1px);
+  }
+  .mode-toggle-btn:active {
+    transform: translateY(2px);
+  }
+  body.night-mode .mode-toggle-btn {
+    background: linear-gradient(145deg, #f59e0b 0%, #d97706 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 4px 0 #92400e, 0 7px 14px rgba(146, 64, 14, 0.35);
+  }
+
+  /* 3D Button for Themes inside App Configure */
+  .app-config-panel .cfg-c9 {
+    background: linear-gradient(145deg, #06b6d4, #0891b2) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 3px 0 #155e75 !important;
+  }
+
+  /* ===== Theme Picker Grid ===== */
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin: 10px 0 14px;
+  }
+  .theme-card {
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 10px;
+    cursor: pointer;
+    background: var(--card);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+  }
+  .theme-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.15);
+  }
+  .theme-card.active {
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.32) !important;
+  }
+  .theme-swatch {
+    height: 28px;
+    border-radius: 6px;
+    width: 100%;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .theme-name {
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+  }
+
+  /* ===== NIGHT MODE (Crystal-Clear Readability Everywhere) ===== */
+  body.night-mode {
+    color-scheme: dark;
+    --bg: #0b1120;
+    --card: #111827;
+    --border: #334155;
+    --border-light: #1f2937;
+    --text: #f8fafc;
+    --muted: #cbd5e1;
+    --row-alt: #162033;
+    background-color: #0b1120 !important;
+    color: #f8fafc !important;
+  }
+  body.night-mode .sheet-nav-bar {
+    background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%) !important;
+    border-bottom-color: #334155 !important;
+  }
+  body.night-mode .active-sheet-indicator {
+    color: #f8fafc !important;
+  }
+  body.night-mode .sheet-drawer {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+  }
+  body.night-mode .app-config-panel {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+  }
+  body.night-mode .sheet-header {
+    background: linear-gradient(135deg, #111827 0%, #1e293b 100%) !important;
+    border-color: #334155;
+    color: #f8fafc !important;
+  }
+  body.night-mode .sheet-header h2,
+  body.night-mode .card-title,
+  body.night-mode .form-group label,
+  body.night-mode .modal h3,
+  body.night-mode .ac-section-title,
+  body.night-mode .ac-pwd-name,
+  body.night-mode .cloud-step strong {
+    color: #f8fafc !important;
+  }
+  body.night-mode .sheet-header p,
+  body.night-mode .kpi-label,
+  body.night-mode .instructions-list,
+  body.night-mode .modal p,
+  body.night-mode .form-hint,
+  body.night-mode .app-footer {
+    color: #cbd5e1 !important;
+  }
+  body.night-mode .card,
+  body.night-mode .modal {
+    background: #111827 !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+  }
+  body.night-mode .card-title {
+    border-bottom-color: #334155 !important;
+  }
+  body.night-mode .kpi-card {
+    background: linear-gradient(160deg, #111827 0%, #1e293b 100%) !important;
+    border-color: #334155;
+  }
+  body.night-mode .kpi-card.green {
+    background: linear-gradient(160deg, #064e3b 0%, #0f172a 100%) !important;
+  }
+  body.night-mode .kpi-card.red {
+    background: linear-gradient(160deg, #7f1d1d 0%, #0f172a 100%) !important;
+  }
+  body.night-mode .kpi-card.amber {
+    background: linear-gradient(160deg, #78350f 0%, #0f172a 100%) !important;
+  }
+  body.night-mode .kpi-value {
+    color: #ffffff !important;
+  }
+  body.night-mode .kpi-card.green .kpi-value { color: #6ee7b7 !important; }
+  body.night-mode .kpi-card.red .kpi-value { color: #fca5a5 !important; }
+  body.night-mode .kpi-card.amber .kpi-value { color: #fcd34d !important; }
+
+  body.night-mode .table-wrap {
+    border-color: #334155 !important;
+  }
+  body.night-mode table {
+    background: #111827 !important;
+    color: #f8fafc !important;
+  }
+  body.night-mode td {
+    border-color: #1f2937 !important;
+    color: #f1f5f9 !important;
+  }
+  body.night-mode tbody tr:nth-child(even) {
+    background: #162033 !important;
+  }
+  body.night-mode tbody tr:hover {
+    background: #1e3a5f !important;
+  }
+  body.night-mode tfoot tr,
+  body.night-mode tr.total-row {
+    background: #1e293b !important;
+    color: #ffffff !important;
+  }
+  body.night-mode tfoot td,
+  body.night-mode tr.total-row td {
+    color: #ffffff !important;
+    border-top-color: #38bdf8 !important;
+  }
+  body.night-mode .form-group input,
+  body.night-mode .form-group select,
+  body.night-mode .filter-bar input,
+  body.night-mode .filter-bar select,
+  body.night-mode .modal input,
+  body.night-mode .modal select,
+  body.night-mode .cell-input,
+  body.night-mode #mcsp-post-date,
+  body.night-mode #mcsp-comm-cat {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    border-color: #475569 !important;
+    color-scheme: dark !important;
+  }
+  body.night-mode .form-group input:read-only {
+    background-color: #0f172a !important;
+    color: #cbd5e1 !important;
+    -webkit-text-fill-color: #cbd5e1 !important;
+  }
+  body.night-mode .form-group select option,
+  body.night-mode .filter-bar select option,
+  body.night-mode .modal select option,
+  body.night-mode select option {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+  }
+  body.night-mode .form-group input::placeholder,
+  body.night-mode .filter-bar input::placeholder,
+  body.night-mode .modal input::placeholder {
+    color: #94a3b8 !important;
+    -webkit-text-fill-color: #94a3b8 !important;
+  }
+  body.night-mode .btn-outline {
+    background: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #475569 !important;
+  }
+  body.night-mode .btn-outline:hover {
+    background: #334155 !important;
+  }
+  body.night-mode #stmt-header-info {
+    background: #1e293b !important;
+    color: #f8fafc !important;
+  }
+  body.night-mode .readonly-lock-note {
+    background: #451a03 !important;
+    border-color: #f59e0b !important;
+    color: #fef3c7 !important;
+  }
+  body.night-mode .sheet-save-bar {
+    background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%) !important;
+    border-color: #10b981 !important;
+  }
+  body.night-mode .sheet-save-bar .save-note {
+    color: #a7f3d0 !important;
+  }
+  body.night-mode .drawer-contact-card {
+    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%) !important;
+    border-color: #334155 !important;
+  }
+  body.night-mode .drawer-contact-title { color: #38bdf8 !important; }
+  body.night-mode .drawer-contact-sub { color: #cbd5e1 !important; }
+  body.night-mode .ac-section,
+  body.night-mode .cloud-step,
+  body.night-mode #mqSummary {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+  }
+  body.night-mode .ac-toggle-item,
+  body.night-mode .ac-perm-label,
+  body.night-mode .ac-pwd-card,
+  body.night-mode .theme-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+  }
+  body.night-mode .ac-perm-chip {
+    background: #0c4a6e !important;
+    color: #e0f2fe !important;
+    border-color: #0284c7 !important;
+  }
+  body.night-mode .badge-zero {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+  }
+  body.night-mode .status-banner.ok {
+    background: #064e3b !important;
+    color: #d1fae5 !important;
+    border-color: #10b981 !important;
+  }
+  body.night-mode .status-banner.err {
+    background: #7f1d1d !important;
+    color: #fee2e2 !important;
+    border-color: #ef4444 !important;
+  }
+  body.night-mode .inline-edit-icon {
+    background: rgba(245, 158, 11, 0.25);
+    color: #fcd34d;
+  }
+  /* Always print cleanly on white paper even if Night Mode is active */
+  @media print {
+    body.night-mode,
+    body.night-mode .card,
+    body.night-mode .sheet-header,
+    body.night-mode table,
+    body.night-mode td,
+    body.night-mode .kpi-card {
+      background: #ffffff !important;
+      color: #000000 !important;
+    }
+    body.night-mode .kpi-value,
+    body.night-mode .sheet-header h2,
+    body.night-mode .card-title {
+      color: #000000 !important;
+    }
+  }
+
 </style>
 </head>
-<body class="">
+<body class="night-mode">
 
 <div class="topbar">
   <div class="topbar-title">
@@ -1270,7 +1609,7 @@
     <span class="hamburger-icon"><span></span><span></span><span></span></span>
     <span>শিট মেনু</span>
   </button>
-  <div class="active-sheet-indicator" id="activeSheetLabel">Staff Search &amp; Directory</div>
+  <div class="active-sheet-indicator" id="activeSheetLabel">Fund Balance &amp; Monthly Ledger</div>
 </div>
 
 <div class="sheet-drawer-backdrop no-print" id="sheetDrawerBackdrop" onclick="closeSheetDrawer()"></div>
@@ -1282,13 +1621,20 @@
   <div class="sheet-drawer-list" id="tabsBar">
     <button class="tab-btn tab-c1" onclick="switchTab('dashboard', this)">📊 Dashboard &amp; Summary</button>
     <button class="tab-btn tab-c2" onclick="switchTab('dataEntry', this)">📝 Data Entry</button>
-    <button class="tab-btn tab-c3" onclick="switchTab('fundLedger', this)">📒 Fund Balance &amp; Monthly Ledger</button>
-    <button class="tab-btn tab-c4 active" onclick="switchTab('staffDir', this)">👥 Staff Search &amp; Directory</button>
+    <button class="tab-btn tab-c3 active" onclick="switchTab('fundLedger', this)">📒 Fund Balance &amp; Monthly Ledger</button>
+    <button class="tab-btn tab-c4" onclick="switchTab('staffDir', this)">👥 Staff Search &amp; Directory</button>
     <button class="tab-btn tab-c5" onclick="switchTab('staffStmt', this)">📄 Staff Statement</button>
     <button class="tab-btn tab-c6" onclick="switchTab('monthlySub', this)">💳 Monthly Subscription</button>
     <button class="tab-btn tab-c7" onclick="switchTab('otherInc', this)">💰 Other Income</button>
     <button class="tab-btn tab-c8" onclick="switchTab('expenseReg', this)">🧾 Expense Register</button>
     <button class="tab-btn tab-c9" onclick="switchTab('mcsp', this)">🧮 M. C. S. P</button>
+
+    <div class="mode-switch-section">
+      <button class="mode-toggle-btn" id="dayNightToggleBtn" onclick="toggleDayNightMode()">
+        <span id="dayNightLabel">☀️ Day Mode চালু করুন</span>
+        <span id="dayNightBadge">Night 🌙</span>
+      </button>
+    </div>
 
     <div class="app-config-section">
       <button class="app-config-toggle" id="appConfigToggleBtn" onclick="toggleAppConfig()" aria-expanded="false">
@@ -1296,11 +1642,12 @@
         <span class="app-config-arrow" id="appConfigArrow">▾</span>
       </button>
       <div class="app-config-panel" id="appConfigPanel">
-        <button id="syncStatusPill" class="sync-pill syncing" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">🔄 Loading from Drive...</button>
+        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 01:54 AM</button>
         <button class="btn btn-light cfg-c1" onclick="syncFromCloud(true)" title="গুগল ড্রাইভ থেকে সর্বশেষ ডাটা লোড করুন">🔄 Sync Now</button>
         <button id="editModeBtn" class="btn btn-warning cfg-c2" onclick="closeSheetDrawer(); toggleEditModal();">🔒 Read-Only (Unlock Edit)</button>
         <button class="btn btn-light cfg-c3" onclick="closeSheetDrawer(); openChangePwdModal();">🔑 Change Password</button>
         <button class="btn btn-light cfg-c8" onclick="closeSheetDrawer(); openAccessControlModal();">🛡️ Password &amp; Access Control</button>
+        <button class="btn btn-light cfg-c9" onclick="closeSheetDrawer(); openThemeModal();">🎨 App Themes (১৮টি থিম)</button>
         <button class="btn btn-light cfg-c4" onclick="exportBackup()">💾 Backup JSON</button>
         <button class="btn btn-light cfg-c5" onclick="triggerImportBackup()">📂 Restore JSON</button>
         <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(event)">
@@ -1333,7 +1680,7 @@
 <div class="main">
   <div class="print-header" id="printHeader">
     <h1 id="printMainTitle">DMCB ভৈরব বাজার শাখার কর্মকর্তা-কর্মচারী ফান্ড হিসাব বিবরণী - ২০২৬ (Staff Fund 2026)</h1>
-    <div class="print-sub" id="printSheetMeta">Staff Search &amp; Directory • প্রিন্ট তারিখ: 24 Nov 2026, 01:14</div>
+    <div class="print-sub" id="printSheetMeta">Fund Balance &amp; Monthly Ledger • প্রিন্ট তারিখ: 24 Nov 2026, 01:55</div>
   </div>
 
   <!-- 1. DASHBOARD & SUMMARY -->
@@ -1528,7 +1875,7 @@
         <div class="table-wrap">
           <table id="dash-exp-breakdown">
             <thead><tr><th>ব্যয়ের খাত (Expense Head)</th><th class="num">পরিমাণ (Amount)</th></tr></thead>
-            <tbody><tr><td>আপ্যায়ন ও খাবার (Entertainment &amp; Refreshment)</td><td class="num">0</td></tr><tr><td>অনুষ্ঠান ও পিকনিক (Events &amp; Picnic)</td><td class="num">40,760</td></tr><tr><td>শেয়ার</td><td class="num">28,910</td></tr><tr><td>অফিস ও বিবিধ খরচ (Office &amp; Misc)</td><td class="num">1,100</td></tr><tr><td>যাতায়াত ও পরিবহন (Conveyance)</td><td class="num">0</td></tr><tr><td>অনান্য</td><td class="num">0</td></tr><tr><td>চিকিৎসা</td><td class="num">0</td></tr></tbody>
+            <tbody><tr><td>আপ্যায়ন ও খাবার (Entertainment &amp; Refreshment)</td><td class="num">0</td></tr><tr><td>অনুষ্ঠান ও পিকনিক (Events &amp; Picnic)</td><td class="num">40,760</td></tr><tr><td>শেয়ার</td><td class="num">28,910</td></tr><tr><td>অফিস ও বিবিধ খরচ (Office &amp; Misc)</td><td class="num">1,100</td></tr><tr><td>যাতায়াত ও পরিবহন (Conveyance)</td><td class="num">0</td></tr><tr><td>অন্যান্য</td><td class="num">0</td></tr><tr><td>চিকিৎসা</td><td class="num">0</td></tr></tbody>
             <tfoot><tr><td>মোট ব্যয় (Total Expense)</td><td class="num">৳ 70,770.00</td></tr></tfoot>
           </table>
         </div>
@@ -1588,7 +1935,7 @@
           </div>
           <div class="form-group">
             <label>খাত / ক্যাটাগরি (Category / Head) *</label>
-            <select id="de-cat" onchange="autoCalcDeAmount()"><option value="আপ্যায়ন">আপ্যায়ন</option><option value="অনুষ্ঠান">অনুষ্ঠান</option><option value="শেয়ার">শেয়ার</option><option value="অফিস খরচ">অফিস খরচ</option><option value="যাতায়াত">যাতায়াত</option><option value="অনান্য">অনান্য</option><option value="চিকিৎসা">চিকিৎসা</option></select>
+            <select id="de-cat" onchange="autoCalcDeAmount()"><option value="আপ্যায়ন">আপ্যায়ন</option><option value="অনুষ্ঠান">অনুষ্ঠান</option><option value="শেয়ার">শেয়ার</option><option value="অফিস খরচ">অফিস খরচ</option><option value="যাতায়াত">যাতায়াত</option><option value="অন্যান্য">অন্যান্য</option><option value="চিকিৎসা">চিকিৎসা</option></select>
           </div>
           <div class="form-group">
             <label>উৎস / ভিত্তি পরিমাণ (Source / Base Amt)</label>
@@ -1655,7 +2002,7 @@
   </section>
 
   <!-- 3. FUND BALANCE & MONTHLY LEDGER -->
-  <section id="sheet-fundLedger" class="sheet">
+  <section id="sheet-fundLedger" class="sheet active">
     <div class="sheet-header">
       <h2><span id="txt-ledgerTitle">স্টাফ ফান্ড — মোট ব্যালেন্স ও মাসভিত্তিক হিসাব (2026)</span><button class="inline-edit-icon edit-only no-print" onclick="editCustomText('ledgerTitle', 'লেজার শিরোনাম')">✏️</button></h2>
       <p>প্রতি মাসে কত টাকা জমা/উঠেছে, কত খরচ হয়েছে, আগের স্থিতি ও মাস শেষে মোট ব্যালেন্স • তারিখ: <strong id="ledger-today">24 Nov 2026</strong></p>
@@ -1856,7 +2203,7 @@
   </section>
 
   <!-- 4. STAFF SEARCH & DIRECTORY -->
-  <section id="sheet-staffDir" class="sheet active">
+  <section id="sheet-staffDir" class="sheet">
     <div class="sheet-header">
       <h2><span id="txt-dirTitle">স্টাফ আইডি অনুসন্ধান ও ব্যক্তিগত বাৎসরিক ফান্ড বিবরণী (Individual Staff Statement Search)</span><button class="inline-edit-icon edit-only no-print" onclick="editCustomText('dirTitle', 'স্টাফ ডিরেক্টরি শিরোনাম')">✏️</button></h2>
       <p>যেকোনো স্টাফ আইডি লিখে বা নির্বাচন করে ব্যক্তিগত বাৎসরিক জমা, অন্যান্য আয় ও ব্যয়ের সারসংক্ষেপ দেখুন</p>
@@ -1866,7 +2213,7 @@
       <div class="filter-bar">
         <label style="font-weight:700">স্টাফ আইডি লিখুন (Enter Staff ID):</label>
         <input type="text" id="dir-search-id" value="4892" list="staffIdDatalist" oninput="renderStaffDirSearch()" style="width:140px;font-weight:700;">
-        <select id="dir-search-select" onchange="document.getElementById('dir-search-id').value=this.value; renderStaffDirSearch();"><option value="1500">1500 — Md Shahidul Islam (E.O &amp; BM.)</option><option value="1531">1531 — Md Masum Belal (A.E.O (2nd Officer))</option><option value="3274">3274 — Md. Zahidul Islam (A.E.O)</option><option value="2529">2529 — Md. Hafizur Rahaman (A.E.O)</option><option value="93">93 — Md. Mehedi Hassan (S.I.O)</option><option value="1338">1338 — Boshir Ahmad (S.I.O)</option><option value="1518">1518 — Md Tafazzal Hossain (S.I.O)</option><option value="3394">3394 — Lakhman Biswas (S.I.O)</option><option value="1496">1496 — Md Delowar Hossain (S.I.O)</option><option value="753">753 — Mst. Shefali Begum (Cashier)</option><option value="964">964 — Md Golam Rabbani (I.O)</option><option value="2959">2959 — Md. Zahedul Islam (I.O)</option><option value="3457">3457 — Md. Ariful Islam (S.I.O)</option><option value="5147">5147 — Md. Rokon (I.O) [Transfer]</option><option value="4402">4402 — Md. Elias (I.O)</option><option value="4892">4892 — Md. Rakib Hasan (I.O)</option><option value="5585">5585 — Md. Almamun (A.I.O)</option><option value="5678">5678 — Md. Rabiul Islam (A.I.O)</option><option value="6275">6275 — Md Khairul Alom Rony (A.I.O)</option><option value="6944">6944 — Nazmul Hasan (A.I.O)</option><option value="5953">5953 — Md. Zehadul Islam (A.I.O)</option><option value="6672">6672 — Md. Aminul Islam (A.I.O)</option><option value="6720">6720 — Sheikh Rasel Ahmmed (A.I.O)</option><option value="407">407 — Md. Khokan Miah (S.G)</option><option value="4312">4312 — Md. Jomsad Uddin (Office Att.)</option><option value="5841">5841 — Mst. Shefali Begum (Office Cleaner)</option><option value="46">46 — Office (Office)</option></select>
+        <select id="dir-search-select" onchange="document.getElementById('dir-search-id').value=this.value; renderStaffDirSearch();"><option value="1500">1500 — Md Shahidul Islam (E.O &amp; BM.)</option><option value="1531">1531 — Md Masum Belal (A.E.O (2nd Officer))</option><option value="3274">3274 — Md. Zahidul Islam (A.E.O)</option><option value="2529">2529 — Md. Hafizur Rahaman (A.E.O)</option><option value="93">93 — Md. Mehedi Hassan (S.I.O)</option><option value="1338">1338 — Boshir Ahmad (S.I.O)</option><option value="1518">1518 — Md Tafazzal Hossain (S.I.O)</option><option value="3394">3394 — Lakhman Biswas (S.I.O)</option><option value="1496">1496 — Md Delowar Hossain (S.I.O)</option><option value="753">753 — Mst. Shefali Begum (Cashier)</option><option value="964">964 — Md Golam Rabbani (I.O)</option><option value="2959">2959 — Md. Zahedul Islam (I.O)</option><option value="3457">3457 — Md. Ariful Islam (S.I.O)</option><option value="4402">4402 — Md. Elias (I.O)</option><option value="4892">4892 — Md. Rakib Hasan (I.O)</option><option value="5585">5585 — Md. Almamun (A.I.O)</option><option value="5678">5678 — Md. Rabiul Islam (A.I.O)</option><option value="6275">6275 — Md Khairul Alom Rony (A.I.O)</option><option value="6944">6944 — Nazmul Hasan (A.I.O)</option><option value="5953">5953 — Md. Zehadul Islam (A.I.O)</option><option value="6672">6672 — Md. Aminul Islam (A.I.O)</option><option value="6720">6720 — Sheikh Rasel Ahmmed (A.I.O)</option><option value="407">407 — Md. Khokan Miah (S.G)</option><option value="4312">4312 — Md. Jomsad Uddin (Office Att.)</option><option value="5841">5841 — Mst. Shefali Begum (Office Cleaner)</option><option value="46">46 — Office (Office)</option><option value="5147">5147 — Md. Rokon (I.O) [Transfer]</option></select>
         <button class="btn btn-outline btn-sm" onclick="openInStatement(document.getElementById('dir-search-id').value)">📄 পূর্ণ স্টেটমেন্ট দেখুন</button>
       </div>
       <div class="table-wrap" style="max-width:680px;">
@@ -2301,7 +2648,7 @@
       <div class="filter-bar no-print">
         <label style="font-weight:700">Staff ID:</label>
         <input type="text" id="stmt-staff-id" value="1500" list="staffIdDatalist" oninput="renderStaffStatement()" style="width:120px;font-weight:700;">
-        <select id="stmt-staff-select" onchange="document.getElementById('stmt-staff-id').value=this.value; renderStaffStatement();"><option value="1500">1500 — Md Shahidul Islam (E.O &amp; BM.)</option><option value="1531">1531 — Md Masum Belal (A.E.O (2nd Officer))</option><option value="3274">3274 — Md. Zahidul Islam (A.E.O)</option><option value="2529">2529 — Md. Hafizur Rahaman (A.E.O)</option><option value="93">93 — Md. Mehedi Hassan (S.I.O)</option><option value="1338">1338 — Boshir Ahmad (S.I.O)</option><option value="1518">1518 — Md Tafazzal Hossain (S.I.O)</option><option value="3394">3394 — Lakhman Biswas (S.I.O)</option><option value="1496">1496 — Md Delowar Hossain (S.I.O)</option><option value="753">753 — Mst. Shefali Begum (Cashier)</option><option value="964">964 — Md Golam Rabbani (I.O)</option><option value="2959">2959 — Md. Zahedul Islam (I.O)</option><option value="3457">3457 — Md. Ariful Islam (S.I.O)</option><option value="5147">5147 — Md. Rokon (I.O) [Transfer]</option><option value="4402">4402 — Md. Elias (I.O)</option><option value="4892">4892 — Md. Rakib Hasan (I.O)</option><option value="5585">5585 — Md. Almamun (A.I.O)</option><option value="5678">5678 — Md. Rabiul Islam (A.I.O)</option><option value="6275">6275 — Md Khairul Alom Rony (A.I.O)</option><option value="6944">6944 — Nazmul Hasan (A.I.O)</option><option value="5953">5953 — Md. Zehadul Islam (A.I.O)</option><option value="6672">6672 — Md. Aminul Islam (A.I.O)</option><option value="6720">6720 — Sheikh Rasel Ahmmed (A.I.O)</option><option value="407">407 — Md. Khokan Miah (S.G)</option><option value="4312">4312 — Md. Jomsad Uddin (Office Att.)</option><option value="5841">5841 — Mst. Shefali Begum (Office Cleaner)</option><option value="46">46 — Office (Office)</option></select>
+        <select id="stmt-staff-select" onchange="document.getElementById('stmt-staff-id').value=this.value; renderStaffStatement();"><option value="1500">1500 — Md Shahidul Islam (E.O &amp; BM.)</option><option value="1531">1531 — Md Masum Belal (A.E.O (2nd Officer))</option><option value="3274">3274 — Md. Zahidul Islam (A.E.O)</option><option value="2529">2529 — Md. Hafizur Rahaman (A.E.O)</option><option value="93">93 — Md. Mehedi Hassan (S.I.O)</option><option value="1338">1338 — Boshir Ahmad (S.I.O)</option><option value="1518">1518 — Md Tafazzal Hossain (S.I.O)</option><option value="3394">3394 — Lakhman Biswas (S.I.O)</option><option value="1496">1496 — Md Delowar Hossain (S.I.O)</option><option value="753">753 — Mst. Shefali Begum (Cashier)</option><option value="964">964 — Md Golam Rabbani (I.O)</option><option value="2959">2959 — Md. Zahedul Islam (I.O)</option><option value="3457">3457 — Md. Ariful Islam (S.I.O)</option><option value="4402">4402 — Md. Elias (I.O)</option><option value="4892">4892 — Md. Rakib Hasan (I.O)</option><option value="5585">5585 — Md. Almamun (A.I.O)</option><option value="5678">5678 — Md. Rabiul Islam (A.I.O)</option><option value="6275">6275 — Md Khairul Alom Rony (A.I.O)</option><option value="6944">6944 — Nazmul Hasan (A.I.O)</option><option value="5953">5953 — Md. Zehadul Islam (A.I.O)</option><option value="6672">6672 — Md. Aminul Islam (A.I.O)</option><option value="6720">6720 — Sheikh Rasel Ahmmed (A.I.O)</option><option value="407">407 — Md. Khokan Miah (S.G)</option><option value="4312">4312 — Md. Jomsad Uddin (Office Att.)</option><option value="5841">5841 — Mst. Shefali Begum (Office Cleaner)</option><option value="46">46 — Office (Office)</option><option value="5147">5147 — Md. Rokon (I.O) [Transfer]</option></select>
         <button class="btn btn-outline btn-sm" onclick="handlePrint()">🖨 Print Statement</button>
       </div>
       <div id="stmt-header-info" style="display: flex; gap: 24px; flex-wrap: wrap; padding: 10px 14px; background: var(--primary-light); border-radius: 7px; margin-bottom: 14px; font-weight: 600; ">
@@ -2511,17 +2858,8 @@
         <td class="num"><strong>4,000</strong></td>
       </tr>
     
-      <tr style="opacity:0.72;background:#f8fafc;">
-        <td class="center">14</td>
-        <td class="center"><strong>5147</strong></td>
-        <td>Md. Rokon <span class="badge badge-good">Transfer</span></td>
-        <td>I.O</td>
-        <td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num">1,000</td><td class="num">1,000</td><td class="num"></td><td class="num"></td><td class="num"></td>
-        <td class="num"><strong>2,000</strong></td>
-      </tr>
-    
       <tr style="">
-        <td class="center">15</td>
+        <td class="center">14</td>
         <td class="center"><strong>4402</strong></td>
         <td>Md. Elias</td>
         <td>I.O</td>
@@ -2530,7 +2868,7 @@
       </tr>
     
       <tr style="">
-        <td class="center">16</td>
+        <td class="center">15</td>
         <td class="center"><strong>4892</strong></td>
         <td>Md. Rakib Hasan</td>
         <td>I.O</td>
@@ -2539,7 +2877,7 @@
       </tr>
     
       <tr style="">
-        <td class="center">17</td>
+        <td class="center">16</td>
         <td class="center"><strong>5585</strong></td>
         <td>Md. Almamun</td>
         <td>A.I.O</td>
@@ -2548,7 +2886,7 @@
       </tr>
     
       <tr style="">
-        <td class="center">18</td>
+        <td class="center">17</td>
         <td class="center"><strong>5678</strong></td>
         <td>Md. Rabiul Islam</td>
         <td>A.I.O</td>
@@ -2557,7 +2895,7 @@
       </tr>
     
       <tr style="">
-        <td class="center">19</td>
+        <td class="center">18</td>
         <td class="center"><strong>6275</strong></td>
         <td>Md Khairul Alom Rony</td>
         <td>A.I.O</td>
@@ -2566,7 +2904,7 @@
       </tr>
     
       <tr style="">
-        <td class="center">20</td>
+        <td class="center">19</td>
         <td class="center"><strong>6944</strong></td>
         <td>Nazmul Hasan</td>
         <td>A.I.O</td>
@@ -2575,7 +2913,7 @@
       </tr>
     
       <tr style="">
-        <td class="center">21</td>
+        <td class="center">20</td>
         <td class="center"><strong>5953</strong></td>
         <td>Md. Zehadul Islam</td>
         <td>A.I.O</td>
@@ -2584,7 +2922,7 @@
       </tr>
     
       <tr style="">
-        <td class="center">22</td>
+        <td class="center">21</td>
         <td class="center"><strong>6672</strong></td>
         <td>Md. Aminul Islam</td>
         <td>A.I.O</td>
@@ -2593,7 +2931,7 @@
       </tr>
     
       <tr style="">
-        <td class="center">23</td>
+        <td class="center">22</td>
         <td class="center"><strong>6720</strong></td>
         <td>Sheikh Rasel Ahmmed</td>
         <td>A.I.O</td>
@@ -2602,7 +2940,7 @@
       </tr>
     
       <tr style="">
-        <td class="center">24</td>
+        <td class="center">23</td>
         <td class="center"><strong>407</strong></td>
         <td>Md. Khokan Miah</td>
         <td>S.G</td>
@@ -2611,7 +2949,7 @@
       </tr>
     
       <tr style="">
-        <td class="center">25</td>
+        <td class="center">24</td>
         <td class="center"><strong>4312</strong></td>
         <td>Md. Jomsad Uddin</td>
         <td>Office Att.</td>
@@ -2620,11 +2958,20 @@
       </tr>
     
       <tr style="">
-        <td class="center">26</td>
+        <td class="center">25</td>
         <td class="center"><strong>5841</strong></td>
         <td>Mst. Shefali Begum</td>
         <td>Office Cleaner</td>
         <td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num">500</td><td class="num">500</td><td class="num">500</td><td class="num">500</td><td class="num"></td>
+        <td class="num"><strong>2,000</strong></td>
+      </tr>
+    
+      <tr style="opacity:0.72;background:#f8fafc;">
+        <td class="center">26</td>
+        <td class="center"><strong>5147</strong></td>
+        <td>Md. Rokon <span class="badge badge-good">Transfer</span></td>
+        <td>I.O</td>
+        <td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num">1,000</td><td class="num">1,000</td><td class="num"></td><td class="num"></td><td class="num"></td>
         <td class="num"><strong>2,000</strong></td>
       </tr>
     </tbody>
@@ -3504,7 +3851,7 @@
         <select id="exp-filter-month" onchange="renderExpenseRegister()"><option value="">সকল মাস (All Months)</option><option value="2026-01">January 2026</option><option value="2026-02">February 2026</option><option value="2026-03">March 2026</option><option value="2026-04">April 2026</option><option value="2026-05">May 2026</option><option value="2026-06">June 2026</option><option value="2026-07">July 2026</option><option value="2026-08">August 2026</option><option value="2026-09">September 2026</option><option value="2026-10">October 2026</option><option value="2026-11">November 2026</option><option value="2026-12">December 2026</option></select>
         <select id="exp-filter-head" onchange="renderExpenseRegister()">
           <option value="">সকল খাত (All Heads)</option>
-        <option value="আপ্যায়ন">আপ্যায়ন</option><option value="অনুষ্ঠান">অনুষ্ঠান</option><option value="শেয়ার">শেয়ার</option><option value="অফিস খরচ">অফিস খরচ</option><option value="যাতায়াত">যাতায়াত</option><option value="অনান্য">অনান্য</option><option value="চিকিৎসা">চিকিৎসা</option></select>
+        <option value="আপ্যায়ন">আপ্যায়ন</option><option value="অনুষ্ঠান">অনুষ্ঠান</option><option value="শেয়ার">শেয়ার</option><option value="অফিস খরচ">অফিস খরচ</option><option value="যাতায়াত">যাতায়াত</option><option value="অন্যান্য">অন্যান্য</option><option value="চিকিৎসা">চিকিৎসা</option></select>
         <button class="btn btn-success btn-sm edit-only no-print" onclick="switchTabByName('dataEntry','Expenditure')">+ নতুন খরচ এন্ট্রি</button>
       </div>
       <div class="table-wrap">
@@ -4498,7 +4845,7 @@
     </div>
   </section>
 
-  <footer class="app-footer">Develope by MD. RABIUL ISLAM</footer>
+  <footer class="app-footer">Developed by MD. RABIUL ISLAM</footer>
 </div>
 
 <!-- Save Complete Pop-up Modal -->
@@ -4506,7 +4853,7 @@
   <div class="modal" style="text-align:center; max-width:340px;">
     <div class="save-popup-icon">✓</div>
     <h3 style="margin-bottom:6px;">Save Complete!</h3>
-    <p id="saveCompleteMsg" style="margin-bottom:16px;">সকল তথ্য লোকাল এবং Google Drive-এ সফলভাবে সেভ করা হয়েছে।</p>
+    <p id="saveCompleteMsg" style="margin-bottom:16px;">সকল তথ্য সফলভাবে সেভ করা হয়েছে।</p>
     <div class="modal-actions" style="justify-content:center;">
       <button class="btn btn-success" onclick="closeSaveCompleteModal()" style="min-width:110px;justify-content:center;">ঠিক আছে (OK)</button>
     </div>
@@ -4608,7 +4955,7 @@ function doPost(e) {
       </div>
     </div>
 
-    <div id="cloudModalMsg" class="status-banner show ok" style="margin-bottom:10px;">URL সেভ হয়েছে! Google Drive-এর সাথে সিঙ্ক হচ্ছে...</div>
+    <div id="cloudModalMsg" class="status-banner show ok" style="margin-bottom:10px;">✓ index.html ডাউনলোড হয়েছে! এই ফাইলটি ফোন বা পিসি যেখান থেকেই ওপেন করবেন, অটো ড্রাইভ থেকে ডাটা লোড ও সেভ হবে।</div>
 
     <div class="modal-actions" style="flex-wrap:wrap;">
       <button class="btn btn-outline" onclick="closeCloudModal()">বন্ধ করুন</button>
@@ -4752,7 +5099,7 @@ function doPost(e) {
     <div class="ac-section">
       <div class="ac-section-title">
         <span>২. আলাদা পাসওয়ার্ড যোগ / এডিট করুন (সর্বোচ্চ ১০টি)</span>
-        <span id="ac-slot-count" class="badge badge-good">1 / 10</span>
+        <span id="ac-slot-count" class="badge badge-good">0 / 10</span>
       </div>
       <input type="hidden" id="ac-edit-idx" value="-1">
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
@@ -4780,29 +5127,175 @@ function doPost(e) {
         <button class="btn btn-success btn-sm" id="ac-save-user-btn" onclick="saveCustomPassword()">➕ পাসওয়ার্ড যোগ করুন</button>
         <button class="btn btn-outline btn-sm" id="ac-cancel-edit-btn" onclick="resetCustomPwdForm()" style="display:none;">বাতিল</button>
       </div>
-      <div id="acStatus" class="status-banner show ok" style="margin-top:8px;">✓ "EO. BM" পাসওয়ার্ড সফলভাবে যোগ করা হয়েছে!</div>
+      <div id="acStatus" class="status-banner" style="margin-top:8px;"></div>
     </div>
 
     <div class="ac-section">
       <div class="ac-section-title">
         <span>৩. যুক্ত করা পাসওয়ার্ড তালিকা (Added Passwords)</span>
       </div>
-      <div id="ac-pwd-list">
-      <div class="ac-pwd-card">
-        <div class="ac-pwd-info">
-          <div class="ac-pwd-name">1. EO. BM <span style="font-weight:600;color:var(--muted);font-size:12px;">(পাসওয়ার্ড: <code>1500</code>)</span></div>
-          <div class="ac-pwd-badges"><span class="ac-perm-chip">App Configure</span></div>
-        </div>
-        <div style="display:flex;gap:6px;">
-          <button class="btn btn-warning btn-sm" onclick="editCustomPassword(0)">✏️</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteCustomPassword(0)">🗑</button>
-        </div>
-      </div>
-    </div>
+      <div id="ac-pwd-list"></div>
     </div>
 
     <div class="modal-actions">
       <button class="btn btn-success" onclick="closeAccessControlModal()">সম্পন্ন (Done)</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- App Themes Modal (18 Themes) -->
+<div class="modal-backdrop" id="themeModal" onclick="if(event.target===this) closeThemeModal()">
+  <div class="modal modal-lg">
+    <h3>🎨 অ্যাপ থিম ও কালার ডিজাইন (১৮টি থিম)</h3>
+    <p>যেকোনো থিমে ক্লিক করলেই সাথে সাথে পুরো অ্যাপের কালার ও ডিজাইন পরিবর্তন হয়ে যাবে (Day ও Night উভয় মোডেই কাজ করবে)।</p>
+    <div class="theme-grid" id="themeGrid">
+    <div class="theme-card" onclick="applyAppTheme('ocean', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #0b3954 0%, #0f4c5c 45%, #1b8a6b 100%);"></div>
+      <div class="theme-name">
+        <span>1. Ocean Teal</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('royal', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #1e3a8a 0%, #1d4ed8 55%, #3b82f6 100%);"></div>
+      <div class="theme-name">
+        <span>2. Royal Blue</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('emerald', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #064e3b 0%, #047857 50%, #10b981 100%);"></div>
+      <div class="theme-name">
+        <span>3. Emerald Forest</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('sunset', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #7c2d12 0%, #c2410c 50%, #f97316 100%);"></div>
+      <div class="theme-name">
+        <span>4. Sunset Orange</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('crimson', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #881337 0%, #be123c 50%, #f43f5e 100%);"></div>
+      <div class="theme-name">
+        <span>5. Crimson Ruby</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('purple', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #4c1d95 0%, #6d28d9 50%, #8b5cf6 100%);"></div>
+      <div class="theme-name">
+        <span>6. Purple Majesty</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('indigo', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #1e1b4b 0%, #3730a3 50%, #6366f1 100%);"></div>
+      <div class="theme-name">
+        <span>7. Indigo Skyline</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('rose', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #831843 0%, #be185d 50%, #ec4899 100%);"></div>
+      <div class="theme-name">
+        <span>8. Rose Pink</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('amber', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #78350f 0%, #b45309 50%, #f59e0b 100%);"></div>
+      <div class="theme-name">
+        <span>9. Golden Amber</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('cyan', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #164e63 0%, #0e7490 50%, #06b6d4 100%);"></div>
+      <div class="theme-name">
+        <span>10. Arctic Cyan</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('slate', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #0f172a 0%, #334155 55%, #475569 100%);"></div>
+      <div class="theme-name">
+        <span>11. Slate Executive</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('coral', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #991b1b 0%, #dc2626 50%, #f97316 100%);"></div>
+      <div class="theme-name">
+        <span>12. Coral Reef</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('lime', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #365314 0%, #4d7c0f 50%, #84cc16 100%);"></div>
+      <div class="theme-name">
+        <span>13. Olive Leaf</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('berry', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #4a044e 0%, #86198f 50%, #c026d3 100%);"></div>
+      <div class="theme-name">
+        <span>14. Berry Wine</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('sky', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #0c4a6e 0%, #0369a1 50%, #0ea5e9 100%);"></div>
+      <div class="theme-name">
+        <span>15. Sky Breeze</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('teal', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #134e4a 0%, #0f766e 50%, #14b8a6 100%);"></div>
+      <div class="theme-name">
+        <span>16. Turquoise Wave</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card" onclick="applyAppTheme('copper', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #451a03 0%, #78350f 50%, #b45309 100%);"></div>
+      <div class="theme-name">
+        <span>17. Copper Bronze</span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div class="theme-card active" onclick="applyAppTheme('aurora', true)">
+      <div class="theme-swatch" style="background:linear-gradient(125deg, #1e1b4b 0%, #6d28d9 48%, #0d9488 100%);"></div>
+      <div class="theme-name">
+        <span>18. Aurora Gradient</span>
+        <span>✅</span>
+      </div>
+    </div>
+  </div>
+    <div class="modal-actions">
+      <button class="btn btn-success" onclick="closeThemeModal()">সম্পন্ন (Done)</button>
     </div>
   </div>
 </div>
@@ -4985,7 +5478,7 @@ function getAllMonthKeys() {
   return Array.from(keys).sort();
 }
 const INCOME_CATS = ['ইনসেন্টিভ','কমিশন','লিভ এনক্যাশমেন্ট','ইনক্রিমেন্ট','লোন জরিমানা'];
-const EXPENSE_HEADS = ['আপ্যায়ন','অনুষ্ঠান','শেয়ার','অফিস খরচ','যাতায়াত','অনান্য','চিকিৎসা'];
+const EXPENSE_HEADS = ['আপ্যায়ন','অনুষ্ঠান','শেয়ার','অফিস খরচ','যাতায়াত','অন্যান্য','চিকিৎসা'];
 const STORAGE_KEY = 'staff_fund_2026_v1';
 const EDIT_PASS = '7704'; // Cloud Sync API Pass
 const APP_PASS_KEY = 'staff_fund_2026_app_pass';
@@ -5005,7 +5498,7 @@ const EMBEDDED_CLOUD_CONFIG = {
 };
 ///*CLOUD_CONFIG_END*/
 
-const ORIGINAL_DATA = {"staffDir": [{"sl": 1, "id": 1500, "name": "Md Shahidul Islam", "desig": "E.O & BM."}, {"sl": 2, "id": 1531, "name": "Md Masum Belal", "desig": "A.E.O (2nd Officer)"}, {"sl": 3, "id": 3274, "name": "Md. Zahidul Islam", "desig": "A.E.O"}, {"sl": 4, "id": 2529, "name": "Md. Hafizur Rahaman", "desig": "A.E.O"}, {"sl": 5, "id": 93, "name": "Md. Mehedi Hassan", "desig": "S.I.O"}, {"sl": 6, "id": 1338, "name": "Boshir Ahmad", "desig": "S.I.O"}, {"sl": 7, "id": 1518, "name": "Md Tafazzal Hossain", "desig": "S.I.O"}, {"sl": 8, "id": 3394, "name": "Lakhman Biswas", "desig": "S.I.O"}, {"sl": 9, "id": 1496, "name": "Md Delowar Hossain", "desig": "S.I.O"}, {"sl": 10, "id": 753, "name": "Mst. Shefali Begum", "desig": "Cashier"}, {"sl": 11, "id": 964, "name": "Md Golam Rabbani", "desig": "I.O"}, {"sl": 12, "id": 2959, "name": "Md. Zahedul Islam", "desig": "I.O"}, {"sl": 13, "id": 3457, "name": "Md. Ariful Islam", "desig": "S.I.O"}, {"sl": 14, "id": 5147, "name": "Md. Rokon", "desig": "I.O"}, {"sl": 15, "id": 4402, "name": "Md. Elias", "desig": "I.O"}, {"sl": 16, "id": 4892, "name": "Md. Rakib Hasan", "desig": "I.O"}, {"sl": 17, "id": 5585, "name": "Md. Almamun", "desig": "A.I.O"}, {"sl": 18, "id": 5678, "name": "Md. Rabiul Islam", "desig": "A.I.O"}, {"sl": 19, "id": 6275, "name": "Md Khairul Alom Rony", "desig": "A.I.O"}, {"sl": 20, "id": 6944, "name": "Nazmul Hasan", "desig": "A.I.O"}, {"sl": 21, "id": 5953, "name": "Md. Zehadul Islam", "desig": "A.I.O"}, {"sl": 22, "id": 6672, "name": "Md. Aminul Islam", "desig": "A.I.O"}, {"sl": 23, "id": 6720, "name": "Sheikh Rasel Ahmmed", "desig": "A.I.O"}, {"sl": 24, "id": 407, "name": "Md. Khokan Miah", "desig": "S.G"}, {"sl": 25, "id": 4312, "name": "Md. Jomsad Uddin", "desig": "Office Att."}, {"sl": 26, "id": 5841, "name": "Mst. Shefali Begum", "desig": "Office Cleaner"}, {"sl": 27, "id": 46, "name": "Office", "desig": "Office"}], "monthlySub": [{"sl": 1, "id": 1500, "name": "Md Shahidul Islam", "desig": "E.O & BM.", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 2, "id": 1531, "name": "Md Masum Belal", "desig": "A.E.O (2nd Officer)", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 3, "id": 3274, "name": "Md. Zahidul Islam", "desig": "A.E.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 4, "id": 2529, "name": "Md. Hafizur Rahaman", "desig": "A.E.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 5, "id": 93, "name": "Md. Mehedi Hassan", "desig": "S.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 6, "id": 1338, "name": "Boshir Ahmad", "desig": "S.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 7, "id": 1518, "name": "Md Tafazzal Hossain", "desig": "S.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 8, "id": 3394, "name": "Lakhman Biswas", "desig": "S.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 9, "id": 1496, "name": "Md Delowar Hossain", "desig": "S.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 10, "id": 753, "name": "Mst. Shefali Begum", "desig": "Cashier", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 11, "id": 964, "name": "Md Golam Rabbani", "desig": "I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 12, "id": 2959, "name": "Md. Zahedul Islam", "desig": "I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 13, "id": 3457, "name": "Md. Ariful Islam", "desig": "S.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 14, "id": 5147, "name": "Md. Rokon", "desig": "I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 0.0, 0.0, 0.0]}, {"sl": 15, "id": 4402, "name": "Md. Elias", "desig": "I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 16, "id": 4892, "name": "Md. Rakib Hasan", "desig": "I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 17, "id": 5585, "name": "Md. Almamun", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 18, "id": 5678, "name": "Md. Rabiul Islam", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 19, "id": 6275, "name": "Md Khairul Alom Rony", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 20, "id": 6944, "name": "Nazmul Hasan", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}, {"sl": 21, "id": 5953, "name": "Md. Zehadul Islam", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 22, "id": 6672, "name": "Md. Aminul Islam", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 23, "id": 6720, "name": "Sheikh Rasel Ahmmed", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 24, "id": 407, "name": "Md. Khokan Miah", "desig": "S.G", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 500.0, 500.0, 500.0, 500.0, 0.0]}, {"sl": 25, "id": 4312, "name": "Md. Jomsad Uddin", "desig": "Office Att.", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 500.0, 500.0, 500.0, 500.0, 0.0]}, {"sl": 26, "id": 5841, "name": "Mst. Shefali Begum", "desig": "Office Cleaner", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 500.0, 500.0, 500.0, 500.0, 0.0]}], "otherIncome": [{"id": 1531, "date": "2026-08-01", "month": "August 2026", "category": "ইনক্রিমেন্ট", "source": "বাৎসরিক বেতন বৃদ্ধি", "desc": "ইনক্রিমেন্ট-1000", "amount": 1000.0, "autoCalc": false}, {"id": 3274, "date": "2026-08-01", "month": "August 2026", "category": "ইনক্রিমেন্ট", "source": "বাৎসরিক বেতন বৃদ্ধি", "desc": "ইনক্রিমেন্ট-1000", "amount": 1000.0, "autoCalc": false}, {"id": 5585, "date": "2026-08-01", "month": "August 2026", "category": "ইনক্রিমেন্ট", "source": "বাৎসরিক বেতন বৃদ্ধি", "desc": "ইনক্রিমেন্ট-1000", "amount": 1000.0, "autoCalc": false}, {"id": 5841, "date": "2026-08-01", "month": "August 2026", "category": "ইনক্রিমেন্ট", "source": "বাৎসরিক বেতন বৃদ্ধি", "desc": "ইনক্রিমেন্ট-1000", "amount": 1000.0, "autoCalc": false}, {"id": 3274, "date": "2026-08-08", "month": "August 2026", "category": "লিভ এনক্যাশমেন্ট", "source": "ছুটি নগদায়ন", "desc": "ছুটি নগদায়ন-2000", "amount": 2000.0, "autoCalc": false}, {"id": 3457, "date": "2026-08-08", "month": "August 2026", "category": "লিভ এনক্যাশমেন্ট", "source": "ছুটি নগদায়ন", "desc": "ছুটি নগদায়ন-2000", "amount": 2000.0, "autoCalc": false}, {"id": 3394, "date": "2026-08-08", "month": "August 2026", "category": "লিভ এনক্যাশমেন্ট", "source": "ছুটি নগদায়ন", "desc": "ছুটি নগদায়ন-2000", "amount": 2000.0, "autoCalc": false}, {"id": 93, "date": "2026-08-08", "month": "August 2026", "category": "লিভ এনক্যাশমেন্ট", "source": "ছুটি নগদায়ন", "desc": "ছুটি নগদায়ন-2000", "amount": 2000.0, "autoCalc": false}, {"id": 6275, "date": "2026-08-08", "month": "August 2026", "category": "লিভ এনক্যাশমেন্ট", "source": "ছুটি নগদায়ন", "desc": "ছুটি নগদায়ন-2000", "amount": 2000.0, "autoCalc": false}, {"id": 93, "date": "2026-09-01", "month": "September 2026", "category": "ইনক্রিমেন্ট", "source": "বাৎসরিক বেতন বৃদ্ধি", "desc": "ইনক্রিমেন্ট-1000", "amount": 1000.0, "autoCalc": false}, {"id": 3274, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 7937, "desc": 0.1, "amount": 800.0, "autoCalc": false}, {"id": 2529, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 7101, "desc": 0.1, "amount": 710.0, "autoCalc": false}, {"id": 93, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 8662, "desc": 0.1, "amount": 870.0, "autoCalc": false}, {"id": 3394, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 4138, "desc": 0.1, "amount": 420.0, "autoCalc": false}, {"id": 1496, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 28352, "desc": 0.1, "amount": 2840.0, "autoCalc": false}, {"id": 964, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 3503, "desc": 0.1, "amount": 350.0, "autoCalc": false}, {"id": 3457, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 24106, "desc": 0.1, "amount": 2415.0, "autoCalc": false}, {"id": 4402, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 6300, "desc": 0.1, "amount": 630.0, "autoCalc": false}, {"id": 5585, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 10802, "desc": 0.1, "amount": 1080.0, "autoCalc": false}, {"id": 6275, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 11303, "desc": 0.1, "amount": 1130.0, "autoCalc": false}, {"id": 6672, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 6295, "desc": 0.1, "amount": 630.0, "autoCalc": false}, {"id": 3394, "date": "2026-09-01", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 1496, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 2959, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 3457, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 5147, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 4402, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 5585, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 5678, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 6275, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 5953, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 6672, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 1518, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 2757, "desc": 0.1, "amount": 275.7, "autoCalc": true}, {"id": 2959, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 3779, "desc": 0.1, "amount": 377.9, "autoCalc": true}, {"id": 3394, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 4212, "desc": 0.1, "amount": 421.2, "autoCalc": true}, {"id": 4402, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 6462, "desc": 0.1, "amount": 646.2, "autoCalc": true}, {"id": 5585, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 6482, "desc": 0.1, "amount": 648.2, "autoCalc": true}, {"id": 5953, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 11027, "desc": 0.1, "amount": 1102.7, "autoCalc": true}, {"id": 1496, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 26023, "desc": 0.1, "amount": 2602.3, "autoCalc": true}, {"id": 3457, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 27032, "desc": 0.1, "amount": 2703.2, "autoCalc": true}, {"id": "", "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": "", "desc": "", "amount": 0.0, "autoCalc": false}, {"id": 2959, "date": "2026-10-01", "month": "October 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 5678, "date": "2026-10-01", "month": "October 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 4402, "date": "2026-10-01", "month": "October 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 5585, "date": "2026-10-01", "month": "October 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 5953, "date": "2026-10-01", "month": "October 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 1496, "date": "2026-10-01", "month": "October 2026", "category": "লোন জরিমানা", "source": "", "desc": 2000, "amount": 2000.0, "autoCalc": false}, {"id": 964, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 0, "desc": 2000, "amount": 2000.0, "autoCalc": false}, {"id": 4892, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 3394, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 6672, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 4892, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 3457, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 5678, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 0, "desc": 1500, "amount": 1500.0, "autoCalc": false}, {"id": 2959, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 1518, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 2793, "desc": 0.1, "amount": 280.0, "autoCalc": false}, {"id": 4402, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 5964, "desc": 0.1, "amount": 600.0, "autoCalc": false}, {"id": 3394, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 3887, "desc": 0.1, "amount": 390.0, "autoCalc": false}, {"id": 6672, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 3890, "desc": 0.1, "amount": 190.0, "autoCalc": false}, {"id": 3457, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 30703, "desc": 0.1, "amount": 3070.3, "autoCalc": true}, {"id": 5953, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 11170, "desc": 0.1, "amount": 1120.0, "autoCalc": false}, {"id": 1496, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 34068, "desc": 0.1, "amount": 3410.0, "autoCalc": false}, {"id": 2959, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 3659, "desc": 0.1, "amount": 370.0, "autoCalc": false}, {"id": 5585, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 6692, "desc": 0.1, "amount": 670.0, "autoCalc": false}], "expenses": [{"date": "2026-09-05", "id": 46, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-05", "id": 5585, "month": "September 2026", "head": "শেয়ার", "desc": 3, "amount": 1239.0, "isShareFormula": true}, {"date": "2026-09-06", "id": 5585, "month": "September 2026", "head": "শেয়ার", "desc": 11, "amount": 4543.0, "isShareFormula": true}, {"date": "2026-09-06", "id": 2959, "month": "September 2026", "head": "শেয়ার", "desc": 5, "amount": 2065.0, "isShareFormula": true}, {"date": "2026-09-07", "id": 1338, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-07", "id": 6672, "month": "September 2026", "head": "শেয়ার", "desc": 3, "amount": 1239.0, "isShareFormula": true}, {"date": "2026-09-07", "id": 3457, "month": "September 2026", "head": "শেয়ার", "desc": 4, "amount": 1652.0, "isShareFormula": true}, {"date": "2026-09-07", "id": 5585, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-08", "id": 1496, "month": "September 2026", "head": "শেয়ার", "desc": 3, "amount": 1239.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 4402, "month": "September 2026", "head": "শেয়ার", "desc": 6, "amount": 2478.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 5678, "month": "September 2026", "head": "শেয়ার", "desc": 8, "amount": 3304.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 5585, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 1338, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 6275, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 5147, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-10", "id": 4402, "month": "September 2026", "head": "শেয়ার", "desc": 3, "amount": 1239.0, "isShareFormula": true}, {"date": "2026-09-10", "id": 964, "month": "September 2026", "head": "শেয়ার", "desc": 3, "amount": 1239.0, "isShareFormula": true}, {"date": "2026-09-14", "id": 1338, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-17", "id": 4402, "month": "September 2026", "head": "শেয়ার", "desc": 2, "amount": 826.0, "isShareFormula": true}, {"date": "2026-09-17", "id": 5147, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-21", "id": 5585, "month": "September 2026", "head": "শেয়ার", "desc": 2, "amount": 826.0, "isShareFormula": true}, {"date": "2026-09-21", "id": 3394, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-23", "id": 4892, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-27", "id": 6672, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 2529, "month": "September 2026", "head": "অনুষ্ঠান", "desc": "বিনিয়োগ বিতরন উপলক্ষ্যে স্টাফ উপহার ও উপহারসামগ্রী", "amount": 3550.0, "isShareFormula": false}, {"date": "2026-09-09", "id": 4892, "month": "September 2026", "head": "অনুষ্ঠান", "desc": "বিনিয়োগ বিতরন উপলক্ষ্যে স্টাফ উপহার ও উপহারসামগ্রী", "amount": 3550.0, "isShareFormula": false}, {"date": "2026-09-10", "id": 3457, "month": "September 2026", "head": "অনুষ্ঠান", "desc": "7নং ফিল্ডে গ্রাহকের বিয়ে উপলক্ষ্যে  উপহারসামগ্রী", "amount": 6500.0, "isShareFormula": false}, {"date": "2026-10-01", "id": 46, "month": "October 2026", "head": "অনুষ্ঠান", "desc": "3 মাসের মূল্যায়ন", "amount": 19930.0, "isShareFormula": false}, {"date": "2026-10-08", "id": 5585, "month": "October 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-10-19", "id": 5585, "month": "October 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-10-19", "id": 6672, "month": "October 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-10-19", "id": 5678, "month": "October 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-10-27", "id": 46, "month": "October 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-10-01", "id": 46, "month": "October 2026", "head": "অফিস খরচ", "desc": "আল মামুন ও মোঃ রবিউল ইসলাম কে ফুলের সুভেচ্ছা", "amount": 1100.0, "isShareFormula": false}, {"date": "2026-11-11", "id": 46, "month": "November 2026", "head": "অনুষ্ঠান", "desc": "মাসিক মূল্যায়ন", "amount": 7230.0, "isShareFormula": false}], "mcsp": [{"sl": 1, "id": 1500, "field": "", "name": "Md Shahidul Islam", "desig": "E.O & BM.", "hasCommFormula": false, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 2, "id": 1531, "field": "", "name": "Md Masum Belal", "desig": "A.E.O (2nd Officer)", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 3, "id": 3274, "field": "", "name": "Md. Zahidul Islam", "desig": "A.E.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 4, "id": 2529, "field": "", "name": "Md. Hafizur Rahaman", "desig": "A.E.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 5, "id": 93, "field": "", "name": "Md. Mehedi Hassan", "desig": "S.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 6, "id": 1518, "field": "", "name": "Md Tafazzal Hossain", "desig": "S.I.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": "", "totalComm": 2793.0}, {"sl": 7, "id": 753, "field": "", "name": "Mst. Shefali Begum", "desig": "Cashier", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 8, "id": 4402, "field": 1, "name": "Md. Elias", "desig": "I.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": 6, "totalComm": 5964.0}, {"sl": 9, "id": 6720, "field": 2, "name": "Sheikh Rasel Ahmmed", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 3, "totalComm": ""}, {"sl": 10, "id": 964, "field": 3, "name": "Md Golam Rabbani", "desig": "I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 0, "totalComm": ""}, {"sl": 11, "id": 3394, "field": 4, "name": "Lakhman Biswas", "desig": "S.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 2, "totalComm": 3887.0}, {"sl": 12, "id": 6672, "field": 5, "name": "Md. Aminul Islam", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 2, "totalComm": 3890.0}, {"sl": 13, "id": 4892, "field": 6, "name": "Md. Rakib Hasan", "desig": "I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 2, "totalComm": ""}, {"sl": 14, "id": 3457, "field": 7, "name": "Md. Ariful Islam", "desig": "S.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 1, "totalComm": 30703.0}, {"sl": 15, "id": 5953, "field": 8, "name": "Md. Zehadul Islam", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": 7, "totalComm": 11170.0}, {"sl": 16, "id": 1496, "field": 9, "name": "Md Delowar Hossain", "desig": "S.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 3, "totalComm": 34068.0}, {"sl": 17, "id": 5678, "field": 10, "name": "Md. Rabiul Islam", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 0, "totalComm": ""}, {"sl": 18, "id": 2959, "field": 11, "name": "Md. Zahedul Islam", "desig": "I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 1, "totalComm": 3659.0}, {"sl": 19, "id": 5585, "field": 12, "name": "Md. Almamun", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": 5, "totalComm": 6692.0}, {"sl": 20, "id": 1338, "field": 13, "name": "Boshir Ahmad", "desig": "S.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 3, "totalComm": ""}, {"sl": 21, "id": 6275, "field": 14, "name": "Md Khairul Alom Rony", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 4, "totalComm": ""}, {"sl": 22, "id": 6944, "field": 15, "name": "Nazmul Hasan", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 23, "id": 5147, "field": "", "name": "Md. Rokon", "desig": "I.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 0.0, "totalLoan": "", "totalComm": ""}, {"sl": 24, "id": 407, "field": "", "name": "Md. Khokan Miah", "desig": "S.G", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 500.0, "totalLoan": "", "totalComm": ""}, {"sl": 25, "id": 4312, "field": "", "name": "Md. Jomsad Uddin", "desig": "Office Att.", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 500.0, "totalLoan": "", "totalComm": ""}, {"sl": 26, "id": 5841, "field": "", "name": "Mst. Shefali Begum", "desig": "Office Cleaner", "hasCommFormula": false, "hasLoanFormula": false, "monthlySub": 500.0, "totalLoan": "", "totalComm": ""}], "postLog": []};
+const ORIGINAL_DATA = {"staffDir": [{"sl": 1, "id": 1500, "name": "Md Shahidul Islam", "desig": "E.O & BM."}, {"sl": 2, "id": 1531, "name": "Md Masum Belal", "desig": "A.E.O (2nd Officer)"}, {"sl": 3, "id": 3274, "name": "Md. Zahidul Islam", "desig": "A.E.O"}, {"sl": 4, "id": 2529, "name": "Md. Hafizur Rahaman", "desig": "A.E.O"}, {"sl": 5, "id": 93, "name": "Md. Mehedi Hassan", "desig": "S.I.O"}, {"sl": 6, "id": 1338, "name": "Boshir Ahmad", "desig": "S.I.O"}, {"sl": 7, "id": 1518, "name": "Md Tafazzal Hossain", "desig": "S.I.O"}, {"sl": 8, "id": 3394, "name": "Lakhman Biswas", "desig": "S.I.O"}, {"sl": 9, "id": 1496, "name": "Md Delowar Hossain", "desig": "S.I.O"}, {"sl": 10, "id": 753, "name": "Mst. Shefali Begum", "desig": "Cashier"}, {"sl": 11, "id": 964, "name": "Md Golam Rabbani", "desig": "I.O"}, {"sl": 12, "id": 2959, "name": "Md. Zahedul Islam", "desig": "I.O"}, {"sl": 13, "id": 3457, "name": "Md. Ariful Islam", "desig": "S.I.O"}, {"sl": 14, "id": 5147, "name": "Md. Rokon", "desig": "I.O"}, {"sl": 15, "id": 4402, "name": "Md. Elias", "desig": "I.O"}, {"sl": 16, "id": 4892, "name": "Md. Rakib Hasan", "desig": "I.O"}, {"sl": 17, "id": 5585, "name": "Md. Almamun", "desig": "A.I.O"}, {"sl": 18, "id": 5678, "name": "Md. Rabiul Islam", "desig": "A.I.O"}, {"sl": 19, "id": 6275, "name": "Md Khairul Alom Rony", "desig": "A.I.O"}, {"sl": 20, "id": 6944, "name": "Nazmul Hasan", "desig": "A.I.O"}, {"sl": 21, "id": 5953, "name": "Md. Zehadul Islam", "desig": "A.I.O"}, {"sl": 22, "id": 6672, "name": "Md. Aminul Islam", "desig": "A.I.O"}, {"sl": 23, "id": 6720, "name": "Sheikh Rasel Ahmmed", "desig": "A.I.O"}, {"sl": 24, "id": 407, "name": "Md. Khokan Miah", "desig": "S.G"}, {"sl": 25, "id": 4312, "name": "Md. Jomsad Uddin", "desig": "Office Att."}, {"sl": 26, "id": 5841, "name": "Mst. Shefali Begum", "desig": "Office Cleaner"}, {"sl": 27, "id": 46, "name": "Office", "desig": "Office"}], "monthlySub": [{"sl": 1, "id": 1500, "name": "Md Shahidul Islam", "desig": "E.O & BM.", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 2, "id": 1531, "name": "Md Masum Belal", "desig": "A.E.O (2nd Officer)", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 3, "id": 3274, "name": "Md. Zahidul Islam", "desig": "A.E.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 4, "id": 2529, "name": "Md. Hafizur Rahaman", "desig": "A.E.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 5, "id": 93, "name": "Md. Mehedi Hassan", "desig": "S.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 6, "id": 1338, "name": "Boshir Ahmad", "desig": "S.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 7, "id": 1518, "name": "Md Tafazzal Hossain", "desig": "S.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 8, "id": 3394, "name": "Lakhman Biswas", "desig": "S.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 9, "id": 1496, "name": "Md Delowar Hossain", "desig": "S.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 10, "id": 753, "name": "Mst. Shefali Begum", "desig": "Cashier", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 11, "id": 964, "name": "Md Golam Rabbani", "desig": "I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 12, "id": 2959, "name": "Md. Zahedul Islam", "desig": "I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 13, "id": 3457, "name": "Md. Ariful Islam", "desig": "S.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 14, "id": 5147, "name": "Md. Rokon", "desig": "I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 0.0, 0.0, 0.0]}, {"sl": 15, "id": 4402, "name": "Md. Elias", "desig": "I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 16, "id": 4892, "name": "Md. Rakib Hasan", "desig": "I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 17, "id": 5585, "name": "Md. Almamun", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 18, "id": 5678, "name": "Md. Rabiul Islam", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 19, "id": 6275, "name": "Md Khairul Alom Rony", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 20, "id": 6944, "name": "Nazmul Hasan", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}, {"sl": 21, "id": 5953, "name": "Md. Zehadul Islam", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 22, "id": 6672, "name": "Md. Aminul Islam", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 23, "id": 6720, "name": "Sheikh Rasel Ahmmed", "desig": "A.I.O", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1000.0, 1000.0, 1000.0, 1000.0, 0.0]}, {"sl": 24, "id": 407, "name": "Md. Khokan Miah", "desig": "S.G", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 500.0, 500.0, 500.0, 500.0, 0.0]}, {"sl": 25, "id": 4312, "name": "Md. Jomsad Uddin", "desig": "Office Att.", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 500.0, 500.0, 500.0, 500.0, 0.0]}, {"sl": 26, "id": 5841, "name": "Mst. Shefali Begum", "desig": "Office Cleaner", "months": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 500.0, 500.0, 500.0, 500.0, 0.0]}], "otherIncome": [{"id": 1531, "date": "2026-08-01", "month": "August 2026", "category": "ইনক্রিমেন্ট", "source": "বাৎসরিক বেতন বৃদ্ধি", "desc": "ইনক্রিমেন্ট-1000", "amount": 1000.0, "autoCalc": false}, {"id": 3274, "date": "2026-08-01", "month": "August 2026", "category": "ইনক্রিমেন্ট", "source": "বাৎসরিক বেতন বৃদ্ধি", "desc": "ইনক্রিমেন্ট-1000", "amount": 1000.0, "autoCalc": false}, {"id": 5585, "date": "2026-08-01", "month": "August 2026", "category": "ইনক্রিমেন্ট", "source": "বাৎসরিক বেতন বৃদ্ধি", "desc": "ইনক্রিমেন্ট-1000", "amount": 1000.0, "autoCalc": false}, {"id": 5841, "date": "2026-08-01", "month": "August 2026", "category": "ইনক্রিমেন্ট", "source": "বাৎসরিক বেতন বৃদ্ধি", "desc": "ইনক্রিমেন্ট-1000", "amount": 1000.0, "autoCalc": false}, {"id": 3274, "date": "2026-08-08", "month": "August 2026", "category": "লিভ এনক্যাশমেন্ট", "source": "ছুটি নগদায়ন", "desc": "ছুটি নগদায়ন-2000", "amount": 2000.0, "autoCalc": false}, {"id": 3457, "date": "2026-08-08", "month": "August 2026", "category": "লিভ এনক্যাশমেন্ট", "source": "ছুটি নগদায়ন", "desc": "ছুটি নগদায়ন-2000", "amount": 2000.0, "autoCalc": false}, {"id": 3394, "date": "2026-08-08", "month": "August 2026", "category": "লিভ এনক্যাশমেন্ট", "source": "ছুটি নগদায়ন", "desc": "ছুটি নগদায়ন-2000", "amount": 2000.0, "autoCalc": false}, {"id": 93, "date": "2026-08-08", "month": "August 2026", "category": "লিভ এনক্যাশমেন্ট", "source": "ছুটি নগদায়ন", "desc": "ছুটি নগদায়ন-2000", "amount": 2000.0, "autoCalc": false}, {"id": 6275, "date": "2026-08-08", "month": "August 2026", "category": "লিভ এনক্যাশমেন্ট", "source": "ছুটি নগদায়ন", "desc": "ছুটি নগদায়ন-2000", "amount": 2000.0, "autoCalc": false}, {"id": 93, "date": "2026-09-01", "month": "September 2026", "category": "ইনক্রিমেন্ট", "source": "বাৎসরিক বেতন বৃদ্ধি", "desc": "ইনক্রিমেন্ট-1000", "amount": 1000.0, "autoCalc": false}, {"id": 3274, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 7937, "desc": 0.1, "amount": 800.0, "autoCalc": false}, {"id": 2529, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 7101, "desc": 0.1, "amount": 710.0, "autoCalc": false}, {"id": 93, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 8662, "desc": 0.1, "amount": 870.0, "autoCalc": false}, {"id": 3394, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 4138, "desc": 0.1, "amount": 420.0, "autoCalc": false}, {"id": 1496, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 28352, "desc": 0.1, "amount": 2840.0, "autoCalc": false}, {"id": 964, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 3503, "desc": 0.1, "amount": 350.0, "autoCalc": false}, {"id": 3457, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 24106, "desc": 0.1, "amount": 2415.0, "autoCalc": false}, {"id": 4402, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 6300, "desc": 0.1, "amount": 630.0, "autoCalc": false}, {"id": 5585, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 10802, "desc": 0.1, "amount": 1080.0, "autoCalc": false}, {"id": 6275, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 11303, "desc": 0.1, "amount": 1130.0, "autoCalc": false}, {"id": 6672, "date": "2026-09-09", "month": "September 2026", "category": "ইনসেন্টিভ", "source": 6295, "desc": 0.1, "amount": 630.0, "autoCalc": false}, {"id": 3394, "date": "2026-09-01", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 1496, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 2959, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 3457, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 5147, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 4402, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 5585, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 5678, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 6275, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 5953, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 6672, "date": "2026-09-09", "month": "September 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 1518, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 2757, "desc": 0.1, "amount": 275.7, "autoCalc": true}, {"id": 2959, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 3779, "desc": 0.1, "amount": 377.9, "autoCalc": true}, {"id": 3394, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 4212, "desc": 0.1, "amount": 421.2, "autoCalc": true}, {"id": 4402, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 6462, "desc": 0.1, "amount": 646.2, "autoCalc": true}, {"id": 5585, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 6482, "desc": 0.1, "amount": 648.2, "autoCalc": true}, {"id": 5953, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 11027, "desc": 0.1, "amount": 1102.7, "autoCalc": true}, {"id": 1496, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 26023, "desc": 0.1, "amount": 2602.3, "autoCalc": true}, {"id": 3457, "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": 27032, "desc": 0.1, "amount": 2703.2, "autoCalc": true}, {"id": "", "date": "2026-10-01", "month": "October 2026", "category": "ইনসেন্টিভ", "source": "", "desc": "", "amount": 0.0, "autoCalc": false}, {"id": 2959, "date": "2026-10-01", "month": "October 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 5678, "date": "2026-10-01", "month": "October 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 4402, "date": "2026-10-01", "month": "October 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 5585, "date": "2026-10-01", "month": "October 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 5953, "date": "2026-10-01", "month": "October 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 1496, "date": "2026-10-01", "month": "October 2026", "category": "লোন জরিমানা", "source": "", "desc": 2000, "amount": 2000.0, "autoCalc": false}, {"id": 964, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 0, "desc": 2000, "amount": 2000.0, "autoCalc": false}, {"id": 4892, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 3394, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 6672, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 4892, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 2, "desc": 500, "amount": 500.0, "autoCalc": false}, {"id": 3457, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 5678, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 0, "desc": 1500, "amount": 1500.0, "autoCalc": false}, {"id": 2959, "date": "2026-11-01", "month": "November 2026", "category": "লোন জরিমানা", "source": 1, "desc": 1000, "amount": 1000.0, "autoCalc": false}, {"id": 1518, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 2793, "desc": 0.1, "amount": 280.0, "autoCalc": false}, {"id": 4402, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 5964, "desc": 0.1, "amount": 600.0, "autoCalc": false}, {"id": 3394, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 3887, "desc": 0.1, "amount": 390.0, "autoCalc": false}, {"id": 6672, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 3890, "desc": 0.1, "amount": 190.0, "autoCalc": false}, {"id": 3457, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 30703, "desc": 0.1, "amount": 3070.3, "autoCalc": true}, {"id": 5953, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 11170, "desc": 0.1, "amount": 1120.0, "autoCalc": false}, {"id": 1496, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 34068, "desc": 0.1, "amount": 3410.0, "autoCalc": false}, {"id": 2959, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 3659, "desc": 0.1, "amount": 370.0, "autoCalc": false}, {"id": 5585, "date": "2026-11-01", "month": "November 2026", "category": "ইনসেন্টিভ", "source": 6692, "desc": 0.1, "amount": 670.0, "autoCalc": false}], "expenses": [{"date": "2026-09-05", "id": 46, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-05", "id": 5585, "month": "September 2026", "head": "শেয়ার", "desc": 3, "amount": 1239.0, "isShareFormula": true}, {"date": "2026-09-06", "id": 5585, "month": "September 2026", "head": "শেয়ার", "desc": 11, "amount": 4543.0, "isShareFormula": true}, {"date": "2026-09-06", "id": 2959, "month": "September 2026", "head": "শেয়ার", "desc": 5, "amount": 2065.0, "isShareFormula": true}, {"date": "2026-09-07", "id": 1338, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-07", "id": 6672, "month": "September 2026", "head": "শেয়ার", "desc": 3, "amount": 1239.0, "isShareFormula": true}, {"date": "2026-09-07", "id": 3457, "month": "September 2026", "head": "শেয়ার", "desc": 4, "amount": 1652.0, "isShareFormula": true}, {"date": "2026-09-07", "id": 5585, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-08", "id": 1496, "month": "September 2026", "head": "শেয়ার", "desc": 3, "amount": 1239.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 4402, "month": "September 2026", "head": "শেয়ার", "desc": 6, "amount": 2478.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 5678, "month": "September 2026", "head": "শেয়ার", "desc": 8, "amount": 3304.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 5585, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 1338, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 6275, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 5147, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-10", "id": 4402, "month": "September 2026", "head": "শেয়ার", "desc": 3, "amount": 1239.0, "isShareFormula": true}, {"date": "2026-09-10", "id": 964, "month": "September 2026", "head": "শেয়ার", "desc": 3, "amount": 1239.0, "isShareFormula": true}, {"date": "2026-09-14", "id": 1338, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-17", "id": 4402, "month": "September 2026", "head": "শেয়ার", "desc": 2, "amount": 826.0, "isShareFormula": true}, {"date": "2026-09-17", "id": 5147, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-21", "id": 5585, "month": "September 2026", "head": "শেয়ার", "desc": 2, "amount": 826.0, "isShareFormula": true}, {"date": "2026-09-21", "id": 3394, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-23", "id": 4892, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-27", "id": 6672, "month": "September 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-09-09", "id": 2529, "month": "September 2026", "head": "অনুষ্ঠান", "desc": "বিনিয়োগ বিতরণ উপলক্ষে স্টাফ উপহার ও উপহারসামগ্রী", "amount": 3550.0, "isShareFormula": false}, {"date": "2026-09-09", "id": 4892, "month": "September 2026", "head": "অনুষ্ঠান", "desc": "বিনিয়োগ বিতরণ উপলক্ষে স্টাফ উপহার ও উপহারসামগ্রী", "amount": 3550.0, "isShareFormula": false}, {"date": "2026-09-10", "id": 3457, "month": "September 2026", "head": "অনুষ্ঠান", "desc": "7নং ফিল্ডে গ্রাহকের বিয়ে উপলক্ষে  উপহারসামগ্রী", "amount": 6500.0, "isShareFormula": false}, {"date": "2026-10-01", "id": 46, "month": "October 2026", "head": "অনুষ্ঠান", "desc": "3 মাসের মূল্যায়ন", "amount": 19930.0, "isShareFormula": false}, {"date": "2026-10-08", "id": 5585, "month": "October 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-10-19", "id": 5585, "month": "October 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-10-19", "id": 6672, "month": "October 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-10-19", "id": 5678, "month": "October 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-10-27", "id": 46, "month": "October 2026", "head": "শেয়ার", "desc": 1, "amount": 413.0, "isShareFormula": true}, {"date": "2026-10-01", "id": 46, "month": "October 2026", "head": "অফিস খরচ", "desc": "আল মামুন ও মোঃ রবিউল ইসলাম কে ফুলের শুভেচ্ছা", "amount": 1100.0, "isShareFormula": false}, {"date": "2026-11-11", "id": 46, "month": "November 2026", "head": "অনুষ্ঠান", "desc": "মাসিক মূল্যায়ন", "amount": 7230.0, "isShareFormula": false}], "mcsp": [{"sl": 1, "id": 1500, "field": "", "name": "Md Shahidul Islam", "desig": "E.O & BM.", "hasCommFormula": false, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 2, "id": 1531, "field": "", "name": "Md Masum Belal", "desig": "A.E.O (2nd Officer)", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 3, "id": 3274, "field": "", "name": "Md. Zahidul Islam", "desig": "A.E.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 4, "id": 2529, "field": "", "name": "Md. Hafizur Rahaman", "desig": "A.E.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 5, "id": 93, "field": "", "name": "Md. Mehedi Hassan", "desig": "S.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 6, "id": 1518, "field": "", "name": "Md Tafazzal Hossain", "desig": "S.I.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": "", "totalComm": 2793.0}, {"sl": 7, "id": 753, "field": "", "name": "Mst. Shefali Begum", "desig": "Cashier", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 8, "id": 4402, "field": 1, "name": "Md. Elias", "desig": "I.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": 6, "totalComm": 5964.0}, {"sl": 9, "id": 6720, "field": 2, "name": "Sheikh Rasel Ahmmed", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 3, "totalComm": ""}, {"sl": 10, "id": 964, "field": 3, "name": "Md Golam Rabbani", "desig": "I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 0, "totalComm": ""}, {"sl": 11, "id": 3394, "field": 4, "name": "Lakhman Biswas", "desig": "S.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 2, "totalComm": 3887.0}, {"sl": 12, "id": 6672, "field": 5, "name": "Md. Aminul Islam", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 2, "totalComm": 3890.0}, {"sl": 13, "id": 4892, "field": 6, "name": "Md. Rakib Hasan", "desig": "I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 2, "totalComm": ""}, {"sl": 14, "id": 3457, "field": 7, "name": "Md. Ariful Islam", "desig": "S.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 1, "totalComm": 30703.0}, {"sl": 15, "id": 5953, "field": 8, "name": "Md. Zehadul Islam", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": 7, "totalComm": 11170.0}, {"sl": 16, "id": 1496, "field": 9, "name": "Md Delowar Hossain", "desig": "S.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 3, "totalComm": 34068.0}, {"sl": 17, "id": 5678, "field": 10, "name": "Md. Rabiul Islam", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 0, "totalComm": ""}, {"sl": 18, "id": 2959, "field": 11, "name": "Md. Zahedul Islam", "desig": "I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 1, "totalComm": 3659.0}, {"sl": 19, "id": 5585, "field": 12, "name": "Md. Almamun", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 1000.0, "totalLoan": 5, "totalComm": 6692.0}, {"sl": 20, "id": 1338, "field": 13, "name": "Boshir Ahmad", "desig": "S.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 3, "totalComm": ""}, {"sl": 21, "id": 6275, "field": 14, "name": "Md Khairul Alom Rony", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": 4, "totalComm": ""}, {"sl": 22, "id": 6944, "field": 15, "name": "Nazmul Hasan", "desig": "A.I.O", "hasCommFormula": true, "hasLoanFormula": true, "monthlySub": 1000.0, "totalLoan": "", "totalComm": ""}, {"sl": 23, "id": 5147, "field": "", "name": "Md. Rokon", "desig": "I.O", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 0.0, "totalLoan": "", "totalComm": ""}, {"sl": 24, "id": 407, "field": "", "name": "Md. Khokan Miah", "desig": "S.G", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 500.0, "totalLoan": "", "totalComm": ""}, {"sl": 25, "id": 4312, "field": "", "name": "Md. Jomsad Uddin", "desig": "Office Att.", "hasCommFormula": true, "hasLoanFormula": false, "monthlySub": 500.0, "totalLoan": "", "totalComm": ""}, {"sl": 26, "id": 5841, "field": "", "name": "Mst. Shefali Begum", "desig": "Office Cleaner", "hasCommFormula": false, "hasLoanFormula": false, "monthlySub": 500.0, "totalLoan": "", "totalComm": ""}], "postLog": []};
 
 let state = loadState();
 let isEditMode = false;
@@ -5808,7 +6301,7 @@ function renderDashboard(m) {
     ['শেয়ার', m.expByHead['শেয়ার'] || 0],
     ['অফিস ও বিবিধ খরচ (Office & Misc)', m.expByHead['অফিস খরচ'] || 0],
     ['যাতায়াত ও পরিবহন (Conveyance)', m.expByHead['যাতায়াত'] || 0],
-    ['অনান্য', m.expByHead['অনান্য'] || 0],
+    ['অন্যান্য', m.expByHead['অন্যান্য'] || 0],
     ['চিকিৎসা', m.expByHead['চিকিৎসা'] || 0]
   ];
   Object.keys(m.expByHead).forEach(k => {
@@ -7470,7 +7963,104 @@ function closeSaveCompleteModal() {
   }, { passive: false });
 })();
 
+
+// ===== Day / Night Mode & 18 App Themes Engine =====
+const MODE_STORAGE_KEY = 'staff_fund_2026_night_mode';
+const THEME_STORAGE_KEY = 'staff_fund_2026_theme_id';
+
+const APP_THEMES = [
+  { id: 'ocean',     name: '1. Ocean Teal',      primary: '#0f4c5c', dark: '#09323d', light: '#e6f2f5', accent: '#1b8a6b', accentHover: '#146c53', headerAccent: '#0ea5e9', topbar: 'linear-gradient(125deg, #0b3954 0%, #0f4c5c 45%, #1b8a6b 100%)', th: 'linear-gradient(180deg, #1e293b 0%, #0f172a 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #f0fdfa 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)' },
+  { id: 'royal',     name: '2. Royal Blue',      primary: '#1d4ed8', dark: '#1e3a8a', light: '#dbeafe', accent: '#2563eb', accentHover: '#1d4ed8', headerAccent: '#3b82f6', topbar: 'linear-gradient(125deg, #1e3a8a 0%, #1d4ed8 55%, #3b82f6 100%)', th: 'linear-gradient(180deg, #1e3a8a 0%, #172554 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #eff6ff 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #eff6ff 100%)' },
+  { id: 'emerald',   name: '3. Emerald Forest',  primary: '#047857', dark: '#064e3b', light: '#d1fae5', accent: '#10b981', accentHover: '#059669', headerAccent: '#10b981', topbar: 'linear-gradient(125deg, #064e3b 0%, #047857 50%, #10b981 100%)', th: 'linear-gradient(180deg, #065f46 0%, #022c22 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #ecfdf5 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%)' },
+  { id: 'sunset',    name: '4. Sunset Orange',   primary: '#c2410c', dark: '#7c2d12', light: '#ffedd5', accent: '#ea580c', accentHover: '#c2410c', headerAccent: '#f97316', topbar: 'linear-gradient(125deg, #7c2d12 0%, #c2410c 50%, #f97316 100%)', th: 'linear-gradient(180deg, #9a3412 0%, #431407 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #fff7ed 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #fff7ed 100%)' },
+  { id: 'crimson',   name: '5. Crimson Ruby',    primary: '#be123c', dark: '#881337', light: '#ffe4e6', accent: '#e11d48', accentHover: '#be123c', headerAccent: '#f43f5e', topbar: 'linear-gradient(125deg, #881337 0%, #be123c 50%, #f43f5e 100%)', th: 'linear-gradient(180deg, #9f1239 0%, #4c0519 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #fff1f2 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #fff1f2 100%)' },
+  { id: 'purple',    name: '6. Purple Majesty',  primary: '#6d28d9', dark: '#4c1d95', light: '#ede9fe', accent: '#8b5cf6', accentHover: '#7c3aed', headerAccent: '#8b5cf6', topbar: 'linear-gradient(125deg, #4c1d95 0%, #6d28d9 50%, #8b5cf6 100%)', th: 'linear-gradient(180deg, #5b21b6 0%, #2e1065 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #f5f3ff 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%)' },
+  { id: 'indigo',    name: '7. Indigo Skyline',  primary: '#3730a3', dark: '#1e1b4b', light: '#e0e7ff', accent: '#4f46e5', accentHover: '#4338ca', headerAccent: '#6366f1', topbar: 'linear-gradient(125deg, #1e1b4b 0%, #3730a3 50%, #6366f1 100%)', th: 'linear-gradient(180deg, #312e81 0%, #1e1b4b 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #eef2ff 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #eef2ff 100%)' },
+  { id: 'rose',      name: '8. Rose Pink',       primary: '#be185d', dark: '#831843', light: '#fce7f3', accent: '#db2777', accentHover: '#be185d', headerAccent: '#ec4899', topbar: 'linear-gradient(125deg, #831843 0%, #be185d 50%, #ec4899 100%)', th: 'linear-gradient(180deg, #9d174d 0%, #500724 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #fdf2f8 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%)' },
+  { id: 'amber',     name: '9. Golden Amber',    primary: '#b45309', dark: '#78350f', light: '#fef3c7', accent: '#d97706', accentHover: '#b45309', headerAccent: '#f59e0b', topbar: 'linear-gradient(125deg, #78350f 0%, #b45309 50%, #f59e0b 100%)', th: 'linear-gradient(180deg, #92400e 0%, #451a03 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #fffbeb 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #fffbeb 100%)' },
+  { id: 'cyan',      name: '10. Arctic Cyan',    primary: '#0e7490', dark: '#164e63', light: '#cffafe', accent: '#06b6d4', accentHover: '#0891b2', headerAccent: '#06b6d4', topbar: 'linear-gradient(125deg, #164e63 0%, #0e7490 50%, #06b6d4 100%)', th: 'linear-gradient(180deg, #155e75 0%, #083344 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #ecfeff 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #ecfeff 100%)' },
+  { id: 'slate',     name: '11. Slate Executive',primary: '#334155', dark: '#0f172a', light: '#e2e8f0', accent: '#475569', accentHover: '#334155', headerAccent: '#64748b', topbar: 'linear-gradient(125deg, #0f172a 0%, #334155 55%, #475569 100%)', th: 'linear-gradient(180deg, #334155 0%, #0f172a 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #f8fafc 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)' },
+  { id: 'coral',     name: '12. Coral Reef',     primary: '#dc2626', dark: '#7f1d1d', light: '#fee2e2', accent: '#f97316', accentHover: '#ea580c', headerAccent: '#ef4444', topbar: 'linear-gradient(125deg, #991b1b 0%, #dc2626 50%, #f97316 100%)', th: 'linear-gradient(180deg, #991b1b 0%, #450a0a 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #fef2f2 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #fef2f2 100%)' },
+  { id: 'lime',      name: '13. Olive Leaf',     primary: '#4d7c0f', dark: '#365314', light: '#ecfccb', accent: '#65a30d', accentHover: '#4d7c0f', headerAccent: '#84cc16', topbar: 'linear-gradient(125deg, #365314 0%, #4d7c0f 50%, #84cc16 100%)', th: 'linear-gradient(180deg, #3f6212 0%, #1a2e05 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #f7fee7 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #f7fee7 100%)' },
+  { id: 'berry',     name: '14. Berry Wine',     primary: '#86198f', dark: '#4a044e', light: '#fae8ff', accent: '#c026d3', accentHover: '#a21caf', headerAccent: '#d946ef', topbar: 'linear-gradient(125deg, #4a044e 0%, #86198f 50%, #c026d3 100%)', th: 'linear-gradient(180deg, #701a75 0%, #4a044e 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #fdf4ff 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #fdf4ff 100%)' },
+  { id: 'sky',       name: '15. Sky Breeze',     primary: '#0369a1', dark: '#0c4a6e', light: '#e0f2fe', accent: '#0ea5e9', accentHover: '#0284c7', headerAccent: '#38bdf8', topbar: 'linear-gradient(125deg, #0c4a6e 0%, #0369a1 50%, #0ea5e9 100%)', th: 'linear-gradient(180deg, #075985 0%, #082f49 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #f0f9ff 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)' },
+  { id: 'teal',      name: '16. Turquoise Wave', primary: '#0f766e', dark: '#134e4a', light: '#ccfbf1', accent: '#14b8a6', accentHover: '#0d9488', headerAccent: '#14b8a6', topbar: 'linear-gradient(125deg, #134e4a 0%, #0f766e 50%, #14b8a6 100%)', th: 'linear-gradient(180deg, #115e59 0%, #042f2e 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #f0fdfa 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%)' },
+  { id: 'copper',    name: '17. Copper Bronze',  primary: '#92400e', dark: '#451a03', light: '#fef3c7', accent: '#b45309', accentHover: '#92400e', headerAccent: '#d97706', topbar: 'linear-gradient(125deg, #451a03 0%, #78350f 50%, #b45309 100%)', th: 'linear-gradient(180deg, #78350f 0%, #451a03 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #fffbeb 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #fffbeb 100%)' },
+  { id: 'aurora',    name: '18. Aurora Gradient',primary: '#4338ca', dark: '#1e1b4b', light: '#e0e7ff', accent: '#0d9488', accentHover: '#0f766e', headerAccent: '#8b5cf6', topbar: 'linear-gradient(125deg, #1e1b4b 0%, #6d28d9 48%, #0d9488 100%)', th: 'linear-gradient(180deg, #312e81 0%, #0f172a 100%)', nav: 'linear-gradient(90deg, #ffffff 0%, #f5f3ff 100%)', hdr: 'linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%)' }
+];
+
+let currentThemeId = 'ocean';
+let isNightMode = false;
+
+function applyDayNightMode(night) {
+  isNightMode = !!night;
+  document.body.classList.toggle('night-mode', isNightMode);
+  const lbl = document.getElementById('dayNightLabel');
+  const bdg = document.getElementById('dayNightBadge');
+  if (lbl) lbl.textContent = isNightMode ? '☀️ Day Mode চালু করুন' : '🌙 Night Mode চালু করুন';
+  if (bdg) bdg.textContent = isNightMode ? 'Night 🌙' : 'Day ☀️';
+  try { localStorage.setItem(MODE_STORAGE_KEY, isNightMode ? '1' : '0'); } catch (e) {}
+}
+function toggleDayNightMode() {
+  applyDayNightMode(!isNightMode);
+}
+
+function applyAppTheme(themeId, savePref) {
+  const t = APP_THEMES.find(x => x.id === themeId) || APP_THEMES[0];
+  currentThemeId = t.id;
+  const root = document.documentElement;
+  root.style.setProperty('--primary', t.primary);
+  root.style.setProperty('--primary-dark', t.dark);
+  root.style.setProperty('--primary-light', t.light);
+  root.style.setProperty('--accent', t.accent);
+  root.style.setProperty('--accent-hover', t.accentHover);
+  root.style.setProperty('--header-accent', t.headerAccent);
+  root.style.setProperty('--topbar-grad', t.topbar);
+  root.style.setProperty('--drawer-grad', t.topbar);
+  root.style.setProperty('--th-grad', t.th);
+  root.style.setProperty('--nav-grad', t.nav);
+  root.style.setProperty('--header-grad', t.hdr);
+  if (savePref) {
+    try { localStorage.setItem(THEME_STORAGE_KEY, t.id); } catch (e) {}
+  }
+  renderThemeGrid();
+}
+
+function renderThemeGrid() {
+  const grid = document.getElementById('themeGrid');
+  if (!grid) return;
+  grid.innerHTML = APP_THEMES.map(t => `
+    <div class="theme-card${t.id === currentThemeId ? ' active' : ''}" onclick="applyAppTheme('${t.id}', true)">
+      <div class="theme-swatch" style="background:${t.topbar};"></div>
+      <div class="theme-name">
+        <span>${t.name}</span>
+        <span>${t.id === currentThemeId ? '✅' : ''}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openThemeModal() {
+  renderThemeGrid();
+  document.getElementById('themeModal').classList.add('open');
+}
+function closeThemeModal() {
+  document.getElementById('themeModal').classList.remove('open');
+}
+
+function initAppearance() {
+  let savedNight = false;
+  let savedTheme = 'ocean';
+  try {
+    savedNight = localStorage.getItem(MODE_STORAGE_KEY) === '1';
+    savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || 'ocean';
+  } catch (e) {}
+  applyAppTheme(savedTheme, false);
+  applyDayNightMode(savedNight);
+}
+
 // Init
+initAppearance();
 updateEditBtn();
 populateDropdowns();
 initDataEntryForm();
