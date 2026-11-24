@@ -1748,13 +1748,33 @@
     body:not(.night-mode) .kpi-card,
     body:not(.night-mode) .kpi-card.green,
     body:not(.night-mode) .kpi-card.red,
-    body:not(.night-mode) .kpi-card.amber {
+    body:not(.night-mode) .kpi-card.amber,
+    body.night-mode .kpi-card,
+    body.night-mode .kpi-card.green,
+    body.night-mode .kpi-card.red,
+    body.night-mode .kpi-card.amber {
       background: #ffffff !important;
       color: #000000 !important;
+      border: 1px solid #94a3b8 !important;
     }
     body:not(.night-mode) .kpi-card .kpi-label,
-    body:not(.night-mode) .kpi-card .kpi-value {
+    body:not(.night-mode) .kpi-card.green .kpi-label,
+    body:not(.night-mode) .kpi-card.red .kpi-label,
+    body:not(.night-mode) .kpi-card.amber .kpi-label,
+    body:not(.night-mode) .kpi-card .kpi-value,
+    body:not(.night-mode) .kpi-card.green .kpi-value,
+    body:not(.night-mode) .kpi-card.red .kpi-value,
+    body:not(.night-mode) .kpi-card.amber .kpi-value,
+    body.night-mode .kpi-card .kpi-label,
+    body.night-mode .kpi-card.green .kpi-label,
+    body.night-mode .kpi-card.red .kpi-label,
+    body.night-mode .kpi-card.amber .kpi-label,
+    body.night-mode .kpi-card .kpi-value,
+    body.night-mode .kpi-card.green .kpi-value,
+    body.night-mode .kpi-card.red .kpi-value,
+    body.night-mode .kpi-card.amber .kpi-value {
       color: #000000 !important;
+      -webkit-text-fill-color: #000000 !important;
       text-shadow: none !important;
     }
   }
@@ -1861,7 +1881,85 @@
     color: #f8fafc !important;
   }
 </style>
-<style id="gemini-live-style"></style>
+<style id="gemini-live-style">@media print {
+  #sheet-staffStmt .kpi-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+    margin-bottom: 20px !important;
+  }
+  #sheet-staffStmt .kpi-card {
+    display: block !important;
+    background-color: #f8f9fa !important;
+    border: 1px solid #ddd !important;
+    padding: 10px !important;
+    text-align: center !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  #sheet-staffStmt .kpi-card .card-value {
+    color: #000 !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    display: block !important;
+  }
+  #sheet-staffStmt .kpi-card .card-label {
+    color: #444 !important;
+    font-size: 12px !important;
+    display: block !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .kpi-card, .card {
+    background-color: #f8f9fa !important;
+    border: 1px solid #ccc !important;
+    color: #000 !important;
+    margin-bottom: 10px !important;
+    page-break-inside: avoid !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .kpi-card.green { background-color: #d4edda !important; border-left: 5px solid #28a745 !important; }
+  .kpi-card.red { background-color: #f8d7da !important; border-left: 5px solid #dc3545 !important; }
+  .kpi-card.amber { background-color: #fff3cd !important; border-left: 5px solid #ffc107 !important; }
+  .topbar, .sheet-nav-bar, .topbar-actions, .hamburger-btn, button, .no-print, #topRefreshBtn {
+    display: none !important;
+  }
+  .sheet-content {
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+  .sheet-header {
+    margin-bottom: 20px !important;
+  }
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+  th, td {
+    border: 1px solid #000 !important;
+    padding: 6px !important;
+    color: #000 !important;
+  }
+  .card-title, .kpi-title {
+    color: #000 !important;
+    font-weight: bold !important;
+  }
+}</style>
 </head>
 <body class="">
 
@@ -1913,7 +2011,7 @@
         <span class="app-config-arrow" id="appConfigArrow">▾</span>
       </button>
       <div class="app-config-panel" id="appConfigPanel">
-        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Saved (2/2 Drive) • 03:35 PM</button>
+        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 06:53 PM</button>
         <button class="btn btn-light cfg-c1" onclick="syncFromCloud(true)" title="গুগল ড্রাইভ থেকে সর্বশেষ ডাটা লোড করুন">🔄 Sync Now</button>
         <button id="editModeBtn" class="btn btn-warning cfg-c2" onclick="closeSheetDrawer(); toggleEditModal();">🔒 Read-Only (Unlock Edit)</button>
         <button class="btn btn-light cfg-c3" onclick="closeSheetDrawer(); openChangePwdModal();">🔑 Change Password</button>
@@ -1952,7 +2050,7 @@
 <div class="main">
   <div class="print-header" id="printHeader">
     <h1 id="printMainTitle">DMCB ভৈরব বাজার শাখার স্টাফ ফান্ড (Staff Fund 2026)</h1>
-    <div class="print-sub" id="printSheetMeta">Dashboard &amp; Summary • প্রিন্ট তারিখ: 24 Nov 2026, 15:36</div>
+    <div class="print-sub" id="printSheetMeta">Dashboard &amp; Summary • প্রিন্ট তারিখ: 24 Nov 2026, 18:56</div>
   </div>
 
   <!-- 1. DASHBOARD & SUMMARY -->
