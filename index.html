@@ -3,6 +3,7 @@
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/rabiul24online/staff-fund-2026/main/image_b2b18c77_11zon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" id="colorSchemeMeta" content="light">
 <title>স্টাফ ফান্ড হিসাব বিবরণী - ২০২৬ (Staff Fund 2026)</title>
 <style>
   :root {
@@ -1590,13 +1591,86 @@
     }
   }
 
+
+  /* ===== Day Mode Theme Color & Anti-AutoDark Fix ===== */
+  :root {
+    color-scheme: light only;
+  }
+  body:not(.night-mode) {
+    color-scheme: light only;
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+  }
+  body:not(.night-mode) .topbar {
+    background: var(--topbar-grad) !important;
+    color: #ffffff !important;
+  }
+  body:not(.night-mode) .sheet-nav-bar {
+    background: var(--nav-grad) !important;
+    border-bottom-color: var(--border) !important;
+  }
+  body:not(.night-mode) .active-sheet-indicator {
+    color: var(--primary-dark) !important;
+  }
+  body:not(.night-mode) .sheet-header {
+    background: var(--header-grad) !important;
+    border-left: 5px solid var(--header-accent) !important;
+  }
+  body:not(.night-mode) .sheet-header h2,
+  body:not(.night-mode) .card-title,
+  body:not(.night-mode) .form-group label,
+  body:not(.night-mode) .modal h3 {
+    color: var(--primary-dark) !important;
+  }
+  body:not(.night-mode) .card-title {
+    border-bottom-color: var(--primary-light) !important;
+  }
+  body:not(.night-mode) .kpi-card {
+    background: linear-gradient(160deg, #ffffff 0%, var(--primary-light) 100%) !important;
+    border-top: 4px solid var(--primary) !important;
+  }
+  body:not(.night-mode) .kpi-card.green {
+    background: linear-gradient(160deg, #ffffff 0%, #ecfdf5 100%) !important;
+    border-top: 4px solid #10b981 !important;
+  }
+  body:not(.night-mode) .kpi-card.red {
+    background: linear-gradient(160deg, #ffffff 0%, #fef2f2 100%) !important;
+    border-top: 4px solid #ef4444 !important;
+  }
+  body:not(.night-mode) .kpi-card.amber {
+    background: linear-gradient(160deg, #ffffff 0%, #fffbeb 100%) !important;
+    border-top: 4px solid #f59e0b !important;
+  }
+  body:not(.night-mode) th {
+    background: var(--th-grad) !important;
+    color: #ffffff !important;
+  }
+  body:not(.night-mode) tbody tr:hover {
+    background: var(--primary-light) !important;
+  }
+  body:not(.night-mode) tfoot tr,
+  body:not(.night-mode) tr.total-row {
+    background: var(--primary-light) !important;
+    color: var(--primary-dark) !important;
+  }
+  body:not(.night-mode) tfoot td,
+  body:not(.night-mode) tr.total-row td {
+    border-top: 2px solid var(--primary) !important;
+  }
+  body:not(.night-mode) .drawer-contact-card {
+    background: linear-gradient(145deg, var(--primary-light) 0%, #ffffff 100%) !important;
+    border-color: var(--primary) !important;
+  }
+  body:not(.night-mode) .drawer-contact-title {
+    color: var(--primary-dark) !important;
+  }
 </style>
 </head>
-<body class="night-mode">
+<body class="">
 
 <div class="topbar">
   <div class="topbar-title">
-    <h1><span id="txt-mainTitle">DMCB ভৈরব বাজার শাখার কর্মকর্তা-কর্মচারী ফান্ড হিসাব বিবরণী - ২০২৬ (Staff Fund 2026)</span><button class="inline-edit-icon edit-only no-print" onclick="editCustomText('mainTitle', 'প্রধান শিরোনাম')" title="শিরোনাম এডিট করুন">✏️</button></h1>
+    <h1><span id="txt-mainTitle">DMCB ভৈরব বাজার শাখার স্টাফ ফান্ড (Staff Fund 2026)</span><button class="inline-edit-icon edit-only no-print" onclick="editCustomText('mainTitle', 'প্রধান শিরোনাম')" title="শিরোনাম এডিট করুন">✏️</button></h1>
   </div>
   <div class="topbar-actions">
     <button class="btn btn-light" id="topRefreshBtn" onclick="refreshAppData(this)" title="সর্বশেষ আপডেট তথ্য লোড করুন">🔄 Refresh</button>
@@ -1609,7 +1683,7 @@
     <span class="hamburger-icon"><span></span><span></span><span></span></span>
     <span>শিট মেনু</span>
   </button>
-  <div class="active-sheet-indicator" id="activeSheetLabel">Fund Balance &amp; Monthly Ledger</div>
+  <div class="active-sheet-indicator" id="activeSheetLabel">Dashboard &amp; Summary</div>
 </div>
 
 <div class="sheet-drawer-backdrop no-print" id="sheetDrawerBackdrop" onclick="closeSheetDrawer()"></div>
@@ -1619,9 +1693,9 @@
     <button class="drawer-close-btn" onclick="closeSheetDrawer()" aria-label="Close Menu">✕</button>
   </div>
   <div class="sheet-drawer-list" id="tabsBar">
-    <button class="tab-btn tab-c1" onclick="switchTab('dashboard', this)">📊 Dashboard &amp; Summary</button>
+    <button class="tab-btn tab-c1 active" onclick="switchTab('dashboard', this)">📊 Dashboard &amp; Summary</button>
     <button class="tab-btn tab-c2" onclick="switchTab('dataEntry', this)">📝 Data Entry</button>
-    <button class="tab-btn tab-c3 active" onclick="switchTab('fundLedger', this)">📒 Fund Balance &amp; Monthly Ledger</button>
+    <button class="tab-btn tab-c3" onclick="switchTab('fundLedger', this)">📒 Fund Balance &amp; Monthly Ledger</button>
     <button class="tab-btn tab-c4" onclick="switchTab('staffDir', this)">👥 Staff Search &amp; Directory</button>
     <button class="tab-btn tab-c5" onclick="switchTab('staffStmt', this)">📄 Staff Statement</button>
     <button class="tab-btn tab-c6" onclick="switchTab('monthlySub', this)">💳 Monthly Subscription</button>
@@ -1631,8 +1705,8 @@
 
     <div class="mode-switch-section">
       <button class="mode-toggle-btn" id="dayNightToggleBtn" onclick="toggleDayNightMode()">
-        <span id="dayNightLabel">☀️ Day Mode চালু করুন</span>
-        <span id="dayNightBadge">Night 🌙</span>
+        <span id="dayNightLabel">🌙 Night Mode চালু করুন</span>
+        <span id="dayNightBadge">Day ☀️</span>
       </button>
     </div>
 
@@ -1642,7 +1716,7 @@
         <span class="app-config-arrow" id="appConfigArrow">▾</span>
       </button>
       <div class="app-config-panel" id="appConfigPanel">
-        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 01:54 AM</button>
+        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 01:49 PM</button>
         <button class="btn btn-light cfg-c1" onclick="syncFromCloud(true)" title="গুগল ড্রাইভ থেকে সর্বশেষ ডাটা লোড করুন">🔄 Sync Now</button>
         <button id="editModeBtn" class="btn btn-warning cfg-c2" onclick="closeSheetDrawer(); toggleEditModal();">🔒 Read-Only (Unlock Edit)</button>
         <button class="btn btn-light cfg-c3" onclick="closeSheetDrawer(); openChangePwdModal();">🔑 Change Password</button>
@@ -1679,12 +1753,12 @@
 
 <div class="main">
   <div class="print-header" id="printHeader">
-    <h1 id="printMainTitle">DMCB ভৈরব বাজার শাখার কর্মকর্তা-কর্মচারী ফান্ড হিসাব বিবরণী - ২০২৬ (Staff Fund 2026)</h1>
-    <div class="print-sub" id="printSheetMeta">Fund Balance &amp; Monthly Ledger • প্রিন্ট তারিখ: 24 Nov 2026, 01:55</div>
+    <h1 id="printMainTitle">DMCB ভৈরব বাজার শাখার স্টাফ ফান্ড (Staff Fund 2026)</h1>
+    <div class="print-sub" id="printSheetMeta">Dashboard &amp; Summary • প্রিন্ট তারিখ: 24 Nov 2026, 13:50</div>
   </div>
 
   <!-- 1. DASHBOARD & SUMMARY -->
-  <section id="sheet-dashboard" class="sheet">
+  <section id="sheet-dashboard" class="sheet active">
     <div class="sheet-header">
       <h2><span id="txt-dashTitle">কর্মকর্তা-কর্মচারী ফান্ড হিসাব বিবরণী - ২০২৬ (Staff Fund Account Statement 2026)</span><button class="inline-edit-icon edit-only no-print" onclick="editCustomText('dashTitle', 'ড্যাশবোর্ড শিরোনাম')">✏️</button></h2>
       <p><span id="txt-dashSub">মাসিক চাঁদা, ইনসেন্টিভ, কমিশন, লিভ এনক্যাশমেন্ট ও ফান্ড খরচের সার্বিক পর্যালোচনা</span><button class="inline-edit-icon edit-only no-print" onclick="editCustomText('dashSub', 'ড্যাশবোর্ড সাবটাইটেল')">✏️</button></p>
@@ -2002,7 +2076,7 @@
   </section>
 
   <!-- 3. FUND BALANCE & MONTHLY LEDGER -->
-  <section id="sheet-fundLedger" class="sheet active">
+  <section id="sheet-fundLedger" class="sheet">
     <div class="sheet-header">
       <h2><span id="txt-ledgerTitle">স্টাফ ফান্ড — মোট ব্যালেন্স ও মাসভিত্তিক হিসাব (2026)</span><button class="inline-edit-icon edit-only no-print" onclick="editCustomText('ledgerTitle', 'লেজার শিরোনাম')">✏️</button></h2>
       <p>প্রতি মাসে কত টাকা জমা/উঠেছে, কত খরচ হয়েছে, আগের স্থিতি ও মাস শেষে মোট ব্যালেন্স • তারিখ: <strong id="ledger-today">24 Nov 2026</strong></p>
@@ -4955,7 +5029,7 @@ function doPost(e) {
       </div>
     </div>
 
-    <div id="cloudModalMsg" class="status-banner show ok" style="margin-bottom:10px;">✓ index.html ডাউনলোড হয়েছে! এই ফাইলটি ফোন বা পিসি যেখান থেকেই ওপেন করবেন, অটো ড্রাইভ থেকে ডাটা লোড ও সেভ হবে।</div>
+    <div id="cloudModalMsg" class="status-banner" style="margin-bottom:10px;">✓ index.html ডাউনলোড হয়েছে! এই ফাইলটি ফোন বা পিসি যেখান থেকেই ওপেন করবেন, অটো ড্রাইভ থেকে ডাটা লোড ও সেভ হবে।</div>
 
     <div class="modal-actions" style="flex-wrap:wrap;">
       <button class="btn btn-outline" onclick="closeCloudModal()">বন্ধ করুন</button>
@@ -7755,16 +7829,22 @@ function downloadConfiguredHtml() {
   EMBEDDED_CLOUD_CONFIG.drive1Url = u1;
   EMBEDDED_CLOUD_CONFIG.drive2Url = u2;
 
-  // Temporarily close modal & reset dynamic inputs so downloaded HTML opens cleanly
+  // Temporarily close modal & reset to Dashboard + clean state so downloaded HTML opens cleanly
   closeCloudModal();
   const prevEdit = isEditMode;
-  if (prevEdit) { isEditMode = false; updateEditBtn(); renderAll(); }
+  const prevSheet = currentSheetId;
+  const prevNight = isNightMode;
+  if (prevEdit) { isEditMode = false; updateEditBtn(); }
+  if (prevNight) { applyDayNightMode(false); }
+  switchTabByName('dashboard');
   closeSheetDrawer();
   let fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
   fullHtml = fullHtml.replace(/<html\b[^>]*>/i, '<html lang="bn">');
   fullHtml = fullHtml.replace(/<style[^>]*darkreader[^>]*>[\s\S]*?<\/style>/gi, '');
   fullHtml = fullHtml.replace(/<meta[^>]*darkreader[^>]*>/gi, '');
   fullHtml = fullHtml.replace(/\sdata-darkreader-[a-z0-9-]+="[^"]*"/gi, '');
+  if (prevNight) { applyDayNightMode(true); }
+  if (prevSheet && prevSheet !== 'dashboard') { switchTabByName(prevSheet); }
   if (prevEdit) { isEditMode = true; updateEditBtn(); renderAll(); }
   document.getElementById('cloudModal').classList.add('open');
 
@@ -7995,6 +8075,9 @@ let isNightMode = false;
 function applyDayNightMode(night) {
   isNightMode = !!night;
   document.body.classList.toggle('night-mode', isNightMode);
+  const meta = document.getElementById('colorSchemeMeta');
+  if (meta) meta.setAttribute('content', isNightMode ? 'dark' : 'light');
+  document.documentElement.style.colorScheme = isNightMode ? 'dark' : 'light only';
   const lbl = document.getElementById('dayNightLabel');
   const bdg = document.getElementById('dayNightBadge');
   if (lbl) lbl.textContent = isNightMode ? '☀️ Day Mode চালু করুন' : '🌙 Night Mode চালু করুন';
@@ -8064,7 +8147,7 @@ initAppearance();
 updateEditBtn();
 populateDropdowns();
 initDataEntryForm();
-renderAll();
+switchTabByName('dashboard');
 syncFromCloud(false);
 </script>
 
