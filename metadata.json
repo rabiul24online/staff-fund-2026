@@ -1,0 +1,8 @@
+{
+  "name": "Staff Fund 2026",
+  "description": "DMCB Bhairab Bazar Staff Fund 2026 accounting app with monthly ledger, data entry, staff statements, MCSP calculator, 18 themes, and Google Drive dual-sync.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
