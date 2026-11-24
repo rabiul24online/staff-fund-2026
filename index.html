@@ -778,6 +778,33 @@
   .readonly-only-block { display: block; }
   body.edit-mode .readonly-only-block { display: none !important; }
 
+  /* Granular Sheet/Option Access Control in Edit Mode */
+  body.edit-mode:not(.master-edit-mode) .inline-edit-icon,
+  body.edit-mode:not(.master-edit-mode) #sheet-dashboard .edit-only-cell,
+  body.edit-mode:not(.master-edit-mode) #sheet-dashboard .sheet-save-bar,
+  body.edit-mode:not(.master-edit-mode) #sheet-fundLedger .edit-only-cell,
+  body.edit-mode:not(.master-edit-mode) #sheet-fundLedger .sheet-save-bar,
+  body.edit-mode:not(.master-edit-mode) #sheet-staffStmt .sheet-save-bar,
+  body.edit-mode:not(.perm-dataEntry) #sheet-dataEntry .edit-only-cell,
+  body.edit-mode:not(.perm-dataEntry) #sheet-dataEntry .sheet-save-bar,
+  body.edit-mode:not(.perm-staffEdit) #sheet-staffDir .edit-only,
+  body.edit-mode:not(.perm-staffEdit) #sheet-staffDir .sheet-save-bar,
+  body.edit-mode:not(.perm-monthlySub) #sheet-monthlySub .edit-only,
+  body.edit-mode:not(.perm-monthlySub) #sheet-monthlySub .sheet-save-bar,
+  body.edit-mode:not(.perm-otherInc) #sheet-otherInc .edit-only,
+  body.edit-mode:not(.perm-otherInc) #sheet-otherInc .edit-only-cell,
+  body.edit-mode:not(.perm-otherInc) #sheet-otherInc .sheet-save-bar,
+  body.edit-mode:not(.perm-otherInc) #stmt-oi-table .edit-only-cell,
+  body.edit-mode:not(.perm-expenseReg) #sheet-expenseReg .edit-only,
+  body.edit-mode:not(.perm-expenseReg) #sheet-expenseReg .edit-only-cell,
+  body.edit-mode:not(.perm-expenseReg) #sheet-expenseReg .sheet-save-bar,
+  body.edit-mode:not(.perm-expenseReg) #stmt-exp-table .edit-only-cell,
+  body.edit-mode:not(.perm-mcspPost) #sheet-mcsp .edit-only,
+  body.edit-mode:not(.perm-mcspPost) #sheet-mcsp .edit-only-cell,
+  body.edit-mode:not(.perm-mcspPost) #sheet-mcsp .sheet-save-bar {
+    display: none !important;
+  }
+
   .inline-edit-icon {
     background: rgba(245, 158, 11, 0.16);
     color: #b45309;
@@ -1836,7 +1863,7 @@
 </style>
 <style id="gemini-live-style"></style>
 </head>
-<body>
+<body class="">
 
 <div class="topbar">
   <div class="topbar-title">
@@ -1886,7 +1913,7 @@
         <span class="app-config-arrow" id="appConfigArrow">▾</span>
       </button>
       <div class="app-config-panel" id="appConfigPanel">
-        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 02:33 PM</button>
+        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Saved (2/2 Drive) • 03:35 PM</button>
         <button class="btn btn-light cfg-c1" onclick="syncFromCloud(true)" title="গুগল ড্রাইভ থেকে সর্বশেষ ডাটা লোড করুন">🔄 Sync Now</button>
         <button id="editModeBtn" class="btn btn-warning cfg-c2" onclick="closeSheetDrawer(); toggleEditModal();">🔒 Read-Only (Unlock Edit)</button>
         <button class="btn btn-light cfg-c3" onclick="closeSheetDrawer(); openChangePwdModal();">🔑 Change Password</button>
@@ -1925,7 +1952,7 @@
 <div class="main">
   <div class="print-header" id="printHeader">
     <h1 id="printMainTitle">DMCB ভৈরব বাজার শাখার স্টাফ ফান্ড (Staff Fund 2026)</h1>
-    <div class="print-sub" id="printSheetMeta">Dashboard &amp; Summary • প্রিন্ট তারিখ: 24 Nov 2026, 14:46</div>
+    <div class="print-sub" id="printSheetMeta">Dashboard &amp; Summary • প্রিন্ট তারিখ: 24 Nov 2026, 15:36</div>
   </div>
 
   <!-- 1. DASHBOARD & SUMMARY -->
@@ -4586,7 +4613,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('1500')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(0)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4605,7 +4632,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('1531')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(1)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4624,7 +4651,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('3274')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(2)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4643,7 +4670,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('2529')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(3)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4662,7 +4689,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('93')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(4)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4681,7 +4708,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('1518')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(5)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4700,7 +4727,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('753')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(6)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4719,7 +4746,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('4402')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(7)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4738,7 +4765,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('6720')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(8)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4757,7 +4784,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('964')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(9)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4776,7 +4803,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('3394')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(10)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4795,7 +4822,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('6672')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(11)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4814,7 +4841,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('4892')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(12)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4833,7 +4860,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('3457')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(13)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4852,7 +4879,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('5953')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(14)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4871,7 +4898,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('1496')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(15)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4890,7 +4917,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('5678')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(16)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4909,7 +4936,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('2959')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(17)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4928,7 +4955,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('5585')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(18)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4947,7 +4974,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('1338')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(19)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4966,7 +4993,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('6275')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(20)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -4985,7 +5012,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('6944')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(21)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -5004,7 +5031,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('407')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(23)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -5023,7 +5050,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('4312')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(24)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -5042,7 +5069,7 @@
         <td class="center"></td>
         <td class="num"></td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('5841')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(25)" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -5344,7 +5371,7 @@ function doPost(e) {
     <div class="ac-section">
       <div class="ac-section-title">
         <span>২. আলাদা পাসওয়ার্ড যোগ / এডিট করুন (সর্বোচ্চ ১০টি)</span>
-        <span id="ac-slot-count" class="badge badge-good">0 / 10</span>
+        <span id="ac-slot-count" class="badge badge-good">2 / 10</span>
       </div>
       <input type="hidden" id="ac-edit-idx" value="-1">
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
@@ -5360,26 +5387,51 @@ function doPost(e) {
       <div style="font-size:12px;font-weight:700;color:var(--primary-dark);margin-top:4px;">এই পাসওয়ার্ড দিয়ে কী কী কাজ করতে পারবে (সিলেক্ট করুন):</div>
       <div class="ac-perm-grid">
         <label class="ac-perm-label"><input type="checkbox" id="ac-p-appConfig"> ⚙️ App Configure</label>
-        <label class="ac-perm-label"><input type="checkbox" id="ac-p-editMode"> ✏️ Edit Mode (সকল শিট)</label>
+        <label class="ac-perm-label"><input type="checkbox" id="ac-p-editMode"> ✏️ Edit Mode (অনুমোদিত শিট)</label>
         <label class="ac-perm-label"><input type="checkbox" id="ac-p-dataEntry"> 📝 Data Entry পোস্টিং</label>
         <label class="ac-perm-label"><input type="checkbox" id="ac-p-staffEdit"> 👥 Staff যোগ/এডিট/ডিলিট</label>
-        <label class="ac-perm-label"><input type="checkbox" id="ac-p-mcspPost"> 🧮 M.C.S.P পোস্টিং/ক্লিয়ার</label>
+        <label class="ac-perm-label"><input type="checkbox" id="ac-p-monthlySub"> 💳 Monthly Subscription এডিট</label>
+        <label class="ac-perm-label"><input type="checkbox" id="ac-p-otherInc"> 💰 Other Income এডিট</label>
+        <label class="ac-perm-label"><input type="checkbox" id="ac-p-expenseReg"> 🧾 Expense Register এডিট</label>
+        <label class="ac-perm-label"><input type="checkbox" id="ac-p-mcspPost"> 🧮 M.C.S.P এডিট ও পোস্টিং</label>
         <label class="ac-perm-label"><input type="checkbox" id="ac-p-cloudSync"> ☁️ Google Drive Sync</label>
         <label class="ac-perm-label"><input type="checkbox" id="ac-p-backupRestore"> 💾 Backup / Restore / CSV</label>
         <label class="ac-perm-label"><input type="checkbox" id="ac-p-resetData"> ↺ Reset 2026</label>
       </div>
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
         <button class="btn btn-success btn-sm" id="ac-save-user-btn" onclick="saveCustomPassword()">➕ পাসওয়ার্ড যোগ করুন</button>
-        <button class="btn btn-outline btn-sm" id="ac-cancel-edit-btn" onclick="resetCustomPwdForm()" style="display:none;">বাতিল</button>
+        <button class="btn btn-outline btn-sm" id="ac-cancel-edit-btn" onclick="resetCustomPwdForm()" style="display: none;">বাতিল</button>
       </div>
-      <div id="acStatus" class="status-banner" style="margin-top:8px;"></div>
+      <div id="acStatus" class="status-banner show ok" style="margin-top:8px;">✓ "Golam Rabbani" পাসওয়ার্ড আপডেট করা হয়েছে!</div>
     </div>
 
     <div class="ac-section">
       <div class="ac-section-title">
         <span>৩. যুক্ত করা পাসওয়ার্ড তালিকা (Added Passwords)</span>
       </div>
-      <div id="ac-pwd-list"></div>
+      <div id="ac-pwd-list">
+      <div class="ac-pwd-card">
+        <div class="ac-pwd-info">
+          <div class="ac-pwd-name">1. EO. BM <span style="font-weight:600;color:var(--muted);font-size:12px;">(পাসওয়ার্ড: <code>1500</code>)</span></div>
+          <div class="ac-pwd-badges"><span class="ac-perm-chip">App Configure</span></div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-warning btn-sm" onclick="editCustomPassword(0)">✏️</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteCustomPassword(0)">🗑</button>
+        </div>
+      </div>
+    
+      <div class="ac-pwd-card">
+        <div class="ac-pwd-info">
+          <div class="ac-pwd-name">2. Golam Rabbani <span style="font-weight:600;color:var(--muted);font-size:12px;">(পাসওয়ার্ড: <code>0000</code>)</span></div>
+          <div class="ac-pwd-badges"><span class="ac-perm-chip">App Configure</span><span class="ac-perm-chip">Edit Mode</span><span class="ac-perm-chip">Data Entry</span></div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-warning btn-sm" onclick="editCustomPassword(1)">✏️</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteCustomPassword(1)">🗑</button>
+        </div>
+      </div>
+    </div>
     </div>
 
     <div class="modal-actions">
@@ -5574,7 +5626,7 @@ function doPost(e) {
       </div>
       <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
         <button class="btn btn-outline btn-sm" onclick="saveGeminiConfig(true)">💾 API Key সেভ ও টেস্ট করুন</button>
-        <span id="geminiKeyStatus" style="font-size: 11.5px; font-weight: 700; color: var(--accent);">✅ সংযুক্ত হয়েছে! (মডেল: gemini-3.1-flash-lite)</span>
+        <span id="geminiKeyStatus" style="font-size: 11.5px; font-weight: 700; color: var(--accent);">✅ API Key সেভ করা আছে</span>
       </div>
     </div>
 
@@ -6041,7 +6093,10 @@ const PERM_LABELS = {
   editMode: 'Edit Mode',
   dataEntry: 'Data Entry',
   staffEdit: 'Staff Manage',
-  mcspPost: 'M.C.S.P Post',
+  monthlySub: 'Monthly Sub',
+  otherInc: 'Other Income',
+  expenseReg: 'Expense Reg',
+  mcspPost: 'M.C.S.P',
   cloudSync: 'Drive Sync',
   backupRestore: 'Backup/CSV',
   resetData: 'Reset 2026'
@@ -6076,12 +6131,26 @@ function verifyPasswordForPerm(inputPwd, requiredPerm) {
   return { ok: true, isMaster: false, name: found.name, perms: found.perms || {} };
 }
 
-function checkEditPerm(permKey, actionLabel) {
+function isMasterEdit() {
+  return isEditMode && activeUserSession && activeUserSession.isMaster === true;
+}
+
+function canEditSheet(permKey) {
+  if (!isEditMode) return false;
+  if (isMasterEdit()) return true;
+  if (!permKey) return false;
+  return !!(activeUserSession && activeUserSession.perms && activeUserSession.perms[permKey]);
+}
+
+function requireSheetEdit(permKey, actionLabel) {
   if (!requireEdit()) return false;
-  if (!activeUserSession || activeUserSession.isMaster) return true;
-  if (activeUserSession.perms && activeUserSession.perms[permKey]) return true;
-  alert(`⛔ অনুমতি নেই! "${activeUserSession.name}" পাসওয়ার্ডের ${actionLabel || permKey} করার অনুমতি দেওয়া নেই।`);
+  if (canEditSheet(permKey)) return true;
+  alert(`⛔ অনুমতি নেই! ${actionLabel || 'এই শিট/অপশন'} এডিট করতে Master Password দিয়ে Edit Mode চালু করতে হবে।`);
   return false;
+}
+
+function checkEditPerm(permKey, actionLabel) {
+  return requireSheetEdit(permKey, actionLabel);
 }
 
 function authorizePosting(permKey, title, desc, onAuthorized) {
@@ -6303,11 +6372,16 @@ function deleteCustomPassword(idx) {
 }
 function updateEditBtn() {
   document.body.classList.toggle('edit-mode', isEditMode);
+  document.body.classList.toggle('master-edit-mode', isMasterEdit());
+  ['dataEntry', 'staffEdit', 'monthlySub', 'otherInc', 'expenseReg', 'mcspPost'].forEach(p => {
+    document.body.classList.toggle('perm-' + p, canEditSheet(p));
+  });
   const btn = document.getElementById('editModeBtn');
   if (!btn) return;
   if (isEditMode) {
     btn.className = 'btn btn-success cfg-c2';
-    btn.innerHTML = '🔓 Edit Mode Active (Lock)';
+    const roleTag = isMasterEdit() ? 'Master' : ((activeUserSession && activeUserSession.name) ? activeUserSession.name : 'Limited');
+    btn.innerHTML = `🔓 Edit Mode Active (${roleTag} • Lock)`;
   } else {
     btn.className = 'btn btn-warning cfg-c2';
     btn.innerHTML = '🔒 Read-Only (Unlock Edit)';
@@ -6384,7 +6458,7 @@ function applyCustomTexts() {
   preparePrintHeader();
 }
 function editCustomText(key, label) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit(null, label || 'শিরোনাম')) return;
   const cur = getCustomText(key);
   const next = prompt(`${label} পরিবর্তন করুন:`, cur);
   if (next === null) return;
@@ -6436,7 +6510,7 @@ function reorderBySerial(arr, idx, newSlRaw) {
 }
 
 function updateStaffSerial(idx, newSl) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit('staffEdit', 'Staff Directory')) return;
   const s = state.staffDir[idx];
   if (!s) return;
   if (!reorderBySerial(state.staffDir, idx, newSl)) { renderAll(); return; }
@@ -6454,21 +6528,21 @@ function updateStaffSerial(idx, newSl) {
 }
 
 function updateSubSerial(rIdx, newSl) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit('monthlySub', 'Monthly Subscription')) return;
   if (!reorderBySerial(state.monthlySub, rIdx, newSl)) { renderAll(); return; }
   saveState();
   renderAll();
 }
 
 function updateMcspSerial(idx, newSl) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit('mcspPost', 'M.C.S.P')) return;
   if (!reorderBySerial(state.mcsp, idx, newSl)) { renderAll(); return; }
   saveState();
   renderAll();
 }
 
 function updateMcspText(idx, field, val) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit('mcspPost', 'M.C.S.P')) return;
   const r = state.mcsp[idx];
   if (!r) return;
   r[field] = val.trim();
@@ -6477,7 +6551,7 @@ function updateMcspText(idx, field, val) {
 }
 
 function deleteMcspRow(idx) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit('mcspPost', 'M.C.S.P')) return;
   const r = state.mcsp[idx];
   if (!r) return;
   if (!confirm(`${r.name} (ID: ${r.id})-কে M.C.S.P তালিকা থেকে বাদ দিতে চান?`)) return;
@@ -6496,7 +6570,7 @@ function editStaffById(id) {
 
 // Month Quick Edit Modal (Dashboard & Fund Ledger)
 function openMonthQuickModal(monthKey) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit(null, 'মাসের হিসাব')) return;
   const m = computeMetrics();
   const row = m.monthlyRows.find(r => r.key === monthKey);
   if (!row) return;
@@ -6799,7 +6873,7 @@ function _executePostFundEntry({ type, date, month, monthKey, mIdx, staffId, sta
 }
 
 function editLogEntry(sl) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit('dataEntry', 'Data Entry Log')) return;
   const idx = state.postLog.findIndex(x => x.sl === sl);
   if (idx < 0) return;
   const item = state.postLog[idx];
@@ -6846,7 +6920,7 @@ function editLogEntry(sl) {
 }
 
 function deleteLogEntry(sl) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit('dataEntry', 'Data Entry Log')) return;
   const idx = state.postLog.findIndex(x => x.sl === sl);
   if (idx < 0) return;
   const item = state.postLog[idx];
@@ -6984,7 +7058,7 @@ function renderStaffDirSearch() {
   const info = getStaffInfo(id);
   const t = getStaffTotals(id);
   document.querySelector('#dir-profile-table tbody').innerHTML = `
-    <tr><th style="width:55%">কর্মকর্তার নাম (Staff Name)</th><td><strong>${info ? esc(info.name) : 'আইডি পাওয়া যায়নি'}</strong> ${info ? statusBadgeHtml(getStaffStatus(info)) : ''} ${info && isEditMode ? `<button class="inline-edit-icon edit-only no-print" onclick="editStaffById('${esc(id)}')" title="স্টাফ তথ্য এডিট করুন">✏️</button>` : ''}</td></tr>
+    <tr><th style="width:55%">কর্মকর্তার নাম (Staff Name)</th><td><strong>${info ? esc(info.name) : 'আইডি পাওয়া যায়নি'}</strong> ${info ? statusBadgeHtml(getStaffStatus(info)) : ''} ${info && canEditSheet('staffEdit') ? `<button class="btn btn-warning btn-sm no-print" style="margin-left:6px;" onclick="editStaffById('${esc(id)}')" title="স্টাফ তথ্য এডিট করুন">✏️</button>` : ''}</td></tr>
     <tr><th>পদবী (Designation)</th><td>${info ? esc(info.desig) : '-'}</td></tr>
     <tr><th>বাৎসরিক মোট চাঁদা (Total Subscriptions)</th><td class="num"><strong>৳ ${fmt(t.subTotal)}</strong></td></tr>
     <tr><th>অন্যান্য ফান্ড প্রাপ্তি (Incentive/Commission/Encashment)</th><td class="num"><strong>৳ ${fmt(t.oiTotal)}</strong></td></tr>
@@ -6995,6 +7069,7 @@ function renderStaffDirSearch() {
 
 function renderStaffDir() {
   renderStaffDirSearch();
+  const canEditStaff = canEditSheet('staffEdit');
   let activeSub = 0, inactiveSub = 0;
   let activeSl = 0, inactiveSl = 0;
   const activeRows = [];
@@ -7007,11 +7082,11 @@ function renderStaffDir() {
     if (isStaffActive(s)) {
       activeSl++;
       activeSub += t.subTotal;
-      const editBtns = isEditMode ? `
+      const editBtns = canEditStaff ? `
         <button class="btn btn-warning btn-sm" onclick="editStaffPrompt(${idx})" title="নাম/পদবী/স্ট্যাটাস পরিবর্তন করুন">✏️</button>
         ${isOffice ? '' : `<button class="btn btn-danger btn-sm" onclick="deleteStaffPrompt(${idx})" title="স্টাফ তালিকা থেকে বাদ দিন">🗑</button>`}
       ` : '';
-      const slCell = isEditMode
+      const slCell = canEditStaff
         ? `<input type="number" min="1" class="cell-input sl-input" value="${s.sl || (idx + 1)}" onchange="updateStaffSerial(${idx}, this.value)" title="সিরিয়াল নং পরিবর্তন করুন">`
         : activeSl;
       activeRows.push(`
@@ -7031,11 +7106,11 @@ function renderStaffDir() {
     } else {
       inactiveSl++;
       inactiveSub += t.subTotal;
-      const editBtn = isEditMode ? `
+      const editBtn = canEditStaff ? `
         <button class="btn btn-warning btn-sm" onclick="editStaffPrompt(${idx})" title="তথ্য বা স্ট্যাটাস পরিবর্তন করুন">✏️</button>
         <button class="btn btn-danger btn-sm" onclick="deleteStaffPrompt(${idx})" title="স্টাফ তালিকা থেকে বাদ দিন">🗑</button>
       ` : '';
-      const inactSlCell = isEditMode
+      const inactSlCell = canEditStaff
         ? `<input type="number" min="1" class="cell-input sl-input" value="${s.sl || (idx + 1)}" onchange="updateStaffSerial(${idx}, this.value)" title="সিরিয়াল নং পরিবর্তন করুন">`
         : inactiveSl;
       inactiveRows.push(`
@@ -7206,7 +7281,7 @@ function renderStaffStatement() {
     <span>Staff ID: <strong>${esc(id)}</strong></span>
     <span>Staff Name: <strong>${info ? esc(info.name) : 'পাওয়া যায়নি'}</strong> ${info ? statusBadgeHtml(getStaffStatus(info)) : ''}</span>
     <span>Designation: <strong>${info ? esc(info.desig) : '-'}</strong></span>
-    ${info && isEditMode ? `<button class="inline-edit-icon edit-only no-print" onclick="editStaffById('${esc(id)}')" title="স্টাফ তথ্য এডিট করুন">✏️ Edit Staff</button>` : ''}
+    ${info && canEditSheet('staffEdit') ? `<button class="btn btn-warning btn-sm no-print" onclick="editStaffById('${esc(id)}')" title="স্টাফ তথ্য এডিট করুন">✏️ Edit Staff</button>` : ''}
   `;
 
   document.getElementById('stmt-kpis').innerHTML = `
@@ -7221,7 +7296,7 @@ function renderStaffStatement() {
   const allKeys = getAllMonthKeys();
   document.querySelector('#stmt-sub-table tbody').innerHTML = allKeys.map(k => {
     const val = subRow && subRow.monthMap ? (Number(subRow.monthMap[k]) || 0) : 0;
-    const cell = isEditMode
+    const cell = canEditSheet('monthlySub')
       ? `<input type="number" class="cell-input" style="width:82px" value="${val || ''}" onchange="updateStaffStmtSub('${esc(id)}','${k}',this.value)">`
       : fmt(val);
     return `<tr><td>${monthKeyToFull(k)}</td><td class="num">${cell}</td></tr>`;
@@ -7269,7 +7344,7 @@ function renderStaffStatement() {
 
 
 function updateStaffStmtSub(staffId, monthKey, val) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit('monthlySub', 'Monthly Subscription')) return;
   let rIdx = state.monthlySub.findIndex(r => String(r.id) === String(staffId));
   if (rIdx < 0) {
     const info = getStaffInfo(staffId);
@@ -7286,7 +7361,7 @@ function updateStaffStmtSub(staffId, monthKey, val) {
   updateSubCell(rIdx, monthKey, val);
 }
 function editOiQuick(idx) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit('otherInc', 'Other Income')) return;
   const r = state.otherIncome[idx];
   if (!r) return;
   document.getElementById('eqTitle').textContent = '✏️ অন্যান্য আয় এডিট করুন (Other Income)';
@@ -7302,7 +7377,7 @@ function editOiQuick(idx) {
   document.getElementById('entryQuickModal').classList.add('open');
 }
 function editExpQuick(idx) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit('expenseReg', 'Expense Register')) return;
   const r = state.expenses[idx];
   if (!r) return;
   document.getElementById('eqTitle').textContent = '✏️ ব্যয় এডিট করুন (Expense)';
@@ -7379,17 +7454,17 @@ function renderMonthlySub() {
       const n = Number(r.monthMap[k]) || 0;
       rowSum += n;
       colSums[k] += n;
-      if (isEditMode) {
+      if (canEditSheet('monthlySub')) {
         return `<td class="num"><input type="number" class="cell-input" style="width:62px" value="${n || ''}" onchange="updateSubCell(${rIdx},'${k}',this.value)"></td>`;
       }
       return `<td class="num">${n ? fmt(n) : ''}</td>`;
     }).join('');
     grand += rowSum;
-    const subSlCell = isEditMode
+    const subSlCell = canEditSheet('monthlySub')
       ? `<input type="number" min="1" class="cell-input sl-input" value="${r.sl}" onchange="updateSubSerial(${rIdx}, this.value)" title="সিরিয়াল নং পরিবর্তন করুন">`
       : r.sl;
-    const subEditIcon = isEditMode
-      ? `<button class="inline-edit-icon edit-only no-print" onclick="editStaffById('${r.id}')" title="স্টাফ তথ্য এডিট করুন">✏️</button>`
+    const subEditIcon = canEditSheet('staffEdit')
+      ? `<button class="btn btn-warning btn-sm no-print" style="margin-left:5px;padding:1px 5px;font-size:10.5px;" onclick="editStaffById('${r.id}')" title="স্টাফ তথ্য এডিট করুন">✏️</button>`
       : '';
     return `
       <tr style="${!active ? 'opacity:0.72;background:#f8fafc;' : ''}">
@@ -7412,6 +7487,7 @@ function renderMonthlySub() {
 }
 
 function updateSubCell(rIdx, monthKey, val) {
+  if (!requireSheetEdit('monthlySub', 'Monthly Subscription')) return;
   const row = state.monthlySub[rIdx];
   if (!row.monthMap) row.monthMap = {};
   const num = round2(parseFloat(val) || 0);
@@ -7439,7 +7515,7 @@ function renderOtherIncome() {
     if (q && !(String(r.id).toLowerCase().includes(q) || sName.toLowerCase().includes(q) || String(r.desc).toLowerCase().includes(q) || String(r.source).toLowerCase().includes(q))) return;
     total += Number(r.amount) || 0;
 
-    if (isEditMode) {
+    if (canEditSheet('otherInc')) {
       rowsHtml.push(`
         <tr>
           <td class="center">${idx+1}</td>
@@ -7476,6 +7552,7 @@ function renderOtherIncome() {
 }
 
 function updateOi(idx, field, val) {
+  if (!requireSheetEdit('otherInc', 'Other Income')) return;
   const r = state.otherIncome[idx];
   if (field === 'id') r.id = isNaN(Number(val)) || val==='' ? val : Number(val);
   else if (field === 'date') {
@@ -7495,7 +7572,7 @@ function updateOi(idx, field, val) {
   renderAll();
 }
 function deleteOi(idx) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit('otherInc', 'Other Income')) return;
   if (!confirm('এই সারিটি মুছে ফেলতে চান?')) return;
   state.otherIncome.splice(idx, 1);
   saveState();
@@ -7517,7 +7594,7 @@ function renderExpenseRegister() {
     if (q && !(String(r.id).toLowerCase().includes(q) || sName.toLowerCase().includes(q) || String(r.desc).toLowerCase().includes(q))) return;
     total += Number(r.amount) || 0;
 
-    if (isEditMode) {
+    if (canEditSheet('expenseReg')) {
       rowsHtml.push(`
         <tr>
           <td class="center">${idx+1}</td>
@@ -7552,6 +7629,7 @@ function renderExpenseRegister() {
 }
 
 function updateExp(idx, field, val) {
+  if (!requireSheetEdit('expenseReg', 'Expense Register')) return;
   const r = state.expenses[idx];
   if (field === 'id') r.id = isNaN(Number(val)) || val==='' ? val : Number(val);
   else if (field === 'date') {
@@ -7573,7 +7651,7 @@ function updateExp(idx, field, val) {
   renderAll();
 }
 function deleteExp(idx) {
-  if (!requireEdit()) return;
+  if (!requireSheetEdit('expenseReg', 'Expense Register')) return;
   if (!confirm('এই খরচের সারিটি মুছে ফেলতে চান?')) return;
   state.expenses.splice(idx, 1);
   saveState();
@@ -7621,10 +7699,11 @@ function renderMcsp() {
     else if (typeof loanVal === 'number' && loanVal > 0) loanBadge = `<span class="badge badge-fine">${fmt(loanVal)}</span>`;
     else if (loanVal === 0) loanBadge = '<span class="badge badge-zero">0</span>';
 
-    const mcspSlCell = isEditMode
+    const canEditMcsp = canEditSheet('mcspPost');
+    const mcspSlCell = canEditMcsp
       ? `<input type="number" min="1" class="cell-input sl-input" value="${r.sl || mcspSl}" onchange="updateMcspSerial(${idx}, this.value)" title="সিরিয়াল নং পরিবর্তন করুন">`
       : mcspSl;
-    const mcspFieldCell = isEditMode
+    const mcspFieldCell = canEditMcsp
       ? `<input type="text" class="cell-input" style="width:48px;text-align:center" value="${esc(r.field)}" onchange="updateMcspText(${idx},'field',this.value)">`
       : esc(r.field);
     return `
@@ -7637,12 +7716,12 @@ function renderMcsp() {
         <td class="num">${comm10 ? fmt(comm10) : (r.hasCommFormula ? '0' : '')}</td>
         <td class="center">${loanBadge}</td>
         <td class="num"><strong>${fmt(taka)}</strong></td>
-        <td class="num">${isEditMode ? `<input type="number" class="cell-input" style="width:68px" value="${sub}" onchange="updateMcsp(${idx},'monthlySub',this.value)">` : (sub ? fmt(sub) : '')}</td>
+        <td class="num">${canEditMcsp ? `<input type="number" class="cell-input" style="width:68px" value="${sub}" onchange="updateMcsp(${idx},'monthlySub',this.value)">` : (sub ? fmt(sub) : '')}</td>
         <td class="num"><strong>${totColl ? fmt(totColl) : ''}</strong></td>
-        <td class="center">${isEditMode ? `<input type="number" class="cell-input" style="width:55px;text-align:center" value="${esc(r.totalLoan)}" onchange="updateMcsp(${idx},'totalLoan',this.value)">` : esc(r.totalLoan)}</td>
-        <td class="num">${isEditMode ? `<input type="number" class="cell-input" style="width:78px" value="${esc(r.totalComm)}" onchange="updateMcsp(${idx},'totalComm',this.value)">` : (r.totalComm !== '' ? fmt(r.totalComm) : '')}</td>
+        <td class="center">${canEditMcsp ? `<input type="number" class="cell-input" style="width:55px;text-align:center" value="${esc(r.totalLoan)}" onchange="updateMcsp(${idx},'totalLoan',this.value)">` : esc(r.totalLoan)}</td>
+        <td class="num">${canEditMcsp ? `<input type="number" class="cell-input" style="width:78px" value="${esc(r.totalComm)}" onchange="updateMcsp(${idx},'totalComm',this.value)">` : (r.totalComm !== '' ? fmt(r.totalComm) : '')}</td>
         <td class="center edit-only-cell no-print" style="white-space:nowrap;">
-          <button class="btn btn-warning btn-sm" onclick="editStaffById('${r.id}')" title="স্টাফ তথ্য এডিট করুন">✏️</button>
+          ${canEditSheet('staffEdit') ? `<button class="btn btn-warning btn-sm" onclick="editStaffById('${r.id}')" title="স্টাফ তথ্য এডিট করুন">✏️</button>` : ''}
           <button class="btn btn-danger btn-sm" onclick="deleteMcspRow(${idx})" title="সারি মুছুন">🗑</button>
         </td>
       </tr>
@@ -7665,6 +7744,7 @@ function renderMcsp() {
 }
 
 function updateMcsp(idx, field, val) {
+  if (!requireSheetEdit('mcspPost', 'M.C.S.P')) return;
   const r = state.mcsp[idx];
   if (val === '') {
     r[field] = '';
