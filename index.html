@@ -1592,13 +1592,38 @@
   }
 
 
-  /* ===== Day Mode Theme Color & Anti-AutoDark Fix ===== */
+  /* ===== Vivid Sheet Colors (Always Colorful in Both Day & Night Mode) ===== */
   :root {
     color-scheme: light only;
   }
+  .mcsp-post-bar {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: var(--primary-light);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  body.night-mode .mcsp-post-bar {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+  }
+  body.night-mode .card-title {
+    background: rgba(56, 189, 248, 0.12) !important;
+    padding: 8px 12px;
+    border-radius: 7px;
+    border-left: 4px solid var(--header-accent);
+    border-bottom: none !important;
+  }
+
+  /* Day Mode: Bright clean canvas + Vivid colorful cards, headers & tables just like Night Mode */
   body:not(.night-mode) {
     color-scheme: light only;
-    background-color: var(--bg) !important;
+    background-color: #edf2f7 !important;
     color: var(--text) !important;
   }
   body:not(.night-mode) .topbar {
@@ -1607,55 +1632,83 @@
   }
   body:not(.night-mode) .sheet-nav-bar {
     background: var(--nav-grad) !important;
-    border-bottom-color: var(--border) !important;
+    border-bottom-color: var(--primary) !important;
   }
   body:not(.night-mode) .active-sheet-indicator {
     color: var(--primary-dark) !important;
   }
   body:not(.night-mode) .sheet-header {
-    background: var(--header-grad) !important;
-    border-left: 5px solid var(--header-accent) !important;
+    background: linear-gradient(135deg, var(--primary-light) 0%, #ffffff 100%) !important;
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--header-accent) !important;
   }
   body:not(.night-mode) .sheet-header h2,
-  body:not(.night-mode) .card-title,
   body:not(.night-mode) .form-group label,
   body:not(.night-mode) .modal h3 {
     color: var(--primary-dark) !important;
   }
-  body:not(.night-mode) .card-title {
-    border-bottom-color: var(--primary-light) !important;
+  body:not(.night-mode) .card {
+    background: #ffffff !important;
+    border-color: var(--border) !important;
   }
+  body:not(.night-mode) .card-title {
+    background: linear-gradient(90deg, var(--primary-light) 0%, #f8fafc 100%) !important;
+    color: var(--primary-dark) !important;
+    padding: 8px 12px;
+    border-radius: 7px;
+    border-left: 4px solid var(--primary);
+    border-bottom: none !important;
+  }
+  /* Rich Colored KPI Cards in Day Mode (matching Night Mode's vibrant colored look) */
   body:not(.night-mode) .kpi-card {
-    background: linear-gradient(160deg, #ffffff 0%, var(--primary-light) 100%) !important;
-    border-top: 4px solid var(--primary) !important;
+    background: linear-gradient(145deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+    border-top: 4px solid var(--header-accent) !important;
+    color: #ffffff !important;
   }
   body:not(.night-mode) .kpi-card.green {
-    background: linear-gradient(160deg, #ffffff 0%, #ecfdf5 100%) !important;
-    border-top: 4px solid #10b981 !important;
+    background: linear-gradient(145deg, #059669 0%, #065f46 100%) !important;
+    border-top: 4px solid #34d399 !important;
+    color: #ffffff !important;
   }
   body:not(.night-mode) .kpi-card.red {
-    background: linear-gradient(160deg, #ffffff 0%, #fef2f2 100%) !important;
-    border-top: 4px solid #ef4444 !important;
+    background: linear-gradient(145deg, #dc2626 0%, #991b1b 100%) !important;
+    border-top: 4px solid #f87171 !important;
+    color: #ffffff !important;
   }
   body:not(.night-mode) .kpi-card.amber {
-    background: linear-gradient(160deg, #ffffff 0%, #fffbeb 100%) !important;
-    border-top: 4px solid #f59e0b !important;
+    background: linear-gradient(145deg, #d97706 0%, #92400e 100%) !important;
+    border-top: 4px solid #fbbf24 !important;
+    color: #ffffff !important;
+  }
+  body:not(.night-mode) .kpi-card .kpi-label {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+  body:not(.night-mode) .kpi-card .kpi-value,
+  body:not(.night-mode) .kpi-card.green .kpi-value,
+  body:not(.night-mode) .kpi-card.red .kpi-value,
+  body:not(.night-mode) .kpi-card.amber .kpi-value {
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
   }
   body:not(.night-mode) th {
     background: var(--th-grad) !important;
     color: #ffffff !important;
+  }
+  body:not(.night-mode) tbody tr:nth-child(even) {
+    background: #f1f5f9 !important;
   }
   body:not(.night-mode) tbody tr:hover {
     background: var(--primary-light) !important;
   }
   body:not(.night-mode) tfoot tr,
   body:not(.night-mode) tr.total-row {
-    background: var(--primary-light) !important;
+    background: linear-gradient(90deg, var(--primary-light) 0%, #e0f2fe 100%) !important;
     color: var(--primary-dark) !important;
   }
   body:not(.night-mode) tfoot td,
   body:not(.night-mode) tr.total-row td {
     border-top: 2px solid var(--primary) !important;
+    color: var(--primary-dark) !important;
   }
   body:not(.night-mode) .drawer-contact-card {
     background: linear-gradient(145deg, var(--primary-light) 0%, #ffffff 100%) !important;
@@ -1664,9 +1717,126 @@
   body:not(.night-mode) .drawer-contact-title {
     color: var(--primary-dark) !important;
   }
+  @media print {
+    body:not(.night-mode) .kpi-card,
+    body:not(.night-mode) .kpi-card.green,
+    body:not(.night-mode) .kpi-card.red,
+    body:not(.night-mode) .kpi-card.amber {
+      background: #ffffff !important;
+      color: #000000 !important;
+    }
+    body:not(.night-mode) .kpi-card .kpi-label,
+    body:not(.night-mode) .kpi-card .kpi-value {
+      color: #000000 !important;
+      text-shadow: none !important;
+    }
+  }
+
+  /* ===== Gemini AI Live Fix (Master Password Only) ===== */
+  .app-config-panel .cfg-gemini {
+    display: none !important;
+    background: linear-gradient(145deg, #4f46e5 0%, #7c3aed 55%, #06b6d4 100%) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 3px 0 #312e81, 0 6px 12px rgba(79, 70, 229, 0.32) !important;
+  }
+  .app-config-panel.master-unlocked .cfg-gemini {
+    display: inline-flex !important;
+  }
+  .gemini-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #4f46e5, #06b6d4);
+    color: #ffffff;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 99px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .gemini-prompt-box {
+    width: 100%;
+    min-height: 88px;
+    padding: 10px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    resize: vertical;
+    background: #ffffff;
+    color: #0f172a;
+    margin-bottom: 8px;
+  }
+  body.night-mode .gemini-prompt-box {
+    background: #1e293b !important;
+    color: #ffffff !important;
+    border-color: #475569 !important;
+  }
+  .gemini-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .gemini-chip {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 4px 10px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: 0.15s;
+  }
+  .gemini-chip:hover {
+    filter: brightness(0.95);
+    transform: translateY(-1px);
+  }
+  body.night-mode .gemini-chip {
+    background: #1e293b;
+    color: #e0f2fe;
+    border-color: #475569;
+  }
+  .gemini-undo-banner {
+    display: none;
+    background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
+    border: 1.5px solid #f59e0b;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .gemini-undo-banner.show { display: flex; }
+  body.night-mode .gemini-undo-banner {
+    background: linear-gradient(135deg, #451a03 0%, #1e293b 100%) !important;
+    border-color: #f59e0b !important;
+    color: #fef3c7 !important;
+  }
+  .gemini-history-item {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 11px;
+    margin-bottom: 7px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 12px;
+  }
+  body.night-mode .gemini-history-item {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+  }
 </style>
+<style id="gemini-live-style"></style>
 </head>
-<body class="">
+<body>
 
 <div class="topbar">
   <div class="topbar-title">
@@ -1716,12 +1886,13 @@
         <span class="app-config-arrow" id="appConfigArrow">▾</span>
       </button>
       <div class="app-config-panel" id="appConfigPanel">
-        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 01:49 PM</button>
+        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 02:33 PM</button>
         <button class="btn btn-light cfg-c1" onclick="syncFromCloud(true)" title="গুগল ড্রাইভ থেকে সর্বশেষ ডাটা লোড করুন">🔄 Sync Now</button>
         <button id="editModeBtn" class="btn btn-warning cfg-c2" onclick="closeSheetDrawer(); toggleEditModal();">🔒 Read-Only (Unlock Edit)</button>
         <button class="btn btn-light cfg-c3" onclick="closeSheetDrawer(); openChangePwdModal();">🔑 Change Password</button>
         <button class="btn btn-light cfg-c8" onclick="closeSheetDrawer(); openAccessControlModal();">🛡️ Password &amp; Access Control</button>
         <button class="btn btn-light cfg-c9" onclick="closeSheetDrawer(); openThemeModal();">🎨 App Themes (১৮টি থিম)</button>
+        <button id="geminiConfigBtn" class="btn btn-light cfg-gemini" onclick="closeSheetDrawer(); openGeminiModal();" title="Master Admin Only: Gemini AI Live Fix">✨ Gemini AI Setup &amp; Live Fix</button>
         <button class="btn btn-light cfg-c4" onclick="exportBackup()">💾 Backup JSON</button>
         <button class="btn btn-light cfg-c5" onclick="triggerImportBackup()">📂 Restore JSON</button>
         <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(event)">
@@ -1754,7 +1925,7 @@
 <div class="main">
   <div class="print-header" id="printHeader">
     <h1 id="printMainTitle">DMCB ভৈরব বাজার শাখার স্টাফ ফান্ড (Staff Fund 2026)</h1>
-    <div class="print-sub" id="printSheetMeta">Dashboard &amp; Summary • প্রিন্ট তারিখ: 24 Nov 2026, 13:50</div>
+    <div class="print-sub" id="printSheetMeta">Dashboard &amp; Summary • প্রিন্ট তারিখ: 24 Nov 2026, 14:46</div>
   </div>
 
   <!-- 1. DASHBOARD & SUMMARY -->
@@ -2025,8 +2196,8 @@
             <span class="form-hint formula-hidden" id="de-calc-hint">শেয়ার সংখ্যা বা Base×Rate দিলে অটো হিসাব হবে</span>
           </div>
         </div>
-        <div class="readonly-only-block readonly-lock-note no-print" style="margin-top:12px;">🔒 এডিট মোড বন্ধ আছে। নতুন এন্ট্রি পোস্ট বা এডিট করতে <strong>শিট মেনু → App Configure → Unlock Edit</strong> চালু করুন।</div>
-        <div class="edit-only-flex no-print" style="margin-top:14px; gap:10px; flex-wrap:wrap;">
+        <div class="readonly-only-block readonly-lock-note no-print" style="margin-top:12px;">🔐 Edit Mode ছাড়াই পোস্টিং দেওয়া যাবে — <strong>POST ENTRY</strong> ক্লিক করলে অনুমোদিত পাসওয়ার্ড (Data Entry অনুমতিসহ) দিতে হবে।</div>
+        <div class="no-print" style="display:flex; margin-top:14px; gap:10px; flex-wrap:wrap;">
           <button class="btn btn-success" onclick="postFundEntry()">▶ POST ENTRY</button>
           <button class="btn btn-danger" onclick="clearDeForm()">↺ CLEAR FORM</button>
         </div>
@@ -4893,7 +5064,7 @@
       </div>
 
       <!-- M.C.S.P Bulk Posting & Clear Bar -->
-      <div class="edit-only-flex no-print" style="margin-top:14px; padding:12px 14px; background:#f8fafc; border:1px solid var(--border); border-radius:8px; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px;">
+      <div class="mcsp-post-bar no-print">
         <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
           <label for="mcsp-post-date" style="font-size:12px; font-weight:700; color:var(--primary-dark);">পোস্টিং তারিখ:</label>
           <input type="date" id="mcsp-post-date" style="padding:6px 10px; border:1px solid var(--border); border-radius:6px; font-size:12.5px; background:#fff; color:#0f172a; width:auto; min-height:34px;">
@@ -5374,6 +5545,77 @@ function doPost(e) {
   </div>
 </div>
 
+<!-- Gemini AI Live Fix Modal (Master Admin Only) -->
+<div class="modal-backdrop" id="geminiModal" onclick="if(event.target===this) closeGeminiModal()">
+  <div class="modal modal-lg">
+    <h3>✨ Gemini AI Live Fix <span class="gemini-badge">MASTER ONLY</span></h3>
+    <p>কোনো ফাইল ডাউনলোড বা আপলোড ছাড়াই সরাসরি অ্যাপের যেকোনো সমস্যা, ডিজাইন বা ডাটা ঠিক করুন। পছন্দ না হলে ১ ক্লিকেই আগের অবস্থায় ফিরিয়ে আনতে পারবেন।</p>
+
+    <div class="ac-section">
+      <div class="ac-section-title">
+        <span>১. Gemini API সেটআপ (একবার সেট করলেই হবে)</span>
+        <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="font-size:11.5px;color:var(--primary);text-decoration:underline;">🔑 ফ্রি API Key নিন</a>
+      </div>
+      <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:8px;">
+        <div>
+          <label style="font-size:11.5px;font-weight:700;display:block;margin-bottom:3px;">Gemini API Key:</label>
+          <input type="password" id="geminiApiKey" placeholder="AIzaSy..." style="margin-bottom:6px;font-size:12.5px;">
+        </div>
+        <div>
+          <label style="font-size:11.5px;font-weight:700;display:block;margin-bottom:3px;">মডেল (Model):</label>
+          <select id="geminiModel" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:12.5px;margin-bottom:6px;">
+            <option value="auto">Auto (সেরা মডেল অটো সিলেক্ট)</option>
+            <option value="gemini-3.8-flash">gemini-3.8-flash (সর্বশেষ)</option>
+            <option value="gemini-3.0-flash">gemini-3.0-flash</option>
+            <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+            <option value="gemini-2.5-pro">gemini-2.5-pro</option>
+          <option value="gemini-flash-latest">gemini-flash-latest</option><option value="gemini-flash-lite-latest">gemini-flash-lite-latest</option><option value="gemini-pro-latest">gemini-pro-latest</option><option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite</option><option value="gemini-2.5-flash-image">gemini-2.5-flash-image</option><option value="gemini-3-flash-preview">gemini-3-flash-preview</option><option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview</option><option value="gemini-3.1-pro-preview-customtools">gemini-3.1-pro-preview-customtools</option><option value="gemini-3.1-flash-lite-preview">gemini-3.1-flash-lite-preview</option><option value="gemini-3.1-flash-lite">gemini-3.1-flash-lite</option></select>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+        <button class="btn btn-outline btn-sm" onclick="saveGeminiConfig(true)">💾 API Key সেভ ও টেস্ট করুন</button>
+        <span id="geminiKeyStatus" style="font-size: 11.5px; font-weight: 700; color: var(--accent);">✅ সংযুক্ত হয়েছে! (মডেল: gemini-3.1-flash-lite)</span>
+      </div>
+    </div>
+
+    <div class="ac-section">
+      <div class="ac-section-title">
+        <span>২. কী সমস্যা বা পরিবর্তন করতে চান তা লিখুন</span>
+      </div>
+      <textarea id="geminiPromptInput" class="gemini-prompt-box" placeholder="উদাহরণ:
+• Dashboard-এর টেবিলের লেখার সাইজ একটু বড় করো
+• October 2026 মাসে 5678 আইডির চাঁদা 1000 টাকা করে দাও
+• Print বাটনটির কালার সবুজ করে দাও"></textarea>
+      <div class="gemini-chips">
+        <button type="button" class="gemini-chip" onclick="setGeminiPrompt('টেবিলের সব লেখা আরও স্পষ্ট ও ১px বড় করে দাও')">🔤 ফন্ট বড় করো</button>
+        <button type="button" class="gemini-chip" onclick="setGeminiPrompt('Dashboard-এর KPI কার্ডগুলো আরেকটু কম্প্যাক্ট ও সুন্দর করে দাও')">📊 KPI কার্ড কম্প্যাক্ট</button>
+        <button type="button" class="gemini-chip" onclick="setGeminiPrompt('সব টেবিলের বর্ডার আরও স্পষ্ট করে দাও যাতে সহজে পড়া যায়')">📐 বর্ডার স্পষ্ট করো</button>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+        <button class="btn btn-success" id="geminiRunBtn" onclick="runGeminiLiveFix()">✨ সরাসরি সমাধান করুন (Apply Live)</button>
+        <button class="btn btn-warning" id="geminiQuickUndoBtn" onclick="undoLastGeminiChange()" style="display:none;">↩️ আগের অবস্থায় ফিরিয়ে আনুন (Undo)</button>
+      </div>
+      <div id="geminiStatus" class="status-banner" style="margin-top:8px;"></div>
+      <div id="geminiUndoBanner" class="gemini-undo-banner">
+        <span style="font-size:12px;font-weight:700;">✅ পরিবর্তন সরাসরি অ্যাপে যুক্ত হয়েছে! পছন্দ না হলে আগের অবস্থায় ফিরে যান:</span>
+        <button class="btn btn-danger btn-sm" onclick="undoLastGeminiChange()">↩️ পূর্বের অবস্থায় ফিরিয়ে আনুন</button>
+      </div>
+    </div>
+
+    <div class="ac-section">
+      <div class="ac-section-title">
+        <span>৩. Gemini পরিবর্তনের ইতিহাস ও Undo (Restore Points)</span>
+        <button class="btn btn-danger btn-sm" onclick="clearAllGeminiPatches()" title="সব AI ডিজাইন/কোড পরিবর্তন মুছে মূল অবস্থায় ফিরুন">🧹 সব AI পরিবর্তন মুছুন</button>
+      </div>
+      <div id="geminiHistoryList"><div style="font-size:12px;color:var(--muted);text-align:center;padding:10px;">এখনও Gemini দিয়ে কোনো পরিবর্তন করা হয়নি।</div></div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeGeminiModal()">বন্ধ করুন</button>
+    </div>
+  </div>
+</div>
+
 <!-- Password Unlock Modal -->
 <div class="modal-backdrop" id="pwdModal">
   <div class="modal">
@@ -5523,6 +5765,9 @@ function normalizeState(st) {
   }
   if (!Array.isArray(st.customPasswords)) {
     st.customPasswords = [];
+  }
+  if (!Array.isArray(st._geminiPatches)) {
+    st._geminiPatches = [];
   }
   return st;
 }
@@ -5721,6 +5966,8 @@ function toggleSheetDrawer() {
   const isOpen = drawer.classList.toggle('open');
   backdrop.classList.toggle('open', isOpen);
 }
+let appConfigOpenedByMaster = false;
+
 function closeSheetDrawer() {
   const drawer = document.getElementById('sheetDrawer');
   const backdrop = document.getElementById('sheetDrawerBackdrop');
@@ -5728,7 +5975,10 @@ function closeSheetDrawer() {
   if (backdrop) backdrop.classList.remove('open');
   const cfgP = document.getElementById('appConfigPanel');
   const cfgB = document.getElementById('appConfigToggleBtn');
-  if (cfgP) cfgP.classList.remove('open');
+  if (cfgP) {
+    cfgP.classList.remove('open');
+    cfgP.classList.remove('master-unlocked');
+  }
   if (cfgB) { cfgB.classList.remove('open'); cfgB.setAttribute('aria-expanded', 'false'); }
 }
 function toggleAppConfig() {
@@ -5737,14 +5987,18 @@ function toggleAppConfig() {
   if (!panel || !btn) return;
   if (panel.classList.contains('open')) {
     panel.classList.remove('open');
+    panel.classList.remove('master-unlocked');
     btn.classList.remove('open');
     btn.setAttribute('aria-expanded', 'false');
+    appConfigOpenedByMaster = false;
     return;
   }
   requestPassword(
     '🔐 App Configure পাসওয়ার্ড',
     'App Configure-এর অপশনগুলো দেখতে সঠিক পাসওয়ার্ড দিন। (এতে Edit Mode চালু হবে না; এডিট করতে আলাদাভাবে Unlock Edit চালু করতে হবে)',
-    () => {
+    (check) => {
+      appConfigOpenedByMaster = !!(check && check.isMaster === true && check.name === 'Master Admin');
+      panel.classList.toggle('master-unlocked', appConfigOpenedByMaster);
       panel.classList.add('open');
       btn.classList.add('open');
       btn.setAttribute('aria-expanded', 'true');
@@ -5828,6 +6082,16 @@ function checkEditPerm(permKey, actionLabel) {
   if (activeUserSession.perms && activeUserSession.perms[permKey]) return true;
   alert(`⛔ অনুমতি নেই! "${activeUserSession.name}" পাসওয়ার্ডের ${actionLabel || permKey} করার অনুমতি দেওয়া নেই।`);
   return false;
+}
+
+function authorizePosting(permKey, title, desc, onAuthorized) {
+  if (isEditMode && (!activeUserSession || activeUserSession.isMaster || (activeUserSession.perms && activeUserSession.perms[permKey]))) {
+    onAuthorized();
+    return;
+  }
+  requestPassword(title, desc, () => {
+    onAuthorized();
+  }, permKey);
 }
 
 function requestPassword(title, desc, onSuccess, requiredPerm) {
@@ -6456,7 +6720,6 @@ function clearDeForm() {
   document.getElementById('de-status').className = 'status-banner';
 }
 function postFundEntry() {
-  if (!checkEditPerm('dataEntry', 'Data Entry পোস্টিং')) return;
   const type = document.getElementById('de-type').value;
   const date = document.getElementById('de-date').value;
   const month = document.getElementById('de-month').value;
@@ -6479,6 +6742,16 @@ function postFundEntry() {
   const monthKey = parseMonthKey(month, date);
   const mIdx = getMonthIndex(month);
   if (!monthKey) return showDeStatus('সঠিক মাস ও তারিখ নির্বাচন করুন।', true);
+
+  authorizePosting(
+    'dataEntry',
+    '🔐 Data Entry পোস্টিং পাসওয়ার্ড',
+    'পোস্টিং নিশ্চিত করতে অনুমোদিত পাসওয়ার্ড দিন (যার পাসওয়ার্ডে Data Entry অনুমতি আছে)।',
+    () => _executePostFundEntry({ type, date, month, monthKey, mIdx, staffId, staffName, cat, source, desc, amount })
+  );
+}
+
+function _executePostFundEntry({ type, date, month, monthKey, mIdx, staffId, staffName, cat, source, desc, amount }) {
   let refIdx = -1;
 
   if (type === 'Monthly Income') {
@@ -7412,7 +7685,6 @@ function showMcspStatus(msg, isErr) {
 }
 
 function postMcspAll() {
-  if (!checkEditPerm('mcspPost', 'M.C.S.P পোস্টিং')) return;
   const dateEl = document.getElementById('mcsp-post-date');
   const date = (dateEl && dateEl.value) ? dateEl.value : new Date().toISOString().split('T')[0];
   if (dateEl && !dateEl.value) dateEl.value = date;
@@ -7425,6 +7697,15 @@ function postMcspAll() {
 
   if (!monthKey) return showMcspStatus('সঠিক তারিখ নির্বাচন করুন।', true);
 
+  authorizePosting(
+    'mcspPost',
+    '🔐 M.C.S.P পোস্টিং পাসওয়ার্ড',
+    'M.C.S.P পোস্টিং দিতে অনুমোদিত পাসওয়ার্ড দিন (যার পাসওয়ার্ডে M.C.S.P অনুমতি আছে)।',
+    () => _executePostMcspAll({ date, month, monthKey, mIdx, commCat })
+  );
+}
+
+function _executePostMcspAll({ date, month, monthKey, mIdx, commCat }) {
   if (!confirm(`${month} মাসের জন্য M.C.S.P শিট থেকে সবার নামে আলাদা আলাদা খাতে পোস্টিং দিতে চান?`)) return;
 
   let nextSl = state.postLog.length ? Math.max(...state.postLog.map(x => x.sl)) + 1 : 1;
@@ -7548,23 +7829,29 @@ function postMcspAll() {
 }
 
 function clearMcspInputs() {
-  if (!checkEditPerm('mcspPost', 'M.C.S.P ক্লিয়ার')) return;
-  const clearSub = !!(document.getElementById('mcsp-clear-sub') && document.getElementById('mcsp-clear-sub').checked);
-  const confirmMsg = clearSub
-    ? 'ফর্মুলা ঠিক রেখে মাসিক চাঁদা, Total Loan (L) এবং Total Comm (M)-এর সব ব্যালেন্স মুছে ফেলতে চান?'
-    : 'ফর্মুলা ঠিক রেখে Total Loan (L) এবং Total Comm (M)-এর সব ব্যালেন্স মুছে ফেলতে চান? (মাসিক চাঁদা অপরিবর্তিত থাকবে)';
-  if (!confirm(confirmMsg)) return;
+  authorizePosting(
+    'mcspPost',
+    '🔐 M.C.S.P ক্লিয়ার পাসওয়ার্ড',
+    'M.C.S.P ব্যালেন্স মুছতে অনুমোদিত পাসওয়ার্ড দিন (যার পাসওয়ার্ডে M.C.S.P অনুমতি আছে)।',
+    () => {
+      const clearSub = !!(document.getElementById('mcsp-clear-sub') && document.getElementById('mcsp-clear-sub').checked);
+      const confirmMsg = clearSub
+        ? 'ফর্মুলা ঠিক রেখে মাসিক চাঁদা, Total Loan (L) এবং Total Comm (M)-এর সব ব্যালেন্স মুছে ফেলতে চান?'
+        : 'ফর্মুলা ঠিক রেখে Total Loan (L) এবং Total Comm (M)-এর সব ব্যালেন্স মুছে ফেলতে চান? (মাসিক চাঁদা অপরিবর্তিত থাকবে)';
+      if (!confirm(confirmMsg)) return;
 
-  state.mcsp.forEach(r => {
-    r.totalLoan = '';
-    r.totalComm = '';
-    if (clearSub) r.monthlySub = 0;
-  });
-  saveState();
-  renderAll();
-  showMcspStatus(clearSub
-    ? '✓ ফর্মুলা ঠিক রেখে মাসিক চাঁদা, Total Loan এবং Total Comm-এর ব্যালেন্স মুছে ফেলা হয়েছে।'
-    : '✓ ফর্মুলা ঠিক রেখে Total Loan এবং Total Comm-এর ব্যালেন্স মুছে ফেলা হয়েছে।', false);
+      state.mcsp.forEach(r => {
+        r.totalLoan = '';
+        r.totalComm = '';
+        if (clearSub) r.monthlySub = 0;
+      });
+      saveState();
+      renderAll();
+      showMcspStatus(clearSub
+        ? '✓ ফর্মুলা ঠিক রেখে মাসিক চাঁদা, Total Loan এবং Total Comm-এর ব্যালেন্স মুছে ফেলা হয়েছে।'
+        : '✓ ফর্মুলা ঠিক রেখে Total Loan এবং Total Comm-এর ব্যালেন্স মুছে ফেলা হয়েছে।', false);
+    }
+  );
 }
 
 function round2(n) { return Math.round((Number(n) + Number.EPSILON) * 100) / 100; }
@@ -7896,6 +8183,7 @@ async function syncFromCloud(showAlertOnNoUrl) {
     if (newestTs >= localTs || localTs === 0) {
       state = normalizeState(newestData);
       saveState(true);
+      applyGeminiPatches();
       populateDropdowns();
       renderAll();
     }
@@ -8142,8 +8430,417 @@ function initAppearance() {
   applyDayNightMode(savedNight);
 }
 
+
+// ================= GEMINI AI LIVE FIX ENGINE (MASTER ADMIN ONLY) =================
+const GEMINI_CFG_KEY = 'staff_fund_2026_gemini_cfg';
+const GEMINI_UNDO_KEY = 'staff_fund_2026_gemini_undo';
+let _executedGeminiPatchIds = new Set();
+
+function getGeminiConfig() {
+  try {
+    const raw = localStorage.getItem(GEMINI_CFG_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return { apiKey: '', model: 'auto' };
+}
+
+function getGeminiUndoStack() {
+  try {
+    const raw = localStorage.getItem(GEMINI_UNDO_KEY);
+    if (raw) {
+      const arr = JSON.parse(raw);
+      if (Array.isArray(arr)) return arr;
+    }
+  } catch (e) {}
+  return [];
+}
+
+function saveGeminiUndoStack(arr) {
+  try {
+    localStorage.setItem(GEMINI_UNDO_KEY, JSON.stringify(arr.slice(0, 15)));
+  } catch (e) {}
+}
+
+function setGeminiPrompt(text) {
+  const el = document.getElementById('geminiPromptInput');
+  if (el) { el.value = text; el.focus(); }
+}
+
+function showGeminiStatus(msg, isErr) {
+  const el = document.getElementById('geminiStatus');
+  if (!el) return;
+  el.textContent = msg;
+  el.className = 'status-banner show ' + (isErr ? 'err' : 'ok');
+}
+
+function openGeminiModal() {
+  const showIt = () => {
+    const cfg = getGeminiConfig();
+    document.getElementById('geminiApiKey').value = cfg.apiKey || '';
+    document.getElementById('geminiModel').value = cfg.model || 'auto';
+    document.getElementById('geminiKeyStatus').textContent = cfg.apiKey ? '✅ API Key সেভ করা আছে' : '⚠️ API Key সেট করা নেই';
+    document.getElementById('geminiKeyStatus').style.color = cfg.apiKey ? 'var(--accent)' : 'var(--warning)';
+    document.getElementById('geminiStatus').className = 'status-banner';
+    document.getElementById('geminiUndoBanner').classList.remove('show');
+    renderGeminiHistory();
+    document.getElementById('geminiModal').classList.add('open');
+  };
+  if (appConfigOpenedByMaster) {
+    showIt();
+  } else {
+    requestPassword(
+      '🔐 Master Admin পাসওয়ার্ড দিন',
+      'Gemini AI Live Fix শুধুমাত্র Master Admin পাসওয়ার্ড দিয়ে খোলা যাবে।',
+      () => {
+        appConfigOpenedByMaster = true;
+        showIt();
+      },
+      'masterOnly'
+    );
+  }
+}
+
+function closeGeminiModal() {
+  document.getElementById('geminiModal').classList.remove('open');
+}
+
+async function detectBestGeminiModel(apiKey) {
+  try {
+    const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`);
+    const data = await resp.json();
+    if (!resp.ok || !Array.isArray(data.models)) return null;
+    const usable = data.models
+      .filter(m => Array.isArray(m.supportedGenerationMethods) && m.supportedGenerationMethods.includes('generateContent'))
+      .map(m => String(m.name || '').replace(/^models\//, ''))
+      .filter(name => /^gemini-/i.test(name) && !/embedding|tts|imagen|veo|audio|robotics/i.test(name));
+    if (!usable.length) return null;
+    // Populate dropdown with real available models for this key
+    const sel = document.getElementById('geminiModel');
+    if (sel) {
+      const existing = new Set(Array.from(sel.options).map(o => o.value));
+      usable.slice(0, 12).forEach(mName => {
+        if (!existing.has(mName)) {
+          const opt = document.createElement('option');
+          opt.value = mName;
+          opt.textContent = mName;
+          sel.appendChild(opt);
+        }
+      });
+    }
+    // Prefer newest flash model
+    const flashModels = usable.filter(n => /flash/i.test(n) && !/lite|preview-tts/i.test(n));
+    flashModels.sort().reverse();
+    return flashModels[0] || usable[0];
+  } catch (e) {
+    return null;
+  }
+}
+
+async function resolveWorkingGeminiModel(apiKey, preferredModel) {
+  if (preferredModel && preferredModel !== 'auto') return preferredModel;
+  const detected = await detectBestGeminiModel(apiKey);
+  return detected || 'gemini-3.8-flash';
+}
+
+async function saveGeminiConfig(runTest) {
+  const apiKey = document.getElementById('geminiApiKey').value.trim();
+  let model = document.getElementById('geminiModel').value || 'auto';
+  const ks = document.getElementById('geminiKeyStatus');
+  if (!apiKey) {
+    ks.textContent = '❌ API Key খালি রাখা যাবে না';
+    ks.style.color = 'var(--danger)';
+    return;
+  }
+  try {
+    localStorage.setItem(GEMINI_CFG_KEY, JSON.stringify({ apiKey, model }));
+  } catch (e) {}
+  if (!runTest) return;
+  ks.textContent = '⏳ API Key ও সেরা মডেল চেক করা হচ্ছে...';
+  ks.style.color = 'var(--primary)';
+  try {
+    let targetModel = await resolveWorkingGeminiModel(apiKey, model);
+    let url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(targetModel)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+    let resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contents: [{ parts: [{ text: 'Reply with OK' }] }] })
+    });
+    let data = await resp.json();
+    // If selected model is deprecated/unavailable, auto-fallback to detected available model
+    if ((!resp.ok || data.error) && model !== 'auto') {
+      const autoModel = await detectBestGeminiModel(apiKey);
+      if (autoModel && autoModel !== targetModel) {
+        targetModel = autoModel;
+        url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(targetModel)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+        resp = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: 'Reply with OK' }] }] })
+        });
+        data = await resp.json();
+      }
+    }
+    if (!resp.ok || data.error) {
+      throw new Error((data.error && data.error.message) || 'API Error');
+    }
+    document.getElementById('geminiModel').value = targetModel;
+    try { localStorage.setItem(GEMINI_CFG_KEY, JSON.stringify({ apiKey, model: targetModel })); } catch (e) {}
+    ks.textContent = `✅ সংযুক্ত হয়েছে! (মডেল: ${targetModel})`;
+    ks.style.color = 'var(--accent)';
+  } catch (err) {
+    ks.textContent = '❌ সংযোগ ব্যর্থ: ' + err.message;
+    ks.style.color = 'var(--danger)';
+  }
+}
+
+function applyGeminiPatches() {
+  const patches = (state && Array.isArray(state._geminiPatches)) ? state._geminiPatches : [];
+  const styleEl = document.getElementById('gemini-live-style');
+  if (styleEl) {
+    styleEl.textContent = patches.map(p => p.css || '').filter(Boolean).join('\n\n');
+  }
+  patches.forEach(p => {
+    if (p.js && !_executedGeminiPatchIds.has(p.id)) {
+      try {
+        new Function(p.js)();
+        _executedGeminiPatchIds.add(p.id);
+      } catch (err) {
+        console.error('Gemini patch JS error:', err);
+      }
+    }
+  });
+}
+
+function buildGeminiSystemPrompt() {
+  const m = computeMetrics();
+  return `You are the built-in Live Code & Data Patch Assistant for the "Staff Fund 2026" single-file web app (DMCB Bhairab Bazar Branch).
+The Master Admin will ask you (in Bangla, Banglish, or English) to fix a bug, change colors/CSS/layout, modify headings/UI, or fix/update data directly in the live app WITHOUT downloading or uploading any file.
+
+App Architecture:
+- Global mutable state object: \`state\`
+  - \`state.staffDir\`: array of { sl, id, name, desig, status ('Active'|'Transfer'|'Terminate'|'Retd') } (${state.staffDir.length} items)
+  - \`state.monthlySub\`: array of { sl, id, name, desig, months:[12], monthMap: {'2026-01': amount, ...} }
+  - \`state.otherIncome\`: array of { id, date:'YYYY-MM-DD', month:'Month YYYY', category, source, desc, amount, autoCalc }
+  - \`state.expenses\`: array of { date:'YYYY-MM-DD', id, month:'Month YYYY', head, desc, amount, isShareFormula }
+  - \`state.mcsp\`: array of { sl, id, field, name, desig, hasCommFormula, hasLoanFormula, monthlySub, totalLoan, totalComm }
+  - \`state.postLog\`: array of posted entries
+  - \`state.customTexts\`: object of editable headings/signatures (mainTitle, dashTitle, dashSub, deTitle, ledgerTitle, sig1, sig2, sig3, dirTitle, stmtTitle, subTitle, oiTitle, expTitle, mcspTitle)
+  - Current Metrics: Total Income=${m.totalInc}, Total Expense=${m.totalExp}, Net Balance=${m.netBalance}, Active Staff=${m.activeStaffCount}
+- Key DOM IDs & Classes:
+  - Top bar: \`.topbar\`, \`.topbar-title h1\`, \`.topbar-actions\`, \`#topRefreshBtn\`
+  - Sheet nav bar: \`.sheet-nav-bar\`, \`.hamburger-btn\`, \`#activeSheetLabel\`, \`.sheet-drawer\`
+  - Sheets: \`#sheet-dashboard\`, \`#sheet-dataEntry\`, \`#sheet-fundLedger\`, \`#sheet-staffDir\`, \`#sheet-staffStmt\`, \`#sheet-monthlySub\`, \`#sheet-otherInc\`, \`#sheet-expenseReg\`, \`#sheet-mcsp\`
+  - Cards & Tables: \`.sheet-header\`, \`.kpi-grid\`, \`.kpi-card\`, \`.kpi-card.green\`, \`.kpi-card.red\`, \`.kpi-card.amber\`, \`.card\`, \`.card-title\`, \`table\`, \`th\`, \`td\`, \`tfoot tr\`
+  - Night mode class on body: \`body.night-mode\`, Day mode: \`body:not(.night-mode)\`
+- Key Global Functions: \`saveState()\`, \`renderAll()\`, \`populateDropdowns()\`, \`applyCustomTexts()\`, \`applyAppTheme(id, true)\`, \`applyDayNightMode(bool)\`, \`switchTabByName(sheetId)\`
+
+STRICT OUTPUT FORMAT:
+Respond ONLY with a valid JSON object (no markdown fences, no extra text):
+{
+  "summary": "সংক্ষেপে বাংলায় ব্যাখ্যা করুন কী ঠিক বা পরিবর্তন করা হয়েছে",
+  "css": "Optional persistent CSS rules to inject into <style id='gemini-live-style'> (use !important if overriding existing rules; empty string if not needed)",
+  "js": "Optional persistent JS code that runs on every page load for UI/DOM/behavior tweaks (empty string if not needed)",
+  "runOnceJs": "Optional one-time JS code to directly modify \`state\` data right now (e.g. updating monthlySub.monthMap & months, expenses, otherIncome, staffDir, customTexts). Do NOT call alert() inside runOnceJs. Empty string if not needed."
+}
+Rules:
+1. Keep CSS/JS clean, safe, and bug-free. Never break existing buttons, modals, or Google Drive sync.
+2. If updating \`state.monthlySub\`, update BOTH \`row.monthMap['YYYY-MM']\` and \`row.months[monthIdx]\` (if 2026).
+3. If the user only asks a question (no change needed), leave css, js, and runOnceJs empty and put the full helpful Bangla answer in \`summary\`.`;
+}
+
+async function runGeminiLiveFix() {
+  const cfg = getGeminiConfig();
+  const apiKey = document.getElementById('geminiApiKey').value.trim() || cfg.apiKey;
+  let model = document.getElementById('geminiModel').value || cfg.model || 'auto';
+  const promptText = document.getElementById('geminiPromptInput').value.trim();
+
+  if (!apiKey) {
+    return showGeminiStatus('আগে উপরে আপনার ফ্রি Gemini API Key বসিয়ে সেভ করুন।', true);
+  }
+  if (!promptText) {
+    return showGeminiStatus('কী সমস্যা বা পরিবর্তন করতে চান তা নিচের বক্সে লিখুন।', true);
+  }
+  saveGeminiConfig(false);
+
+  const btn = document.getElementById('geminiRunBtn');
+  const origBtnText = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Gemini কাজ করছে...';
+  document.getElementById('geminiUndoBanner').classList.remove('show');
+  showGeminiStatus('🔄 Gemini AI আপনার নির্দেশনা বিশ্লেষণ করে সরাসরি অ্যাপে সমাধান তৈরি করছে...', false);
+
+  // Take snapshot BEFORE any change so user can 1-click Undo
+  const prevStateSnapshot = JSON.stringify(state);
+
+  try {
+    model = await resolveWorkingGeminiModel(apiKey, model);
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: buildGeminiSystemPrompt() }] },
+        contents: [{ parts: [{ text: promptText }] }],
+        generationConfig: {
+          temperature: 0.2,
+          responseMimeType: 'application/json'
+        }
+      })
+    });
+    const data = await resp.json();
+    if (!resp.ok || data.error) {
+      throw new Error((data.error && data.error.message) || 'Gemini API থেকে রেসপন্স পাওয়া যায়নি।');
+    }
+    let rawText = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts)
+      ? data.candidates[0].content.parts.map(p => p.text || '').join('')
+      : '';
+    rawText = rawText.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/, '').trim();
+    const result = JSON.parse(rawText);
+
+    const cssCode = String(result.css || '').trim();
+    const jsCode = String(result.js || '').trim();
+    const runOnceCode = String(result.runOnceJs || '').trim();
+    const summary = String(result.summary || 'পরিবর্তন সম্পন্ন হয়েছে।').trim();
+    const hasChanges = !!(cssCode || jsCode || runOnceCode);
+
+    if (!hasChanges) {
+      showGeminiStatus('💡 Gemini উত্তর: ' + summary, false);
+      btn.disabled = false;
+      btn.innerHTML = origBtnText;
+      return;
+    }
+
+    // Apply changes safely (auto-rollback on error)
+    try {
+      if (runOnceCode) {
+        new Function(runOnceCode)();
+      }
+      if (cssCode || jsCode) {
+        if (!Array.isArray(state._geminiPatches)) state._geminiPatches = [];
+        const patchObj = {
+          id: 'gp_' + Date.now(),
+          time: new Date().toLocaleString('en-GB'),
+          prompt: promptText,
+          summary: summary,
+          css: cssCode,
+          js: jsCode
+        };
+        state._geminiPatches.push(patchObj);
+        applyGeminiPatches();
+      }
+      saveState();
+      populateDropdowns();
+      renderAll();
+
+      // Save undo snapshot
+      const undoStack = getGeminiUndoStack();
+      undoStack.unshift({
+        id: 'undo_' + Date.now(),
+        time: new Date().toLocaleString('en-GB'),
+        prompt: promptText,
+        summary: summary,
+        hasJs: !!(jsCode || runOnceCode),
+        prevStateJson: prevStateSnapshot
+      });
+      saveGeminiUndoStack(undoStack);
+
+      showGeminiStatus('✅ ' + summary, false);
+      document.getElementById('geminiUndoBanner').classList.add('show');
+      document.getElementById('geminiPromptInput').value = '';
+      renderGeminiHistory();
+    } catch (execErr) {
+      // Automatic rollback if generated code throws error
+      state = normalizeState(JSON.parse(prevStateSnapshot));
+      saveState(true);
+      applyGeminiPatches();
+      populateDropdowns();
+      renderAll();
+      throw new Error('কোড অ্যাপ্লাই করতে ত্রুটি হয়েছে (অটোমেটিক আগের অবস্থায় ফিরিয়ে নেওয়া হয়েছে): ' + execErr.message);
+    }
+  } catch (err) {
+    showGeminiStatus('❌ ' + err.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = origBtnText;
+  }
+}
+
+function renderGeminiHistory() {
+  const stack = getGeminiUndoStack();
+  const quickBtn = document.getElementById('geminiQuickUndoBtn');
+  if (quickBtn) quickBtn.style.display = stack.length ? 'inline-flex' : 'none';
+  const container = document.getElementById('geminiHistoryList');
+  if (!container) return;
+  if (!stack.length) {
+    container.innerHTML = '<div style="font-size:12px;color:var(--muted);text-align:center;padding:10px;">এখনও Gemini দিয়ে কোনো পরিবর্তন করা হয়নি।</div>';
+    return;
+  }
+  container.innerHTML = stack.map((item, idx) => `
+    <div class="gemini-history-item">
+      <div style="flex:1 1 240px;">
+        <div style="font-weight:800;color:var(--primary-dark);">${idx + 1}. ${esc(item.prompt)}</div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:2px;">${esc(item.summary)} • <span>${esc(item.time)}</span></div>
+      </div>
+      <button class="btn btn-warning btn-sm" onclick="restoreGeminiSnapshot(${idx})">↩️ পূর্বের অবস্থায় ফিরুন</button>
+    </div>
+  `).join('');
+}
+
+function undoLastGeminiChange() {
+  const stack = getGeminiUndoStack();
+  if (!stack.length) return showGeminiStatus('ফিরিয়ে আনার মতো কোনো পূর্বের অবস্থা পাওয়া যায়নি।', true);
+  restoreGeminiSnapshot(0);
+}
+
+async function restoreGeminiSnapshot(idx) {
+  const stack = getGeminiUndoStack();
+  const snap = stack[idx];
+  if (!snap || !snap.prevStateJson) return;
+  if (!confirm(`"${snap.prompt}" পরিবর্তনের ঠিক আগের অবস্থায় অ্যাপটি ফিরিয়ে আনতে চান?`)) return;
+
+  try {
+    const needsReload = !!snap.hasJs;
+    state = normalizeState(JSON.parse(snap.prevStateJson));
+    // Remove this and newer snapshots
+    stack.splice(0, idx + 1);
+    saveGeminiUndoStack(stack);
+    saveState(true);
+    applyGeminiPatches();
+    populateDropdowns();
+    renderAll();
+
+    // Sync restored state to Google Drive immediately
+    const urls = getActiveDriveUrls();
+    if (urls.length) {
+      await pushToCloud();
+    }
+
+    document.getElementById('geminiUndoBanner').classList.remove('show');
+    renderGeminiHistory();
+    showGeminiStatus('↩️ সফলভাবে কাজের পূর্বের অবস্থায় ফিরিয়ে আনা হয়েছে!', false);
+
+    if (needsReload) {
+      setTimeout(() => { location.reload(); }, 700);
+    }
+  } catch (err) {
+    showGeminiStatus('❌ পূর্বের অবস্থায় ফেরাতে সমস্যা হয়েছে: ' + err.message, true);
+  }
+}
+
+async function clearAllGeminiPatches() {
+  if (!confirm('Gemini দিয়ে করা সব ডিজাইন ও কোড পরিবর্তন মুছে দিয়ে মূল অবস্থায় ফিরতে চান? (আপনার হিসাবের ডাটা নিরাপদ থাকবে)')) return;
+  state._geminiPatches = [];
+  saveState(true);
+  applyGeminiPatches();
+  const urls = getActiveDriveUrls();
+  if (urls.length) await pushToCloud();
+  showGeminiStatus('🧹 সব Gemini পরিবর্তন মুছে ফেলা হয়েছে। পেজ রিলোড হচ্ছে...', false);
+  setTimeout(() => { location.reload(); }, 600);
+}
+
 // Init
 initAppearance();
+applyGeminiPatches();
 updateEditBtn();
 populateDropdowns();
 initDataEntryForm();
