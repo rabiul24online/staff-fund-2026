@@ -1881,85 +1881,7 @@
     color: #f8fafc !important;
   }
 </style>
-<style id="gemini-live-style">@media print {
-  #sheet-staffStmt .kpi-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 10px !important;
-    margin-bottom: 20px !important;
-  }
-  #sheet-staffStmt .kpi-card {
-    display: block !important;
-    background-color: #f8f9fa !important;
-    border: 1px solid #ddd !important;
-    padding: 10px !important;
-    text-align: center !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  #sheet-staffStmt .kpi-card .card-value {
-    color: #000 !important;
-    font-size: 18px !important;
-    font-weight: bold !important;
-    display: block !important;
-  }
-  #sheet-staffStmt .kpi-card .card-label {
-    color: #444 !important;
-    font-size: 12px !important;
-    display: block !important;
-  }
-  .no-print {
-    display: none !important;
-  }
-}
-
-@media print {
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  body {
-    background: white !important;
-    color: black !important;
-  }
-  .kpi-card, .card {
-    background-color: #f8f9fa !important;
-    border: 1px solid #ccc !important;
-    color: #000 !important;
-    margin-bottom: 10px !important;
-    page-break-inside: avoid !important;
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  .kpi-card.green { background-color: #d4edda !important; border-left: 5px solid #28a745 !important; }
-  .kpi-card.red { background-color: #f8d7da !important; border-left: 5px solid #dc3545 !important; }
-  .kpi-card.amber { background-color: #fff3cd !important; border-left: 5px solid #ffc107 !important; }
-  .topbar, .sheet-nav-bar, .topbar-actions, .hamburger-btn, button, .no-print, #topRefreshBtn {
-    display: none !important;
-  }
-  .sheet-content {
-    padding: 0 !important;
-    margin: 0 !important;
-    display: block !important;
-  }
-  .sheet-header {
-    margin-bottom: 20px !important;
-  }
-  table {
-    width: 100% !important;
-    border-collapse: collapse !important;
-  }
-  th, td {
-    border: 1px solid #000 !important;
-    padding: 6px !important;
-    color: #000 !important;
-  }
-  .card-title, .kpi-title {
-    color: #000 !important;
-    font-weight: bold !important;
-  }
-}</style>
+<style id="gemini-live-style"></style>
 </head>
 <body class="">
 
@@ -2011,7 +1933,7 @@
         <span class="app-config-arrow" id="appConfigArrow">▾</span>
       </button>
       <div class="app-config-panel" id="appConfigPanel">
-        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 06:53 PM</button>
+        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 09:28 AM</button>
         <button class="btn btn-light cfg-c1" onclick="syncFromCloud(true)" title="গুগল ড্রাইভ থেকে সর্বশেষ ডাটা লোড করুন">🔄 Sync Now</button>
         <button id="editModeBtn" class="btn btn-warning cfg-c2" onclick="closeSheetDrawer(); toggleEditModal();">🔒 Read-Only (Unlock Edit)</button>
         <button class="btn btn-light cfg-c3" onclick="closeSheetDrawer(); openChangePwdModal();">🔑 Change Password</button>
@@ -2050,7 +1972,7 @@
 <div class="main">
   <div class="print-header" id="printHeader">
     <h1 id="printMainTitle">DMCB ভৈরব বাজার শাখার স্টাফ ফান্ড (Staff Fund 2026)</h1>
-    <div class="print-sub" id="printSheetMeta">Dashboard &amp; Summary • প্রিন্ট তারিখ: 24 Nov 2026, 18:56</div>
+    <div class="print-sub" id="printSheetMeta">Dashboard &amp; Summary • প্রিন্ট তারিখ: 25 Nov 2026, 09:31</div>
   </div>
 
   <!-- 1. DASHBOARD & SUMMARY -->
@@ -2061,9 +1983,9 @@
     </div>
     <div class="kpi-grid" id="dash-kpis">
     <div class="kpi-card"><div class="kpi-label">মোট স্টাফ সংখ্যা (Total Staff)</div><div class="kpi-value">25 জন</div></div>
-    <div class="kpi-card green"><div class="kpi-label">সর্বমোট আয় (Total Income)</div><div class="kpi-value">৳ 1,60,253.00</div></div>
+    <div class="kpi-card green"><div class="kpi-label">সর্বমোট আয় (Total Income)</div><div class="kpi-value">৳ 1,59,253.00</div></div>
     <div class="kpi-card red"><div class="kpi-label">সর্বমোট ব্যয় (Total Expense)</div><div class="kpi-value">৳ 70,770.00</div></div>
-    <div class="kpi-card amber"><div class="kpi-label">অবশিষ্ট ফান্ডের স্থিতি (Net Balance)</div><div class="kpi-value">৳ 89,483.00</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">অবশিষ্ট ফান্ডের স্থিতি (Net Balance)</div><div class="kpi-value">৳ 88,483.00</div></div>
   </div>
     <div class="card">
       <div class="card-title">১. আয় ও ব্যয়ের মাসভিত্তিক সামারি (Monthly Income &amp; Expense Overview)</div>
@@ -2194,12 +2116,12 @@
   
     <tr>
       <td><strong>November 2026</strong></td>
-      <td class="num">22,500</td>
+      <td class="num">21,500</td>
       <td class="num">17,100</td>
-      <td class="num"><strong>39,600</strong></td>
+      <td class="num"><strong>38,600</strong></td>
       <td class="num">7,230</td>
-      <td class="num" style="color:var(--accent);font-weight:600">32,370</td>
-      <td class="num"><strong>89,483</strong></td>
+      <td class="num" style="color:var(--accent);font-weight:600">31,370</td>
+      <td class="num"><strong>88,483</strong></td>
       <td class="center edit-only-cell no-print"><button class="btn btn-warning btn-sm" onclick="openMonthQuickModal('2026-11')" title="এই মাসের হিসাব এডিট করুন">✏️</button></td>
     </tr>
   
@@ -2210,19 +2132,19 @@
       <td class="num"><strong>0</strong></td>
       <td class="num">0</td>
       <td class="num" style="color:var(--accent);font-weight:600">0</td>
-      <td class="num"><strong>89,483</strong></td>
+      <td class="num"><strong>88,483</strong></td>
       <td class="center edit-only-cell no-print"><button class="btn btn-warning btn-sm" onclick="openMonthQuickModal('2026-12')" title="এই মাসের হিসাব এডিট করুন">✏️</button></td>
     </tr>
   </tbody>
           <tfoot>
     <tr>
       <td>সর্বমোট (Grand Total)</td>
-      <td class="num">92,000</td>
+      <td class="num">91,000</td>
       <td class="num">68,253</td>
-      <td class="num">1,60,253</td>
+      <td class="num">1,59,253</td>
       <td class="num">70,770</td>
-      <td class="num">89,483</td>
-      <td class="num">89,483</td>
+      <td class="num">88,483</td>
+      <td class="num">88,483</td>
       <td class="edit-only-cell no-print"></td>
     </tr>
   </tfoot>
@@ -2235,8 +2157,8 @@
         <div class="table-wrap">
           <table id="dash-inc-breakdown">
             <thead><tr><th>আয়ের খাত (Income Head)</th><th class="num">পরিমাণ (Amount)</th></tr></thead>
-            <tbody><tr><td>মাসিক স্টাফ চাঁদা (Monthly Subscription)</td><td class="num">92,000</td></tr><tr><td>ইনসেন্টিভ (Incentive)</td><td class="num">30,753</td></tr><tr><td>কমিশন (Commission)</td><td class="num">0</td></tr><tr><td>লিভ এনক্যাশমেন্ট (Leave Encashment)</td><td class="num">10,000</td></tr><tr><td>ইনক্রিমেন্ট</td><td class="num">5,000</td></tr><tr><td>লোন জরিমানা</td><td class="num">22,500</td></tr></tbody>
-            <tfoot><tr><td>মোট আয় (Total Income)</td><td class="num">৳ 1,60,253.00</td></tr></tfoot>
+            <tbody><tr><td>মাসিক স্টাফ চাঁদা (Monthly Subscription)</td><td class="num">91,000</td></tr><tr><td>ইনসেন্টিভ (Incentive)</td><td class="num">30,753</td></tr><tr><td>কমিশন (Commission)</td><td class="num">0</td></tr><tr><td>লিভ এনক্যাশমেন্ট (Leave Encashment)</td><td class="num">10,000</td></tr><tr><td>ইনক্রিমেন্ট</td><td class="num">5,000</td></tr><tr><td>লোন জরিমানা</td><td class="num">22,500</td></tr></tbody>
+            <tfoot><tr><td>মোট আয় (Total Income)</td><td class="num">৳ 1,59,253.00</td></tr></tfoot>
           </table>
         </div>
       </div>
@@ -2264,11 +2186,11 @@
       <p><span id="txt-deSub">একই ফর্ম থেকে Monthly Subscription, Other Income এবং Expense Register-এ অটোমেটিক নতুন রো/পোস্টিং দিন</span><button class="inline-edit-icon edit-only no-print" onclick="editCustomText('deSub', 'ডাটা এন্ট্রি সাবটাইটেল')">✏️</button></p>
     </div>
     <div class="kpi-grid" id="de-live-kpis">
-    <div class="kpi-card"><div class="kpi-label">মাসিক চাঁদা (Subscription)</div><div class="kpi-value">৳ 92,000</div></div>
+    <div class="kpi-card"><div class="kpi-label">মাসিক চাঁদা (Subscription)</div><div class="kpi-value">৳ 91,000</div></div>
     <div class="kpi-card"><div class="kpi-label">অন্যান্য আয় (Other Income)</div><div class="kpi-value">৳ 68,253</div></div>
-    <div class="kpi-card green"><div class="kpi-label">সর্বমোট আয় (Total Income)</div><div class="kpi-value">৳ 1,60,253</div></div>
+    <div class="kpi-card green"><div class="kpi-label">সর্বমোট আয় (Total Income)</div><div class="kpi-value">৳ 1,59,253</div></div>
     <div class="kpi-card red"><div class="kpi-label">সর্বমোট ব্যয় (Total Expense)</div><div class="kpi-value">৳ 70,770</div></div>
-    <div class="kpi-card amber"><div class="kpi-label">নিট ব্যালেন্স (Net Balance)</div><div class="kpi-value">৳ 89,483</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">নিট ব্যালেন্স (Net Balance)</div><div class="kpi-value">৳ 88,483</div></div>
   </div>
     <div class="grid-2">
       <div class="card">
@@ -2375,13 +2297,13 @@
   <section id="sheet-fundLedger" class="sheet">
     <div class="sheet-header">
       <h2><span id="txt-ledgerTitle">স্টাফ ফান্ড — মোট ব্যালেন্স ও মাসভিত্তিক হিসাব (2026)</span><button class="inline-edit-icon edit-only no-print" onclick="editCustomText('ledgerTitle', 'লেজার শিরোনাম')">✏️</button></h2>
-      <p>প্রতি মাসে কত টাকা জমা/উঠেছে, কত খরচ হয়েছে, আগের স্থিতি ও মাস শেষে মোট ব্যালেন্স • তারিখ: <strong id="ledger-today">24 Nov 2026</strong></p>
+      <p>প্রতি মাসে কত টাকা জমা/উঠেছে, কত খরচ হয়েছে, আগের স্থিতি ও মাস শেষে মোট ব্যালেন্স • তারিখ: <strong id="ledger-today">25 Nov 2026</strong></p>
     </div>
     <div class="kpi-grid" id="ledger-kpis">
-    <div class="kpi-card green"><div class="kpi-label">সর্বমোট জমা/আয়</div><div class="kpi-value">৳ 1,60,253.00</div></div>
+    <div class="kpi-card green"><div class="kpi-label">সর্বমোট জমা/আয়</div><div class="kpi-value">৳ 1,59,253.00</div></div>
     <div class="kpi-card red"><div class="kpi-label">সর্বমোট খরচ</div><div class="kpi-value">৳ 70,770.00</div></div>
-    <div class="kpi-card amber"><div class="kpi-label">বর্তমান মোট ব্যালেন্স</div><div class="kpi-value">৳ 89,483.00</div></div>
-    <div class="kpi-card"><div class="kpi-label">চলতি মাসে জমা (November 2026)</div><div class="kpi-value">৳ 39,600.00</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">বর্তমান মোট ব্যালেন্স</div><div class="kpi-value">৳ 88,483.00</div></div>
+    <div class="kpi-card"><div class="kpi-label">চলতি মাসে জমা (November 2026)</div><div class="kpi-value">৳ 38,600.00</div></div>
   </div>
     <div class="card">
       <div class="card-title">মাসভিত্তিক লেজার বিবরণী (Monthly Fund Ledger)</div>
@@ -2524,37 +2446,37 @@
     <tr>
       <td><strong>November 2026</strong></td>
       <td class="num">57,113</td>
-      <td class="num">22,500</td>
+      <td class="num">21,500</td>
       <td class="num">17,100</td>
-      <td class="num"><strong>39,600</strong></td>
+      <td class="num"><strong>38,600</strong></td>
       <td class="num">7,230</td>
-      <td class="num" style="color:var(--accent);font-weight:600">32,370</td>
-      <td class="num"><strong>89,483</strong></td>
+      <td class="num" style="color:var(--accent);font-weight:600">31,370</td>
+      <td class="num"><strong>88,483</strong></td>
       <td class="center edit-only-cell no-print"><button class="btn btn-warning btn-sm" onclick="openMonthQuickModal('2026-11')" title="এই মাসের হিসাব এডিট করুন">✏️</button></td>
     </tr>
   
     <tr>
       <td><strong>December 2026</strong></td>
-      <td class="num">89,483</td>
+      <td class="num">88,483</td>
       <td class="num">0</td>
       <td class="num">0</td>
       <td class="num"><strong>0</strong></td>
       <td class="num">0</td>
       <td class="num" style="color:var(--accent);font-weight:600">0</td>
-      <td class="num"><strong>89,483</strong></td>
+      <td class="num"><strong>88,483</strong></td>
       <td class="center edit-only-cell no-print"><button class="btn btn-warning btn-sm" onclick="openMonthQuickModal('2026-12')" title="এই মাসের হিসাব এডিট করুন">✏️</button></td>
     </tr>
   </tbody>
           <tfoot>
     <tr>
       <td>সর্বমোট / বর্তমান স্থিতি</td>
-      <td class="num">89,483</td>
-      <td class="num">92,000</td>
+      <td class="num">88,483</td>
+      <td class="num">91,000</td>
       <td class="num">68,253</td>
-      <td class="num">1,60,253</td>
+      <td class="num">1,59,253</td>
       <td class="num">70,770</td>
-      <td class="num">89,483</td>
-      <td class="num">89,483</td>
+      <td class="num">88,483</td>
+      <td class="num">88,483</td>
       <td class="edit-only-cell no-print"></td>
     </tr>
   </tfoot>
@@ -2755,7 +2677,7 @@
           <td>Md Golam Rabbani</td>
           <td>I.O</td>
           <td class="center"><span class="badge badge-best">Active</span></td>
-          <td class="num"><strong>4,000</strong></td>
+          <td class="num"><strong>3,000</strong></td>
           <td class="center no-print" style="white-space:nowrap;">
             <button class="btn btn-outline btn-sm" onclick="openInStatement('964')">Statement</button>
             
@@ -2958,7 +2880,7 @@
         </tr>
       </tbody>
           <tfoot>
-    <tr><td colspan="5">চলমান স্টাফদের মোট চাঁদা (Active Staff Subscriptions)</td><td class="num">৳ 90,000</td><td class="no-print"></td></tr>
+    <tr><td colspan="5">চলমান স্টাফদের মোট চাঁদা (Active Staff Subscriptions)</td><td class="num">৳ 89,000</td><td class="no-print"></td></tr>
   </tfoot>
         </table>
       </div>
@@ -3206,8 +3128,8 @@
         <td class="center"><strong>964</strong></td>
         <td>Md Golam Rabbani</td>
         <td>I.O</td>
-        <td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num">1,000</td><td class="num">1,000</td><td class="num">1,000</td><td class="num">1,000</td><td class="num"></td>
-        <td class="num"><strong>4,000</strong></td>
+        <td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num">1,000</td><td class="num">1,000</td><td class="num">1,000</td><td class="num"></td><td class="num"></td>
+        <td class="num"><strong>3,000</strong></td>
       </tr>
     
       <tr style="">
@@ -3348,8 +3270,8 @@
           <tfoot>
     <tr>
       <td colspan="4">সর্বমোট (Total)</td>
-      <td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">23,500</td><td class="num">23,500</td><td class="num">22,500</td><td class="num">22,500</td><td class="num">0</td>
-      <td class="num">৳ 92,000</td>
+      <td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">23,500</td><td class="num">23,500</td><td class="num">22,500</td><td class="num">21,500</td><td class="num">0</td>
+      <td class="num">৳ 91,000</td>
     </tr>
   </tfoot>
         </table>
@@ -5545,11 +5467,11 @@ function doPost(e) {
     <h3>🎨 অ্যাপ থিম ও কালার ডিজাইন (১৮টি থিম)</h3>
     <p>যেকোনো থিমে ক্লিক করলেই সাথে সাথে পুরো অ্যাপের কালার ও ডিজাইন পরিবর্তন হয়ে যাবে (Day ও Night উভয় মোডেই কাজ করবে)।</p>
     <div class="theme-grid" id="themeGrid">
-    <div class="theme-card" onclick="applyAppTheme('ocean', true)">
+    <div class="theme-card active" onclick="applyAppTheme('ocean', true)">
       <div class="theme-swatch" style="background:linear-gradient(125deg, #0b3954 0%, #0f4c5c 45%, #1b8a6b 100%);"></div>
       <div class="theme-name">
         <span>1. Ocean Teal</span>
-        <span></span>
+        <span>✅</span>
       </div>
     </div>
   
@@ -5681,11 +5603,11 @@ function doPost(e) {
       </div>
     </div>
   
-    <div class="theme-card active" onclick="applyAppTheme('aurora', true)">
+    <div class="theme-card" onclick="applyAppTheme('aurora', true)">
       <div class="theme-swatch" style="background:linear-gradient(125deg, #1e1b4b 0%, #6d28d9 48%, #0d9488 100%);"></div>
       <div class="theme-name">
         <span>18. Aurora Gradient</span>
-        <span>✅</span>
+        <span></span>
       </div>
     </div>
   </div>
@@ -6252,11 +6174,16 @@ function checkEditPerm(permKey, actionLabel) {
 }
 
 function authorizePosting(permKey, title, desc, onAuthorized) {
-  if (isEditMode && (!activeUserSession || activeUserSession.isMaster || (activeUserSession.perms && activeUserSession.perms[permKey]))) {
+  if (isEditMode && activeUserSession && (activeUserSession.isMaster || (activeUserSession.perms && activeUserSession.perms[permKey]))) {
     onAuthorized();
     return;
   }
-  requestPassword(title, desc, () => {
+  requestPassword(title, desc, (authCheck) => {
+    if (authCheck && !isEditMode) {
+      activeUserSession = authCheck;
+      isEditMode = true;
+      updateEditBtn();
+    }
     onAuthorized();
   }, permKey);
 }
@@ -6311,6 +6238,13 @@ function confirmUnlock() {
     pendingPwdAction = null;
     pendingPwdPerm = null;
     document.getElementById('pwdModal').classList.remove('open');
+    if (!isEditMode || check.isMaster) {
+      activeUserSession = check;
+      if (!isEditMode && check.perms && check.perms.editMode) {
+        isEditMode = true;
+      }
+      updateEditBtn();
+    }
     if (typeof action === 'function') {
       action(check);
     } else {
@@ -6444,6 +6378,7 @@ function saveCustomPassword() {
   saveState();
   resetCustomPwdForm();
   renderCustomPwdList();
+  renderAll();
 }
 function editCustomPassword(idx) {
   const u = state.customPasswords[idx];
@@ -6965,9 +6900,9 @@ function _executePostFundEntry({ type, date, month, monthKey, mIdx, staffId, sta
   saveState();
   populateDropdowns();
   renderAll();
-  showDeStatus(`সফলভাবে পোস্ট হয়েছে! SL #${logItem.sl} (${type} — ৳${fmtDec(amount)})`, false);
+  const successMsg = `সফলভাবে পোস্ট হয়েছে! SL #${logItem.sl} (${type} — ৳${fmtDec(amount)})`;
   clearDeForm();
-  showDeStatus(`সফলভাবে পোস্ট হয়েছে! SL #${logItem.sl} (${type} — ৳${fmtDec(amount)})`, false);
+  showDeStatus(successMsg, false);
 }
 
 function editLogEntry(sl) {
@@ -8333,7 +8268,10 @@ async function syncFromCloud(showAlertOnNoUrl) {
   }
   setSyncPill('🔄 Loading from Drive...', 'syncing');
   const results = await Promise.allSettled(
-    urls.map(u => fetch(u.url + (u.url.includes('?') ? '&' : '?') + 't=' + Date.now(), { method: 'GET', redirect: 'follow' }).then(r => r.json()))
+    urls.map(u => fetch(u.url + (u.url.includes('?') ? '&' : '?') + 't=' + Date.now(), { method: 'GET', redirect: 'follow' }).then(async r => {
+      const txt = await r.text();
+      return JSON.parse(txt);
+    }))
   );
 
   let newestData = null;
@@ -8395,6 +8333,7 @@ async function pushToCloud() {
     return;
   }
   setSyncPill('🔄 Saving to Drive...', 'syncing');
+  normalizeState(state);
   const bodyStr = JSON.stringify({ editPass: EDIT_PASS, data: state });
 
   const results = await Promise.allSettled(
@@ -8403,7 +8342,10 @@ async function pushToCloud() {
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: bodyStr,
       redirect: 'follow'
-    }).then(r => r.json()))
+    }).then(async r => {
+      const txt = await r.text();
+      try { return JSON.parse(txt); } catch (e) { return { status: r.ok ? 'ok' : 'err', raw: txt }; }
+    }))
   );
 
   const savedCount = results.filter(r => r.status === 'fulfilled' && r.value && r.value.status === 'ok').length;
