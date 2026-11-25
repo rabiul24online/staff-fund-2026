@@ -1933,7 +1933,7 @@
         <span class="app-config-arrow" id="appConfigArrow">▾</span>
       </button>
       <div class="app-config-panel" id="appConfigPanel">
-        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 09:50 AM</button>
+        <button id="syncStatusPill" class="sync-pill synced" onclick="closeSheetDrawer(); openCloudModal();" title="Google Drive Sync Settings">✅ Synced (2/2 Drive) • 11:11 AM</button>
         <button class="btn btn-light cfg-c1" onclick="syncFromCloud(true)" title="গুগল ড্রাইভ থেকে সর্বশেষ ডাটা লোড করুন">🔄 Sync Now</button>
         <button id="editModeBtn" class="btn btn-warning cfg-c2" onclick="closeSheetDrawer(); toggleEditModal();">🔒 Read-Only (Unlock Edit)</button>
         <button class="btn btn-light cfg-c3" onclick="closeSheetDrawer(); openChangePwdModal();">🔑 Change Password</button>
@@ -1972,7 +1972,7 @@
 <div class="main">
   <div class="print-header" id="printHeader">
     <h1 id="printMainTitle">DMCB ভৈরব বাজার শাখার স্টাফ ফান্ড (Staff Fund 2026)</h1>
-    <div class="print-sub" id="printSheetMeta">Dashboard &amp; Summary • প্রিন্ট তারিখ: 25 Nov 2026, 09:50</div>
+    <div class="print-sub" id="printSheetMeta">Dashboard &amp; Summary • প্রিন্ট তারিখ: 25 Nov 2026, 11:12</div>
   </div>
 
   <!-- 1. DASHBOARD & SUMMARY -->
@@ -5247,7 +5247,7 @@ function doPost(e) {
       </div>
     </div>
 
-    <div id="cloudModalMsg" class="status-banner" style="margin-bottom:10px;">✓ index.html ডাউনলোড হয়েছে! এই ফাইলটি ফোন বা পিসি যেখান থেকেই ওপেন করবেন, অটো ড্রাইভ থেকে ডাটা লোড ও সেভ হবে।</div>
+    <div id="cloudModalMsg" class="status-banner show ok" style="margin-bottom:10px;">Google Drive সিঙ্ক সম্পন্ন! সব ডিভাইসে অটো-সিঙ্ক পেতে "Download Ready HTML" বাটনে ক্লিক করুন।</div>
 
     <div class="modal-actions" style="flex-wrap:wrap;">
       <button class="btn btn-outline" onclick="closeCloudModal()">বন্ধ করুন</button>
@@ -5884,8 +5884,8 @@ function getAppPassword() {
 const CLOUD_CONFIG_KEY = 'staff_fund_2026_cloud_cfg';
 ///*CLOUD_CONFIG_START*/
 const EMBEDDED_CLOUD_CONFIG = {
-  drive1Url: "https://script.google.com/macros/s/AKfycbxHzjy4TTFqeOniZ5btYVw8ZLCQGGig0MXxMaUAsxUJhulFpZc_0avE1dvjoEAU-SOp/exec",
-  drive2Url: "https://script.google.com/macros/s/AKfycbwa6O9oR7IUlNC1Y5KBS11GERgU-SFBe7qMxlVpwJieN8FoEiVXXhlFlg8OjYagRXEM/exec"
+  drive1Url: "https://script.google.com/macros/s/AKfycbxu9Lu2-OMmM7e5yZ38E3ZK-4gSRGw-5eGLZFvKk8_kpNY3FQwSRLc5ulNStMRaf2DQIA/exec",
+  drive2Url: "https://script.google.com/macros/s/AKfycbxWwIclGImKoGWxWVupf0xT_Y7cDiUFvyo2XKiIK0FgwRLFIgZUlJBG3WAosBW8mhPnBw/exec"
 };
 ///*CLOUD_CONFIG_END*/
 
