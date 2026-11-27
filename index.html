@@ -2013,6 +2013,73 @@
     justify-content: space-between;
     gap: 8px;
   }
+  /* ===== Topbar Sun/Moon Button & Navbar User Info Pill ===== */
+  .top-mode-btn {
+    padding: 6px 9px !important;
+    font-size: 15px !important;
+    line-height: 1 !important;
+    border-radius: 8px !important;
+    min-width: 34px;
+    justify-content: center;
+  }
+  @media (max-width: 480px) {
+    .topbar { padding: 10px 10px !important; gap: 6px !important; }
+    .topbar-actions { gap: 5px !important; }
+    .topbar-actions .btn { padding: 5px 8px !important; font-size: 11.5px !important; }
+    .topbar-actions .top-mode-btn { padding: 5px 7px !important; font-size: 14px !important; min-width: 30px; }
+  }
+  .sheet-nav-bar {
+    gap: 8px !important;
+    padding: 7px 10px !important;
+  }
+  .active-sheet-indicator {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 13px !important;
+  }
+  .nav-user-pill {
+    flex-shrink: 0;
+    max-width: 148px;
+    display: none;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 4px 9px;
+    border-radius: 8px;
+    background: var(--primary-light);
+    border: 1px solid var(--border);
+    line-height: 1.25;
+    text-align: right;
+    cursor: pointer;
+  }
+  .nav-user-name {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--primary-dark);
+    max-width: 132px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nav-user-meta {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--muted);
+    max-width: 132px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  body.night-mode .nav-user-pill {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+  }
+  body.night-mode .nav-user-name {
+    color: #38bdf8 !important;
+  }
+  body.night-mode .nav-user-meta {
+    color: #cbd5e1 !important;
+  }
 </style>
 <style id="gemini-live-style"></style>
 </head>
@@ -9273,6 +9340,73 @@ function initAppLock() {
   }
 }
 initAppLock();
+  // ===== Topbar Sun/Moon Toggle & Navbar User Info =====
+(function setupTopModeAndNavUser() {
+  const actions = document.querySelector('.topbar-actions');
+  const refreshBtn = document.getElementById('topRefreshBtn');
+  if (actions && !document.getElementById('topDayNightBtn')) {
+    const modeBtn = document.createElement('button');
+    modeBtn.type = 'button';
+    modeBtn.id = 'topDayNightBtn';
+    modeBtn.className = 'btn btn-light top-mode-btn';
+    modeBtn.onclick = function() { toggleDayNightMode(); };
+    if (refreshBtn) actions.insertBefore(modeBtn, refreshBtn);
+    else actions.prepend(modeBtn);
+  }
+
+  const navBar = document.querySelector('.sheet-nav-bar');
+  if (navBar && !document.getElementById('navLoggedUser')) {
+    const pill = document.createElement('div');
+    pill.id = 'navLoggedUser';
+    pill.className = 'nav-user-pill';
+    navBar.appendChild(pill);
+  }
+
+  const origApplyMode = applyDayNightMode;
+  applyDayNightMode = function(night) {
+    origApplyMode(night);
+    const topBtn = document.getElementById('topDayNightBtn');
+    if (topBtn) {
+      topBtn.textContent = isNightMode ? '🌙' : '☀️';
+      topBtn.title = isNightMode ? 'Night Mode (ক্লিক করলে Day Mode হবে)' : 'Day Mode (ক্লিক করলে Night Mode হবে)';
+    }
+  };
+  applyDayNightMode(isNightMode);
+
+  const origRenderBadge = renderLoggedInBadge;
+  renderLoggedInBadge = function(userObj) {
+    origRenderBadge(userObj);
+    const pill = document.getElementById('navLoggedUser');
+    if (!pill) return;
+    if (!userObj) {
+      pill.style.display = 'none';
+      pill.innerHTML = '';
+      pill.onclick = null;
+      return;
+    }
+    pill.style.display = 'flex';
+    pill.title = `${userObj.name} (${userObj.subText})`;
+    pill.innerHTML = `
+      <span class="nav-user-name">👤 ${esc(userObj.name)}</span>
+      <span class="nav-user-meta">${esc(userObj.subText)}</span>
+    `;
+    pill.onclick = function() {
+      if (userObj.id && userObj.id !== 'ADMIN' && userObj.id !== 'CUSTOM') {
+        openInStatement(userObj.id);
+      } else {
+        toggleSheetDrawer();
+      }
+    };
+  };
+
+  try {
+    const raw = sessionStorage.getItem(APP_SESSION_KEY);
+    if (raw) {
+      const saved = JSON.parse(raw);
+      if (saved && saved.name) renderLoggedInBadge(saved);
+    }
+  } catch (e) {}
+})();
 </script>
 
 
