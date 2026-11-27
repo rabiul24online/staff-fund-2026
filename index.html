@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="bn"><head>
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/rabiul24online/staff-fund-2026/main/image_b2b18c77_11zon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f4c5c">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" id="colorSchemeMeta" content="light">
@@ -8966,6 +8968,11 @@ populateDropdowns();
 initDataEntryForm();
 switchTabByName('dashboard');
 syncFromCloud(false);
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+  }
 </script>
 
 
