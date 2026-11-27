@@ -2023,8 +2023,7 @@
     <div class="login-title">DMCB ভৈরব বাজার শাখা</div>
     <div class="login-sub">স্টাফ ফান্ড ২০২৬ — অ্যাপে প্রবেশ করতে আপনার কমপক্ষে ৪ ডিজিটের Staff ID দিন</div>
     <div class="login-hint">
-      আইডি ২ ডিজিটের হলে শুরুতে দুইটি <b>00</b> এবং ৩ ডিজিটের হলে একটি <b>0</b> দিন<br>
-      (যেমন: 93 → <b>0093</b>, 407 → <b>0407</b>, 1500 → <b>1500</b>)
+      আইডি ২ ডিজিটের হলে শুরুতে দুইটি <b>00</b> এবং ৩ ডিজিটের হলে একটি <b>0</b> দিয়ে ৪ ডিজিট পূর্ণ করুন
     </div>
     <div class="login-input-wrap">
       <input type="password" id="appLoginInput" class="login-input" inputmode="numeric" minlength="4" maxlength="12" placeholder="৪ ডিজিটের Staff ID লিখুন" autocomplete="off" onkeydown="if(event.key==='Enter') unlockAppWithId()">
@@ -9181,7 +9180,7 @@ function unlockAppWithId() {
   const raw = (inp ? inp.value : '').trim();
 
   if (raw.length < 4) {
-    return showLoginErr('পাসওয়ার্ড কমপক্ষে ৪ ডিজিটের হতে হবে! আইডি ছোট হলে শুরুতে 0 দিন (যেমন: 93 হলে 0093)।');
+  return showLoginErr('পাসওয়ার্ড কমপক্ষে ৪ ডিজিটের হতে হবে! আইডি ২ বা ৩ ডিজিটের হলে শুরুতে 0 যোগ করুন।');
   }
 
   let matchedUser = null;
