@@ -1,0 +1,24 @@
+{
+  "name": "DMCB স্টাফ ফান্ড ২০২৬ (Staff Fund 2026)",
+  "short_name": "Staff Fund 2026",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f4c5c",
+  "theme_color": "#0f4c5c",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./image_b2b18c77_11zon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./image_b2b18c77_11zon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
