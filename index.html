@@ -1882,10 +1882,158 @@
     border-color: #334155 !important;
     color: #f8fafc !important;
   }
+  /* ===== App Open 4-Digit Staff ID Lock Screen ===== */
+  body.app-locked .topbar,
+  body.app-locked .sheet-nav-bar,
+  body.app-locked .main,
+  body.app-locked .sheet-drawer,
+  body.app-locked .sheet-drawer-backdrop {
+    display: none !important;
+  }
+  @media print {
+    body.app-locked * { display: none !important; }
+  }
+  #appLockOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    background: linear-gradient(135deg, #0b3954 0%, #0f4c5c 50%, #1b8a6b 100%);
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+  }
+  body.app-locked #appLockOverlay {
+    display: flex;
+  }
+  .login-card {
+    width: 100%;
+    max-width: 390px;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border-radius: 16px;
+    padding: 26px 22px;
+    text-align: center;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+  .login-logo {
+    width: 68px;
+    height: 68px;
+    border-radius: 16px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(15, 76, 92, 0.25);
+  }
+  .login-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #09323d !important;
+    margin-bottom: 4px;
+  }
+  .login-sub {
+    font-size: 12.5px;
+    color: #475569 !important;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .login-input-wrap {
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .login-input {
+    width: 100% !important;
+    padding: 12px 42px 12px 14px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: 2px;
+    text-align: center;
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 10px !important;
+    background: #f8fafc !important;
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+    font-family: inherit;
+  }
+  .login-input:focus {
+    outline: none;
+    border-color: #0f4c5c !important;
+    background: #ffffff !important;
+  }
+  .login-eye-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px 6px;
+  }
+  .login-hint {
+    font-size: 11.5px;
+    color: #0f4c5c;
+    background: #e6f2f5;
+    padding: 7px 10px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+  .login-err {
+    display: none;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .login-submit-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 16px !important;
+    font-size: 14.5px !important;
+    border-radius: 10px !important;
+    background: linear-gradient(135deg, #0f4c5c, #1b8a6b) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(15, 76, 92, 0.3);
+  }
+  .logged-user-box {
+    margin-top: 8px;
+    padding: 9px 11px;
+    border-radius: 9px;
+    background: var(--primary-light);
+    border: 1px solid var(--border);
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
 </style>
 <style id="gemini-live-style"></style>
 </head>
-<body class="">
+<body class="app-locked">
+  <div id="appLockOverlay">
+  <div class="login-card">
+    <img class="login-logo" src="https://raw.githubusercontent.com/rabiul24online/staff-fund-2026/main/image_b2b18c77_11zon.png" alt="Staff Fund Logo">
+    <div class="login-title">DMCB ভৈরব বাজার শাখা</div>
+    <div class="login-sub">স্টাফ ফান্ড ২০২৬ — অ্যাপে প্রবেশ করতে আপনার কমপক্ষে ৪ ডিজিটের Staff ID দিন</div>
+    <div class="login-hint">
+      আইডি ২ ডিজিটের হলে শুরুতে দুইটি <b>00</b> এবং ৩ ডিজিটের হলে একটি <b>0</b> দিন<br>
+      (যেমন: 93 → <b>0093</b>, 407 → <b>0407</b>, 1500 → <b>1500</b>)
+    </div>
+    <div class="login-input-wrap">
+      <input type="password" id="appLoginInput" class="login-input" inputmode="numeric" minlength="4" maxlength="12" placeholder="৪ ডিজিটের Staff ID লিখুন" autocomplete="off" onkeydown="if(event.key==='Enter') unlockAppWithId()">
+      <button type="button" id="appLoginEye" class="login-eye-btn" onclick="toggleLoginPwdVis()" title="দেখুন / লুকান">👁️</button>
+    </div>
+    <div id="appLoginErr" class="login-err"></div>
+    <button type="button" class="btn login-submit-btn" onclick="unlockAppWithId()">🔓 লগইন করুন</button>
+  </div>
+  </div>
 
 <div class="topbar">
   <div class="topbar-title">
@@ -8973,6 +9121,159 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});
   });
   }
+  // ===== App Open 4-Digit Staff ID Lock =====
+const APP_SESSION_KEY = 'staff_fund_2026_login_session';
+
+function formatStaffPin(id) {
+  return String(id ?? '').trim().padStart(4, '0');
+}
+
+function toggleLoginPwdVis() {
+  const inp = document.getElementById('appLoginInput');
+  const btn = document.getElementById('appLoginEye');
+  if (!inp) return;
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    if (btn) btn.textContent = '🙈';
+  } else {
+    inp.type = 'password';
+    if (btn) btn.textContent = '👁️';
+  }
+}
+
+function showLoginErr(msg) {
+  const el = document.getElementById('appLoginErr');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function renderLoggedInBadge(userObj) {
+  const drawerList = document.getElementById('tabsBar');
+  if (!drawerList) return;
+  let box = document.getElementById('loggedInUserBox');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'loggedInUserBox';
+    box.className = 'logged-user-box';
+    const modeSec = drawerList.querySelector('.mode-switch-section');
+    if (modeSec) drawerList.insertBefore(box, modeSec);
+    else drawerList.appendChild(box);
+  }
+  if (!userObj) {
+    box.style.display = 'none';
+    return;
+  }
+  box.style.display = 'flex';
+  box.innerHTML = `
+    <div style="min-width:0;">
+      <div style="font-size:12px;font-weight:800;color:var(--primary-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">👤 ${esc(userObj.name)}</div>
+      <div style="font-size:11px;color:var(--muted);font-weight:600;">${esc(userObj.subText)}</div>
+    </div>
+    <button type="button" class="btn btn-danger btn-sm" onclick="logoutAppLock()">🔒 Lock</button>
+  `;
+}
+
+function unlockAppWithId() {
+  const inp = document.getElementById('appLoginInput');
+  const errEl = document.getElementById('appLoginErr');
+  if (errEl) errEl.style.display = 'none';
+  const raw = (inp ? inp.value : '').trim();
+
+  if (raw.length < 4) {
+    return showLoginErr('পাসওয়ার্ড কমপক্ষে ৪ ডিজিটের হতে হবে! আইডি ছোট হলে শুরুতে 0 দিন (যেমন: 93 হলে 0093)।');
+  }
+
+  let matchedUser = null;
+
+  // ১. Active স্টাফদের ৪ ডিজিটের Staff ID চেক (Office 46 বাদে)
+  const activeStaff = (state && Array.isArray(state.staffDir))
+    ? state.staffDir.find(s => String(s.id) !== '46' && isStaffActive(s) && formatStaffPin(s.id) === raw)
+    : null;
+
+  if (activeStaff) {
+    matchedUser = {
+      id: String(activeStaff.id),
+      name: activeStaff.name,
+      subText: `ID: ${formatStaffPin(activeStaff.id)} • ${activeStaff.desig || ''}`
+    };
+  }
+
+  // ২. Master Admin পাসওয়ার্ড চেক (যদি ৪+ ডিজিট হয়)
+  if (!matchedUser && getAppPassword().length >= 4 && raw === getAppPassword()) {
+    matchedUser = {
+      id: 'ADMIN',
+      name: 'Master Admin',
+      subText: 'Full Access Login'
+    };
+  }
+
+  // ৩. Custom Password চেক (যদি ৪+ ডিজিট হয়)
+  if (!matchedUser && state && Array.isArray(state.customPasswords)) {
+    const custom = state.customPasswords.find(u => String(u.password || '').length >= 4 && String(u.password) === raw);
+    if (custom) {
+      matchedUser = {
+        id: 'CUSTOM',
+        name: custom.name,
+        subText: 'Authorized User'
+      };
+    }
+  }
+
+  if (!matchedUser) {
+    const inactive = (state && Array.isArray(state.staffDir))
+      ? state.staffDir.find(s => String(s.id) !== '46' && !isStaffActive(s) && formatStaffPin(s.id) === raw)
+      : null;
+    if (inactive) {
+      return showLoginErr(`দুঃখিত! ${inactive.name} বর্তমানে '${getStaffStatus(inactive)}' তালিকায় আছেন, তাই লগইন করা যাবে না।`);
+    }
+    return showLoginErr('ভুল Staff ID বা পাসওয়ার্ড! সঠিক ৪ ডিজিটের ID দিন (২ ডিজিট হলে শুরুতে 00 দিন)।');
+  }
+
+  try { sessionStorage.setItem(APP_SESSION_KEY, JSON.stringify(matchedUser)); } catch (e) {}
+  if (inp) inp.value = '';
+  document.body.classList.remove('app-locked');
+  renderLoggedInBadge(matchedUser);
+}
+
+function logoutAppLock() {
+  try { sessionStorage.removeItem(APP_SESSION_KEY); } catch (e) {}
+  closeSheetDrawer();
+  if (isEditMode) {
+    isEditMode = false;
+    activeUserSession = null;
+    updateEditBtn();
+    renderAll();
+  }
+  document.body.classList.add('app-locked');
+  renderLoggedInBadge(null);
+  const errEl = document.getElementById('appLoginErr');
+  if (errEl) errEl.style.display = 'none';
+  setTimeout(() => {
+    const inp = document.getElementById('appLoginInput');
+    if (inp) inp.focus();
+  }, 80);
+}
+
+function initAppLock() {
+  let savedSession = null;
+  try {
+    const raw = sessionStorage.getItem(APP_SESSION_KEY);
+    if (raw) savedSession = JSON.parse(raw);
+  } catch (e) {}
+  if (savedSession && savedSession.name) {
+    document.body.classList.remove('app-locked');
+    renderLoggedInBadge(savedSession);
+  } else {
+    document.body.classList.add('app-locked');
+    renderLoggedInBadge(null);
+    setTimeout(() => {
+      const inp = document.getElementById('appLoginInput');
+      if (inp) inp.focus();
+    }, 80);
+  }
+}
+initAppLock();
 </script>
 
 
