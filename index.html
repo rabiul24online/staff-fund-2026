@@ -2572,6 +2572,50 @@
     margin-top: 2px;
     font-weight: 600;
   }
+  /* ===== Posted By (App Login & Password Used) & Access Control Select ===== */
+  .posted-by-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 145px;
+    line-height: 1.3;
+  }
+  .posted-by-name {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary-dark);
+  }
+  body.night-mode .posted-by-name {
+    color: #f8fafc !important;
+  }
+  .posted-by-id {
+    display: inline-block;
+    width: fit-content;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 99px;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+  }
+  body.night-mode .posted-by-id {
+    background: #1e293b !important;
+    color: #38bdf8 !important;
+    border: 1px solid #334155;
+  }
+  .posted-by-via {
+    font-size: 10.5px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .stmt-posted-note {
+    font-size: 10.5px;
+    color: var(--muted);
+    margin-top: 2px;
+    font-weight: 600;
+  }
 </style>
 <style id="gemini-live-style"></style>
 </head>
@@ -10985,6 +11029,481 @@ initAppLock();
         const note = document.createElement('div');
         note.className = 'stmt-posted-note';
         note.textContent = `Posted by: ${item.postedBy.name} (${item.postedBy.pin || item.postedBy.id})`;
+        tr.cells[4].appendChild(note);
+      }
+    });
+  }
+
+  window.applyPostedByColumns = function() {
+    enhanceTableWithPoster('de-log-table', tr => {
+      const sl = tr.cells[0] ? tr.cells[0].textContent.trim() : '';
+      return (state.postLog || []).find(x => String(x.sl) === sl) || null;
+    });
+    enhanceTableWithPoster('oi-table', tr => {
+      const idx = parseInt(tr.cells[0] ? tr.cells[0].textContent : '', 10) - 1;
+      return (!isNaN(idx) && state.otherIncome[idx]) ? state.otherIncome[idx] : null;
+    });
+    enhanceTableWithPoster('exp-table', tr => {
+      const idx = parseInt(tr.cells[0] ? tr.cells[0].textContent : '', 10) - 1;
+      return (!isNaN(idx) && state.expenses[idx]) ? state.expenses[idx] : null;
+    });
+    enhanceStmtPosterNotes();
+  };
+
+  ['renderAll', 'renderDataEntry', 'renderOtherIncome', 'renderExpenseRegister', 'renderStaffStatement'].forEach(fnName => {
+    const orig = window[fnName];
+    if (typeof orig === 'function') {
+      window[fnName] = function() {
+        const res = orig.apply(this, arguments);
+        window.applyPostedByColumns();
+        return res;
+      };
+    }
+  });
+
+  window.applyPostedByColumns();
+})();
+  // ===== Staff-ID Access Control, Strict Auth Binding & Posted-By Tracker =====
+(function setupStrictStaffAuthAndPostedBy() {
+  function padId(id) {
+    const s = String(id ?? '').trim();
+    if (!s || s === 'ADMIN' || s === 'CUSTOM' || s === 'PASS') return s;
+    return s.padStart(4, '0');
+  }
+
+  function resolveCustomStaffId(u) {
+    if (!u) return '';
+    if (u.staffId) return String(u.staffId).trim();
+    const label = String(u.name || '').trim().toLowerCase();
+    const list = (state && Array.isArray(state.staffDir)) ? state.staffDir : [];
+    const byName = list.find(s => String(s.name || '').toLowerCase().includes(label) || label.includes(String(s.name || '').toLowerCase()));
+    if (byName) return String(byName.id);
+    const cleanLbl = label.replace(/[\.\s]/g, '');
+    const byDesig = list.find(s => String(s.desig || '').toLowerCase().replace(/[\.\s]/g, '').includes(cleanLbl));
+    if (byDesig) return String(byDesig.id);
+    return '';
+  }
+
+  function getAppLoginUser() {
+    try {
+      const raw = (typeof APP_SESSION_KEY !== 'undefined') ? sessionStorage.getItem(APP_SESSION_KEY) : null;
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return null;
+  }
+
+  // ১. Access Control-এ Manual নামের বদলে Staff ID ড্রপডাউন যুক্ত করা
+  function upgradeAccessControlUi() {
+    const nameInp = document.getElementById('ac-user-name');
+    if (!nameInp || document.getElementById('ac-staff-select')) return;
+    const parent = nameInp.parentElement;
+    const lbl = parent.querySelector('label');
+    if (lbl) lbl.textContent = 'স্টাফ আইডি নির্বাচন করুন (Staff ID):';
+
+    const sel = document.createElement('select');
+    sel.id = 'ac-staff-select';
+    sel.style.cssText = 'width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;margin-bottom:6px;';
+    sel.onchange = function() {
+      const sid = sel.value.trim();
+      const st = sid ? getStaffInfo(sid) : null;
+      nameInp.value = st ? st.name : '';
+    };
+    parent.insertBefore(sel, nameInp);
+    nameInp.readOnly = true;
+    nameInp.style.display = 'none';
+  }
+
+  function populateAcStaffDropdown(selectedSid) {
+    upgradeAccessControlUi();
+    const sel = document.getElementById('ac-staff-select');
+    const nameInp = document.getElementById('ac-user-name');
+    if (!sel) return;
+    const activeList = (state.staffDir || []).filter(s => String(s.id) !== '46' && isStaffActive(s));
+    sel.innerHTML = '<option value="">-- স্টাফ আইডি নির্বাচন করুন --</option>' +
+      activeList.map(s => `<option value="${esc(String(s.id))}">${esc(padId(s.id))} — ${esc(s.name)} (${esc(s.desig)})</option>`).join('');
+    if (selectedSid) {
+      sel.value = String(selectedSid);
+      const st = getStaffInfo(selectedSid);
+      if (nameInp) nameInp.value = st ? st.name : '';
+    } else {
+      sel.value = '';
+      if (nameInp) nameInp.value = '';
+    }
+  }
+
+  window.resetCustomPwdForm = function() {
+    document.getElementById('ac-edit-idx').value = '-1';
+    document.getElementById('ac-user-name').value = '';
+    document.getElementById('ac-user-pwd').value = '';
+    populateAcStaffDropdown('');
+    Object.keys(PERM_LABELS).forEach(k => {
+      const cb = document.getElementById('ac-p-' + k);
+      if (cb) cb.checked = false;
+    });
+    document.getElementById('ac-save-user-btn').textContent = '➕ পাসওয়ার্ড যোগ করুন';
+    document.getElementById('ac-cancel-edit-btn').style.display = 'none';
+  };
+
+  window.renderCustomPwdList = function() {
+    const list = state.customPasswords || [];
+    document.getElementById('ac-slot-count').textContent = `${list.length} / 10`;
+    const container = document.getElementById('ac-pwd-list');
+    if (!list.length) {
+      container.innerHTML = '<div style="font-size:12px;color:var(--muted);text-align:center;padding:10px;">এখনও কোনো স্টাফের পাসওয়ার্ড যোগ করা হয়নি। উপরে Staff ID সিলেক্ট করে পাসওয়ার্ড যোগ করুন।</div>';
+      return;
+    }
+    container.innerHTML = list.map((u, i) => {
+      const sid = resolveCustomStaffId(u);
+      const pin = sid ? padId(sid) : '';
+      const photo = (typeof window.getStaffPhotoUrl === 'function' && sid) ? window.getStaffPhotoUrl(sid) : '';
+      const imgHtml = photo ? `<img class="staff-avatar-img" src="${photo}" alt="" style="width:22px;height:22px;margin-right:5px;">` : '';
+      const idTag = pin ? `<span class="badge badge-good" style="margin-left:4px;">ID: ${esc(pin)}</span>` : '';
+      const badges = Object.keys(PERM_LABELS)
+        .filter(k => u.perms && u.perms[k])
+        .map(k => `<span class="ac-perm-chip">${PERM_LABELS[k]}</span>`)
+        .join('');
+      return `
+        <div class="ac-pwd-card">
+          <div class="ac-pwd-info">
+            <div class="ac-pwd-name">${imgHtml}${i + 1}. ${esc(u.name)}${idTag} <span style="font-weight:600;color:var(--muted);font-size:12px;">(পাসওয়ার্ড: <code>${esc(u.password)}</code>)</span></div>
+            <div class="ac-pwd-badges">${badges || '<span style="font-size:11px;color:var(--danger);">কোনো অনুমতি সিলেক্ট করা নেই</span>'}</div>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-warning btn-sm" onclick="editCustomPassword(${i})">✏️</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteCustomPassword(${i})">🗑</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  };
+
+  window.saveCustomPassword = function() {
+    if (!Array.isArray(state.customPasswords)) state.customPasswords = [];
+    const editIdx = parseInt(document.getElementById('ac-edit-idx').value, 10);
+    const sel = document.getElementById('ac-staff-select');
+    const sid = sel ? sel.value.trim() : '';
+    const staff = sid ? getStaffInfo(sid) : null;
+    const pwd = document.getElementById('ac-user-pwd').value.trim();
+
+    if (!staff) return showAcStatus('তালিকা থেকে একটি স্টাফ আইডি নির্বাচন করুন।', true);
+    if (!pwd) return showAcStatus('পাসওয়ার্ড খালি রাখা যাবে না।', true);
+    if (pwd === getAppPassword()) return showAcStatus('এটি Master Admin পাসওয়ার্ড — অন্য পাসওয়ার্ড দিন।', true);
+
+    const dupPwd = state.customPasswords.some((u, i) => i !== editIdx && String(u.password) === pwd);
+    if (dupPwd) return showAcStatus('এই পাসওয়ার্ডটি ইতিমধ্যে অন্য একটি স্লটে ব্যবহৃত হয়েছে!', true);
+
+    const dupStaff = state.customPasswords.some((u, i) => i !== editIdx && resolveCustomStaffId(u) === String(staff.id));
+    if (dupStaff) return showAcStatus(`ID: ${padId(staff.id)} (${staff.name})-এর জন্য ইতিমধ্যে পাসওয়ার্ড সেট করা আছে! সেটি এডিট করুন।`, true);
+
+    if (editIdx < 0 && state.customPasswords.length >= 10) {
+      return showAcStatus('সর্বোচ্চ ১০টি পাসওয়ার্ড যোগ করা যাবে!', true);
+    }
+
+    const perms = {};
+    let anyPerm = false;
+    Object.keys(PERM_LABELS).forEach(k => {
+      const cb = document.getElementById('ac-p-' + k);
+      perms[k] = !!(cb && cb.checked);
+      if (perms[k]) anyPerm = true;
+    });
+    if (!anyPerm) return showAcStatus('অন্তত একটি কাজের অনুমতি সিলেক্ট করুন।', true);
+
+    const entry = { staffId: String(staff.id), name: staff.name, password: pwd, perms };
+    if (editIdx >= 0) {
+      state.customPasswords[editIdx] = entry;
+      showAcStatus(`✓ "${staff.name} (ID: ${padId(staff.id)})" পাসওয়ার্ড আপডেট করা হয়েছে!`, false);
+    } else {
+      state.customPasswords.push(entry);
+      showAcStatus(`✓ "${staff.name} (ID: ${padId(staff.id)})" পাসওয়ার্ড সফলভাবে যোগ করা হয়েছে!`, false);
+    }
+    saveState();
+    resetCustomPwdForm();
+    renderCustomPwdList();
+    renderAll();
+  };
+
+  window.editCustomPassword = function(idx) {
+    const u = state.customPasswords[idx];
+    if (!u) return;
+    const sid = resolveCustomStaffId(u);
+    document.getElementById('ac-edit-idx').value = idx;
+    populateAcStaffDropdown(sid);
+    document.getElementById('ac-user-name').value = u.name;
+    document.getElementById('ac-user-pwd').value = u.password;
+    Object.keys(PERM_LABELS).forEach(k => {
+      const cb = document.getElementById('ac-p-' + k);
+      if (cb) cb.checked = !!(u.perms && u.perms[k]);
+    });
+    document.getElementById('ac-save-user-btn').textContent = '💾 আপডেট করুন';
+    document.getElementById('ac-cancel-edit-btn').style.display = 'inline-flex';
+  };
+
+  const origRenderAc = window.renderAccessControlModal;
+  window.renderAccessControlModal = function() {
+    upgradeAccessControlUi();
+    if (typeof origRenderAc === 'function') origRenderAc();
+  };
+
+  // ২. অন্যের পাসওয়ার্ড দিয়ে Edit/Posting ব্লক (শুধু নিজের পাসওয়ার্ড বা Master Password চলবে)
+  window.verifyPasswordForPerm = function(inputPwd, requiredPerm) {
+    const pwd = String(inputPwd || '');
+    if (pwd === getAppPassword()) {
+      return { ok: true, isMaster: true, name: 'Master Admin', staffId: 'ADMIN', perms: null };
+    }
+    if (requiredPerm === 'masterOnly') {
+      return { ok: false, reason: 'master' };
+    }
+    const list = (state && Array.isArray(state.customPasswords)) ? state.customPasswords : [];
+    const found = list.find(u => String(u.password) === pwd);
+    if (!found) {
+      return { ok: false, reason: 'invalid' };
+    }
+
+    const foundSid = resolveCustomStaffId(found);
+    const loginUser = getAppLoginUser();
+    const loginSid = (loginUser && loginUser.id) ? String(loginUser.id) : '';
+
+    if (loginSid && loginSid !== 'ADMIN' && loginSid !== 'CUSTOM') {
+      if (!foundSid || foundSid !== loginSid) {
+        return {
+          ok: false,
+          reason: 'mismatch',
+          ownerName: found.name,
+          ownerId: foundSid,
+          loginId: loginSid
+        };
+      }
+    }
+
+    if (requiredPerm && (!found.perms || !found.perms[requiredPerm])) {
+      return { ok: false, reason: 'denied', name: found.name };
+    }
+    return { ok: true, isMaster: false, name: found.name, staffId: foundSid, perms: found.perms || {} };
+  };
+
+  window.confirmUnlock = function() {
+    const inputVal = document.getElementById('pwdInput').value;
+    const check = window.verifyPasswordForPerm(inputVal, pendingPwdPerm);
+    const errEl = document.getElementById('pwdErr');
+    if (check.ok) {
+      const action = pendingPwdAction;
+      const perm = pendingPwdPerm;
+      pendingPwdAction = null;
+      pendingPwdPerm = null;
+      document.getElementById('pwdModal').classList.remove('open');
+
+      if (perm !== 'appConfig') {
+        activeUserSession = check;
+        if (!isEditMode && (check.isMaster || (check.perms && check.perms.editMode))) {
+          isEditMode = true;
+        }
+        updateEditBtn();
+      }
+
+      if (typeof action === 'function') {
+        action(check);
+      } else {
+        activeUserSession = check;
+        isEditMode = true;
+        updateEditBtn();
+        renderAll();
+      }
+    } else {
+      if (check.reason === 'mismatch') {
+        errEl.textContent = `⛔ আপনি ID: ${padId(check.loginId)} দিয়ে লগইন করেছেন! অন্য স্টাফের (${check.ownerName}) পাসওয়ার্ড ব্যবহার করা যাবে না — নিজের পাসওয়ার্ড বা Master Password দিন।`;
+      } else if (check.reason === 'denied') {
+        errEl.textContent = `⛔ "${check.name}" পাসওয়ার্ডের এই কাজটি করার অনুমতি নেই!`;
+      } else if (check.reason === 'master') {
+        errEl.textContent = '⛔ এই অপশনটি শুধুমাত্র Master Admin পাসওয়ার্ড দিয়ে খোলা যাবে।';
+      } else {
+        errEl.textContent = 'ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।';
+      }
+      errEl.style.display = 'block';
+    }
+  };
+
+  // ৩. পোস্টিংয়ে কার পাসওয়ার্ড ব্যবহৃত হয়েছে এবং কে অ্যাপে লগইন করেছে তা সেভ ও প্রদর্শন
+  function getCurrentPosterInfo() {
+    const loginUser = getAppLoginUser();
+    const loginId = (loginUser && loginUser.id) ? String(loginUser.id) : 'ADMIN';
+    const loginPin = padId(loginId);
+    const loginName = (loginUser && loginUser.name) ? String(loginUser.name) : 'Unknown';
+
+    const auth = (typeof activeUserSession !== 'undefined') ? activeUserSession : null;
+    let passType = 'open';
+    let passId = loginId;
+    let passPin = loginPin;
+    let passName = loginName;
+
+    if (auth && auth.name === 'Master Admin' && auth.isMaster) {
+      passType = 'master';
+      passId = 'ADMIN';
+      passPin = 'Master';
+      passName = 'Master Password';
+    } else if (auth && !auth.isMaster && auth.name) {
+      passType = 'custom';
+      passId = auth.staffId || resolveCustomStaffId(auth) || 'PASS';
+      passPin = padId(passId);
+      const st = (passId && passId !== 'PASS') ? getStaffInfo(passId) : null;
+      passName = st ? st.name : auth.name;
+    }
+
+    return { loginId, loginPin, loginName, passType, passId, passPin, passName };
+  }
+
+  function buildPostedByHtml(pb) {
+    if (!pb) return '<span style="color:var(--muted);font-size:11.5px;">—</span>';
+    // পুরনো ভার্সনের ডাটা থাকলে সেফটি ফলব্যাক
+    const pName = pb.passName || pb.name;
+    const pId = pb.passId || pb.id || '';
+    const pPin = pb.passPin || pb.pin || padId(pId);
+    const lName = pb.loginName || '';
+    const lId = pb.loginId || '';
+    const lPin = pb.loginPin || padId(lId);
+    if (!pName) return '<span style="color:var(--muted);font-size:11.5px;">—</span>';
+
+    const photoId = (pId && pId !== 'PASS') ? pId : lId;
+    const photo = (typeof window.getStaffPhotoUrl === 'function' && photoId) ? window.getStaffPhotoUrl(photoId) : '';
+    const imgHtml = photo ? `<img class="staff-avatar-img" src="${photo}" alt="" style="width:20px;height:20px;margin-right:5px;">` : '';
+
+    if (pb.passType === 'master') {
+      if (lId && lId !== 'ADMIN' && lId !== 'CUSTOM') {
+        const lPhoto = (typeof window.getStaffPhotoUrl === 'function') ? window.getStaffPhotoUrl(lId) : '';
+        const lImg = lPhoto ? `<img class="staff-avatar-img" src="${lPhoto}" alt="" style="width:20px;height:20px;margin-right:5px;">` : '';
+        return `
+          <div class="posted-by-cell">
+            <div class="posted-by-name">${lImg}<span>${esc(lName)}</span></div>
+            <span class="posted-by-id">ID: ${esc(lPin)}</span>
+            <div class="posted-by-via">🔑 Master Password</div>
+          </div>
+        `;
+      }
+      return `
+        <div class="posted-by-cell">
+          <div class="posted-by-name">${imgHtml}<span>Master Admin</span></div>
+          <span class="posted-by-id">Master Password</span>
+        </div>
+      `;
+    }
+
+    const showLoginSub = (lName && lId && lId !== pId && lId !== 'ADMIN');
+    return `
+      <div class="posted-by-cell">
+        <div class="posted-by-name">${imgHtml}<span>${esc(pName)}</span></div>
+        <span class="posted-by-id">ID: ${esc(pPin)}</span>
+        <div class="posted-by-via">${showLoginSub ? `Login: ${esc(lName)} (${esc(lPin)})` : '🔑 Own Pass'}</div>
+      </div>
+    `;
+  }
+
+  function attachPosterToNewItems(prevLogLen, prevOiLen, prevExpLen, poster) {
+    const addedLog = state.postLog.length - prevLogLen;
+    for (let i = 0; i < addedLog; i++) {
+      if (state.postLog[i]) state.postLog[i].postedBy = poster;
+    }
+    for (let i = prevOiLen; i < state.otherIncome.length; i++) {
+      state.otherIncome[i].postedBy = poster;
+    }
+    for (let i = prevExpLen; i < state.expenses.length; i++) {
+      state.expenses[i].postedBy = poster;
+    }
+  }
+
+  if (typeof window._executePostFundEntry === 'function') {
+    const origPostEntry = window._executePostFundEntry;
+    window._executePostFundEntry = function() {
+      const prevLogLen = state.postLog.length;
+      const prevOiLen = state.otherIncome.length;
+      const prevExpLen = state.expenses.length;
+      const poster = getCurrentPosterInfo();
+      const res = origPostEntry.apply(this, arguments);
+      attachPosterToNewItems(prevLogLen, prevOiLen, prevExpLen, poster);
+      saveState();
+      renderAll();
+      return res;
+    };
+  }
+
+  if (typeof window._executePostMcspAll === 'function') {
+    const origPostMcsp = window._executePostMcspAll;
+    window._executePostMcspAll = function() {
+      const prevLogLen = state.postLog.length;
+      const prevOiLen = state.otherIncome.length;
+      const prevExpLen = state.expenses.length;
+      const poster = getCurrentPosterInfo();
+      const res = origPostMcsp.apply(this, arguments);
+      attachPosterToNewItems(prevLogLen, prevOiLen, prevExpLen, poster);
+      saveState();
+      renderAll();
+      return res;
+    };
+  }
+
+  function enhanceTableWithPoster(tableId, getItemForRow) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+
+    const headTr = table.querySelector('thead tr');
+    if (headTr && !headTr.querySelector('.th-posted-by')) {
+      const th = document.createElement('th');
+      th.className = 'th-posted-by';
+      th.textContent = 'পোস্টিংকারী (Posted By)';
+      headTr.insertBefore(th, headTr.lastElementChild);
+    }
+
+    table.querySelectorAll('tbody tr').forEach(tr => {
+      if (tr.querySelector('.td-posted-by')) return;
+      if (tr.cells.length === 1 && tr.cells[0].hasAttribute('colspan')) {
+        const cs = parseInt(tr.cells[0].getAttribute('colspan'), 10);
+        if (!isNaN(cs)) tr.cells[0].setAttribute('colspan', String(cs + 1));
+        return;
+      }
+      const item = getItemForRow(tr);
+      const td = document.createElement('td');
+      td.className = 'td-posted-by';
+      td.innerHTML = buildPostedByHtml(item ? item.postedBy : null);
+      tr.insertBefore(td, tr.lastElementChild);
+    });
+
+    const footTr = table.querySelector('tfoot tr');
+    if (footTr && !footTr.querySelector('.tf-posted-by')) {
+      const td = document.createElement('td');
+      td.className = 'tf-posted-by';
+      footTr.insertBefore(td, footTr.lastElementChild);
+    }
+  }
+
+  function enhanceStmtPosterNotes() {
+    const stmtIdEl = document.getElementById('stmt-staff-id');
+    if (!stmtIdEl) return;
+    const sid = stmtIdEl.value.trim();
+
+    const oiItems = (state.otherIncome || []).filter(r => String(r.id) === sid);
+    document.querySelectorAll('#stmt-oi-table tbody tr').forEach((tr, idx) => {
+      const item = oiItems[idx];
+      if (item && item.postedBy && tr.cells.length >= 6 && !tr.querySelector('.stmt-posted-note')) {
+        const pb = item.postedBy;
+        const label = pb.passType === 'master'
+          ? (pb.loginId && pb.loginId !== 'ADMIN' ? `${pb.loginName} (${pb.loginPin}) • Master Pass` : 'Master Admin')
+          : `${pb.passName || pb.name} (${pb.passPin || pb.pin || pb.id})`;
+        const note = document.createElement('div');
+        note.className = 'stmt-posted-note';
+        note.textContent = `Posted by: ${label}`;
+        tr.cells[5].appendChild(note);
+      }
+    });
+
+    const expItems = (state.expenses || []).filter(r => String(r.id) === sid);
+    document.querySelectorAll('#stmt-exp-table tbody tr').forEach((tr, idx) => {
+      const item = expItems[idx];
+      if (item && item.postedBy && tr.cells.length >= 5 && !tr.querySelector('.stmt-posted-note')) {
+        const pb = item.postedBy;
+        const label = pb.passType === 'master'
+          ? (pb.loginId && pb.loginId !== 'ADMIN' ? `${pb.loginName} (${pb.loginPin}) • Master Pass` : 'Master Admin')
+          : `${pb.passName || pb.name} (${pb.passPin || pb.pin || pb.id})`;
+        const note = document.createElement('div');
+        note.className = 'stmt-posted-note';
+        note.textContent = `Posted by: ${label}`;
         tr.cells[4].appendChild(note);
       }
     });
