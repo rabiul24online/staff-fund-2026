@@ -10004,6 +10004,77 @@ initAppLock();
     };
   }
 })();
+  // ===== Hide Extra Icons/Labels & Show Photo for Master Login =====
+(function setupPhotoCleanupsAndMasterAvatar() {
+  const origGetPhoto = window.getStaffPhotoUrl;
+  window.getStaffPhotoUrl = function(id) {
+    const sid = String(id ?? '').trim();
+    if (sid === 'ADMIN' && state && state.staffPhotos) {
+      return state.staffPhotos['ADMIN'] || state.staffPhotos['5678'] || '';
+    }
+    if (typeof origGetPhoto === 'function') return origGetPhoto(sid);
+    return (state && state.staffPhotos && state.staffPhotos[sid]) || '';
+  };
+
+  function stripTextToken(el, regex) {
+    if (!el) return;
+    Array.from(el.childNodes).forEach(node => {
+      if (node.nodeType === 3) {
+        node.textContent = node.textContent.replace(regex, '').replace(/^\s+/, '');
+      }
+    });
+  }
+
+  const origAttach = window.attachAllStaffAvatars;
+  window.attachAllStaffAvatars = function() {
+    if (typeof origAttach === 'function') origAttach();
+
+    // ১. উপরের বারে ও মেনুতে থাকা 👤 আইকন সরানো
+    stripTextToken(document.querySelector('#navLoggedUser .nav-user-name'), /👤\s*/g);
+    stripTextToken(document.querySelector('#loggedInUserBox div div:first-child'), /👤\s*/g);
+
+    // ২. Staff Statement-এর "Staff Name:" লেখাটি লুকানো
+    stripTextToken(document.querySelector('#stmt-header-info span:nth-child(2)'), /Staff\s*Name:\s*/gi);
+  };
+
+  // Master Admin-এর জন্য ছবি ম্যানেজারে আলাদা অপশন যোগ করা
+  if (typeof window.renderStaffPhotoList === 'function') {
+    const origPhotoList = window.renderStaffPhotoList;
+    window.renderStaffPhotoList = function() {
+      origPhotoList();
+      const box = document.getElementById('spListContainer');
+      const q = (document.getElementById('spFilterInput')?.value || '').trim().toLowerCase();
+      if (!box || (q && !'master admin'.includes(q) && !'admin'.includes(q))) return;
+      const photo = window.getStaffPhotoUrl('ADMIN');
+      const thumbHtml = photo
+        ? `<img class="sp-thumb" src="${photo}" alt="">`
+        : `<div class="sp-placeholder">M</div>`;
+      const hasCustomAdmin = !!(state && state.staffPhotos && state.staffPhotos['ADMIN']);
+      const delBtn = hasCustomAdmin
+        ? `<button type="button" class="btn btn-danger btn-sm" onclick="removeStaffPhoto('ADMIN')" title="ছবি মুছুন">🗑</button>`
+        : '';
+      const masterCard = `
+        <div class="sp-item" style="border-color:var(--primary);background:var(--primary-light);">
+          <div class="sp-left">
+            ${thumbHtml}
+            <div class="sp-info">
+              <div class="sp-name">Master Admin <span class="badge badge-best">Master</span></div>
+              <div class="sp-meta">মাস্টার পাসওয়ার্ড লগইনের ছবি</div>
+            </div>
+          </div>
+          <div class="sp-actions">
+            <button type="button" class="btn btn-success btn-sm" onclick="triggerStaffPhotoPick('ADMIN')">${hasCustomAdmin ? '🔄 বদলান' : '📷 বদলান'}</button>
+            ${delBtn}
+          </div>
+        </div>
+      `;
+      if (box.innerHTML.includes('কোনো স্টাফ পাওয়া যায়নি')) box.innerHTML = masterCard;
+      else box.insertAdjacentHTML('afterbegin', masterCard);
+    };
+  }
+
+  window.attachAllStaffAvatars();
+})();
 </script>
 
 </body></html>
