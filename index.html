@@ -2314,6 +2314,57 @@
     from { transform: scaleX(1); }
     to   { transform: scaleX(0); }
   }
+  /* ===== Staff Statement Header: Photo+Name Left, ID & Desig Stacked Right ===== */
+  .stmt-header-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    flex-wrap: nowrap !important;
+    padding: 10px 14px !important;
+    background: var(--primary-light) !important;
+    border-radius: 7px !important;
+    margin-bottom: 14px !important;
+    font-weight: 600 !important;
+  }
+  body.night-mode .stmt-header-row {
+    background: #1e293b !important;
+    color: #f8fafc !important;
+  }
+  .stmt-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+  .stmt-header-left .staff-avatar-img {
+    margin-right: 0 !important;
+    flex-shrink: 0;
+  }
+  .stmt-name-block {
+    font-size: 14px;
+    line-height: 1.35;
+    min-width: 0;
+  }
+  .stmt-header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    flex-shrink: 0;
+    font-size: 12.5px;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+  @media print {
+    .stmt-header-row,
+    body.night-mode .stmt-header-row {
+      background: #f1f5f9 !important;
+      color: #000000 !important;
+      border: 1px solid #cbd5e1 !important;
+    }
+  }
 </style>
 <style id="gemini-live-style"></style>
 </head>
@@ -10074,6 +10125,59 @@ initAppLock();
   }
 
   window.attachAllStaffAvatars();
+})();
+  // ===== Statement Header Layout (Left: Photo+Name, Right: Stacked ID & Designation) =====
+(function setupStatementHeaderLayout() {
+  window.formatStmtHeaderLayout = function() {
+    const box = document.getElementById('stmt-header-info');
+    const idEl = document.getElementById('stmt-staff-id');
+    if (!box || !idEl) return;
+
+    const id = idEl.value.trim();
+    const info = getStaffInfo(id);
+    const photoUrl = (typeof window.getStaffPhotoUrl === 'function') ? window.getStaffPhotoUrl(id) : '';
+    const avatarHtml = photoUrl ? `<img class="staff-avatar-img lg" src="${photoUrl}" alt="">` : '';
+    const nameStr = info ? esc(info.name) : 'পাওয়া যায়নি';
+    const statusHtml = info ? statusBadgeHtml(getStaffStatus(info)) : '';
+    const desigStr = info ? esc(info.desig) : '-';
+    const editBtnHtml = (info && typeof canEditSheet === 'function' && canEditSheet('staffEdit'))
+      ? `<button class="btn btn-warning btn-sm no-print" onclick="editStaffById('${esc(id)}')" title="স্টাফ তথ্য এডিট করুন">✏️ Edit Staff</button>`
+      : '';
+
+    box.className = 'stmt-header-row';
+    box.removeAttribute('style');
+    box.innerHTML = `
+      <div class="stmt-header-left">
+        ${avatarHtml}
+        <div class="stmt-name-block">
+          <strong>${nameStr}</strong> ${statusHtml} ${editBtnHtml}
+        </div>
+      </div>
+      <div class="stmt-header-right">
+        <div>Staff ID: <strong>${esc(id)}</strong></div>
+        <div>Designation: <strong>${desigStr}</strong></div>
+      </div>
+    `;
+  };
+
+  if (typeof window.attachAllStaffAvatars === 'function') {
+    const prevAttach = window.attachAllStaffAvatars;
+    window.attachAllStaffAvatars = function() {
+      prevAttach();
+      window.formatStmtHeaderLayout();
+    };
+  }
+
+  if (typeof window.renderStaffStatement === 'function') {
+    const prevStmt = window.renderStaffStatement;
+    window.renderStaffStatement = function() {
+      const res = prevStmt.apply(this, arguments);
+      window.formatStmtHeaderLayout();
+      return res;
+    };
+  }
+
+  window.formatStmtHeaderLayout();
 })();
 </script>
 
