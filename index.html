@@ -2080,6 +2080,93 @@
   body.night-mode .nav-user-meta {
     color: #cbd5e1 !important;
   }
+  /* ===== Master-Only Staff Photo Upload & Avatars ===== */
+  .app-config-panel .cfg-staff-photo {
+    display: none !important;
+    background: linear-gradient(145deg, #0ea5e9, #2563eb) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.38), 0 3px 0 #1e3a8a !important;
+  }
+  .app-config-panel.master-unlocked .cfg-staff-photo {
+    display: inline-flex !important;
+  }
+  .staff-avatar-img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: middle;
+    margin-right: 6px;
+    border: 1.5px solid var(--primary);
+    background: #e2e8f0;
+  }
+  .staff-avatar-img.lg {
+    width: 34px;
+    height: 34px;
+    margin-right: 8px;
+  }
+  .sp-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 9px 10px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    margin-bottom: 8px;
+  }
+  body.night-mode .sp-item {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+  }
+  .sp-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    flex: 1;
+  }
+  .sp-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary);
+    background: #e2e8f0;
+    flex-shrink: 0;
+  }
+  .sp-placeholder {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    border: 2px dashed var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .sp-info { min-width: 0; }
+  .sp-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sp-meta {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .sp-actions {
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0;
+  }
 </style>
 <style id="gemini-live-style"></style>
 </head>
@@ -9406,6 +9493,293 @@ initAppLock();
       if (saved && saved.name) renderLoggedInBadge(saved);
     }
   } catch (e) {}
+})();
+  // ===== Master-Only Staff Photo Upload & Display =====
+(function setupStaffPhotosFeature() {
+  if (!state.staffPhotos || typeof state.staffPhotos !== 'object') {
+    state.staffPhotos = {};
+  }
+
+  // ১. App Configure প্যানেলে বাটন যুক্ত করা (শুধু Master Password-এ দেখাবে)
+  const cfgPanel = document.getElementById('appConfigPanel');
+  if (cfgPanel && !document.getElementById('staffPhotoConfigBtn')) {
+    const photoBtn = document.createElement('button');
+    photoBtn.type = 'button';
+    photoBtn.id = 'staffPhotoConfigBtn';
+    photoBtn.className = 'btn btn-light cfg-staff-photo';
+    photoBtn.innerHTML = '🖼️ স্টাফ ছবি আপলোড (Master)';
+    photoBtn.onclick = function() {
+      closeSheetDrawer();
+      openStaffPhotoModal();
+    };
+    const geminiBtn = document.getElementById('geminiConfigBtn');
+    if (geminiBtn && geminiBtn.nextSibling) cfgPanel.insertBefore(photoBtn, geminiBtn.nextSibling);
+    else cfgPanel.appendChild(photoBtn);
+  }
+
+  // ২. স্টাফ ছবি আপলোড মোডাল তৈরি করা
+  if (!document.getElementById('staffPhotoModal')) {
+    const modalWrap = document.createElement('div');
+    modalWrap.id = 'staffPhotoModal';
+    modalWrap.className = 'modal-backdrop';
+    modalWrap.onclick = function(e) { if (e.target === modalWrap) closeStaffPhotoModal(); };
+    modalWrap.innerHTML = `
+      <div class="modal modal-lg">
+        <h3>🖼️ স্টাফ ছবি আপলোড ও ম্যানেজার <span class="gemini-badge">MASTER ONLY</span></h3>
+        <p>যেকোনো স্টাফের ছবি আপলোড করুন—সাথে সাথে অ্যাপের সব তালিকায় নামের পাশে ছবি চলে আসবে এবং Google Drive-এ সেভ হবে।</p>
+        <input type="text" id="spFilterInput" placeholder="নাম বা স্টাফ আইডি দিয়ে খুঁজুন..." oninput="renderStaffPhotoList()" style="margin-bottom:10px;">
+        <input type="file" id="spFilePicker" accept="image/*" style="display:none" onchange="handleStaffPhotoFile(event)">
+        <div id="spStatus" class="status-banner" style="margin-top:0;margin-bottom:10px;"></div>
+        <div id="spListContainer" style="max-height:52vh;overflow-y:auto;padding-right:2px;"></div>
+        <div class="modal-actions" style="margin-top:12px;">
+          <button type="button" class="btn btn-success" onclick="closeStaffPhotoModal()">সম্পন্ন (Done)</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modalWrap);
+  }
+
+  window._spTargetId = '';
+
+  window.getStaffPhotoUrl = function(id) {
+    if (!state || !state.staffPhotos) return '';
+    return state.staffPhotos[String(id ?? '').trim()] || '';
+  };
+
+  window.openStaffPhotoModal = function() {
+    const showIt = () => {
+      const stEl = document.getElementById('spStatus');
+      if (stEl) stEl.className = 'status-banner';
+      const fi = document.getElementById('spFilterInput');
+      if (fi) fi.value = '';
+      renderStaffPhotoList();
+      document.getElementById('staffPhotoModal').classList.add('open');
+    };
+    if (appConfigOpenedByMaster) {
+      showIt();
+    } else {
+      requestPassword(
+        '🔐 Master Admin পাসওয়ার্ড দিন',
+        'স্টাফ ছবি আপলোড অপশনটি শুধুমাত্র Master Admin পাসওয়ার্ড দিয়ে খোলা যাবে।',
+        () => {
+          appConfigOpenedByMaster = true;
+          showIt();
+        },
+        'masterOnly'
+      );
+    }
+  };
+
+  window.closeStaffPhotoModal = function() {
+    const m = document.getElementById('staffPhotoModal');
+    if (m) m.classList.remove('open');
+  };
+
+  window.renderStaffPhotoList = function() {
+    const box = document.getElementById('spListContainer');
+    if (!box) return;
+    const q = (document.getElementById('spFilterInput')?.value || '').trim().toLowerCase();
+    const list = (state.staffDir || []).filter(s => {
+      if (!q) return true;
+      return String(s.id).toLowerCase().includes(q) || String(s.name).toLowerCase().includes(q) || String(s.desig).toLowerCase().includes(q);
+    });
+    if (!list.length) {
+      box.innerHTML = '<div style="text-align:center;color:var(--muted);padding:16px;">কোনো স্টাফ পাওয়া যায়নি।</div>';
+      return;
+    }
+    box.innerHTML = list.map(s => {
+      const sid = String(s.id);
+      const photo = getStaffPhotoUrl(sid);
+      const initials = String(s.name || 'S').trim().charAt(0).toUpperCase();
+      const thumbHtml = photo
+        ? `<img class="sp-thumb" src="${photo}" alt="">`
+        : `<div class="sp-placeholder">${esc(initials)}</div>`;
+      const delBtn = photo
+        ? `<button type="button" class="btn btn-danger btn-sm" onclick="removeStaffPhoto('${esc(sid)}')" title="ছবি মুছুন">🗑</button>`
+        : '';
+      return `
+        <div class="sp-item">
+          <div class="sp-left">
+            ${thumbHtml}
+            <div class="sp-info">
+              <div class="sp-name">${esc(s.name)} ${statusBadgeHtml(getStaffStatus(s))}</div>
+              <div class="sp-meta">ID: <strong>${esc(sid)}</strong> • ${esc(s.desig)}</div>
+            </div>
+          </div>
+          <div class="sp-actions">
+            <button type="button" class="btn btn-success btn-sm" onclick="triggerStaffPhotoPick('${esc(sid)}')">${photo ? '🔄 বদলান' : '📷 ছবি দিন'}</button>
+            ${delBtn}
+          </div>
+        </div>
+      `;
+    }).join('');
+  };
+
+  window.triggerStaffPhotoPick = function(sid) {
+    window._spTargetId = String(sid);
+    const fp = document.getElementById('spFilePicker');
+    if (fp) { fp.value = ''; fp.click(); }
+  };
+
+  window.handleStaffPhotoFile = function(e) {
+    const file = e.target && e.target.files ? e.target.files[0] : null;
+    const sid = window._spTargetId;
+    if (!file || !sid) return;
+    const stEl = document.getElementById('spStatus');
+    if (stEl) {
+      stEl.textContent = '⏳ ছবি প্রসেস ও সেভ হচ্ছে...';
+      stEl.className = 'status-banner show ok';
+    }
+    const objUrl = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = function() {
+      try {
+        const size = 120;
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, size, size);
+        const minSide = Math.min(img.width, img.height);
+        const sx = (img.width - minSide) / 2;
+        const sy = (img.height - minSide) / 2;
+        ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, size, size);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.78);
+        URL.revokeObjectURL(objUrl);
+
+        if (!state.staffPhotos || typeof state.staffPhotos !== 'object') state.staffPhotos = {};
+        state.staffPhotos[sid] = dataUrl;
+        saveState();
+        renderStaffPhotoList();
+        attachAllStaffAvatars();
+        if (stEl) {
+          const info = getStaffInfo(sid);
+          stEl.textContent = `✅ ${info ? info.name : sid}-এর ছবি সেভ হয়েছে এবং Drive-এ সিঙ্ক হচ্ছে!`;
+          stEl.className = 'status-banner show ok';
+        }
+      } catch (err) {
+        URL.revokeObjectURL(objUrl);
+        if (stEl) {
+          stEl.textContent = '❌ ছবি সেভ করতে সমস্যা হয়েছে: ' + err.message;
+          stEl.className = 'status-banner show err';
+        }
+      }
+    };
+    img.onerror = function() {
+      URL.revokeObjectURL(objUrl);
+      if (stEl) {
+        stEl.textContent = '❌ সঠিক ছবি ফাইল নির্বাচন করুন।';
+        stEl.className = 'status-banner show err';
+      }
+    };
+    img.src = objUrl;
+  };
+
+  window.removeStaffPhoto = function(sid) {
+    const info = getStaffInfo(sid);
+    if (!confirm(`${info ? info.name : sid}-এর ছবি মুছে ফেলতে চান?`)) return;
+    if (state.staffPhotos) delete state.staffPhotos[String(sid)];
+    saveState();
+    renderStaffPhotoList();
+    attachAllStaffAvatars();
+    const stEl = document.getElementById('spStatus');
+    if (stEl) {
+      stEl.textContent = '✅ ছবি মুছে ফেলা হয়েছে।';
+      stEl.className = 'status-banner show ok';
+    }
+  };
+
+  function getCellIdVal(cell) {
+    if (!cell) return '';
+    const ctrl = cell.querySelector('select, input');
+    return String(ctrl ? ctrl.value : cell.textContent).trim();
+  }
+
+  function injectAvatar(el, sid, isLarge) {
+    if (!el) return;
+    el.querySelectorAll('.staff-avatar-img').forEach(x => x.remove());
+    const url = getStaffPhotoUrl(sid);
+    if (!url) return;
+    const img = document.createElement('img');
+    img.className = 'staff-avatar-img' + (isLarge ? ' lg' : '');
+    img.src = url;
+    img.alt = '';
+    el.insertBefore(img, el.firstChild);
+  }
+
+  window.attachAllStaffAvatars = function() {
+    // Directory Master & Inactive Tables
+    document.querySelectorAll('#dir-master-table tbody tr, #dir-inactive-table tbody tr').forEach(tr => {
+      if (tr.cells.length >= 3) injectAvatar(tr.cells[2], getCellIdVal(tr.cells[1]), false);
+    });
+    // Directory Search Profile Card
+    const dirIdEl = document.getElementById('dir-search-id');
+    const dirProfTd = document.querySelector('#dir-profile-table tbody tr:first-child td');
+    if (dirIdEl && dirProfTd) injectAvatar(dirProfTd, dirIdEl.value.trim(), true);
+
+    // Staff Statement Header
+    const stmtIdEl = document.getElementById('stmt-staff-id');
+    const stmtNameSpan = document.querySelector('#stmt-header-info span:nth-child(2)');
+    if (stmtIdEl && stmtNameSpan) injectAvatar(stmtNameSpan, stmtIdEl.value.trim(), true);
+
+    // Monthly Subscription Table
+    document.querySelectorAll('#sub-table tbody tr').forEach(tr => {
+      if (tr.cells.length >= 3) injectAvatar(tr.cells[2], getCellIdVal(tr.cells[1]), false);
+    });
+    // M.C.S.P Table
+    document.querySelectorAll('#mcsp-table tbody tr').forEach(tr => {
+      if (tr.cells.length >= 4) injectAvatar(tr.cells[3], getCellIdVal(tr.cells[1]), false);
+    });
+    // Other Income Table
+    document.querySelectorAll('#oi-table tbody tr').forEach(tr => {
+      if (tr.cells.length >= 3) injectAvatar(tr.cells[2], getCellIdVal(tr.cells[1]), false);
+    });
+    // Expense Register Table
+    document.querySelectorAll('#exp-table tbody tr').forEach(tr => {
+      if (tr.cells.length >= 4) injectAvatar(tr.cells[3], getCellIdVal(tr.cells[2]), false);
+    });
+    // Data Entry Log Table
+    document.querySelectorAll('#de-log-table tbody tr').forEach(tr => {
+      if (tr.cells.length >= 7) injectAvatar(tr.cells[6], getCellIdVal(tr.cells[5]), false);
+    });
+
+    // Navbar & Drawer Logged-in User Pill
+    try {
+      const raw = (typeof APP_SESSION_KEY !== 'undefined') ? sessionStorage.getItem(APP_SESSION_KEY) : null;
+      if (raw) {
+        const u = JSON.parse(raw);
+        if (u && u.id) {
+          const navName = document.querySelector('#navLoggedUser .nav-user-name');
+          if (navName) injectAvatar(navName, u.id, false);
+          const drawerName = document.querySelector('#loggedInUserBox div div:first-child');
+          if (drawerName) injectAvatar(drawerName, u.id, false);
+        }
+      }
+    } catch (e) {}
+  };
+
+  // রেন্ডার ফাংশনগুলোর সাথে অটোমেটিক সংযুক্ত করা
+  ['renderAll', 'renderStaffDirSearch', 'renderStaffStatement', 'renderOtherIncome', 'renderExpenseRegister'].forEach(fnName => {
+    const origFn = window[fnName];
+    if (typeof origFn === 'function') {
+      window[fnName] = function() {
+        const res = origFn.apply(this, arguments);
+        attachAllStaffAvatars();
+        return res;
+      };
+    }
+  });
+  if (typeof window.renderLoggedInBadge === 'function') {
+    const origBadgeFn = window.renderLoggedInBadge;
+    window.renderLoggedInBadge = function(userObj) {
+      const res = origBadgeFn.apply(this, arguments);
+      attachAllStaffAvatars();
+      return res;
+    };
+  }
+
+  attachAllStaffAvatars();
 })();
 </script>
 
