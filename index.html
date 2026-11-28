@@ -2167,6 +2167,153 @@
     gap: 5px;
     flex-shrink: 0;
   }
+  /* ===== 1.5in x 2in Login Success Animated Popup ===== */
+  #loginSuccessPopup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 6000;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(3px);
+    align-items: center;
+    justify-content: center;
+  }
+  #loginSuccessPopup.show {
+    display: flex;
+  }
+  .lp-card {
+    width: 1.5in;
+    height: 2in;
+    box-sizing: border-box;
+    background: linear-gradient(165deg, #ffffff 0%, #f0fdfa 100%);
+    color: #0f172a;
+    border-radius: 14px;
+    padding: 12px 9px 10px;
+    border: 2px solid #10b981;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38), 0 0 0 4px rgba(16, 185, 129, 0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: lpPopIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  #loginSuccessPopup.closing .lp-card {
+    animation: lpPopOut 0.25s ease forwards;
+  }
+  body.night-mode .lp-card {
+    background: linear-gradient(165deg, #0f172a 0%, #1e293b 100%) !important;
+    color: #f8fafc !important;
+    border-color: #34d399 !important;
+  }
+  .lp-photo-wrap {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    padding: 2.5px;
+    background: linear-gradient(135deg, #0ea5e9, #10b981);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.55);
+    animation: lpPulse 1.2s ease-out infinite;
+    flex-shrink: 0;
+  }
+  .lp-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #ffffff;
+    display: block;
+  }
+  .lp-photo-fallback {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0f4c5c, #1b8a6b);
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lp-info {
+    width: 100%;
+    min-width: 0;
+    line-height: 1.25;
+  }
+  .lp-name {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: #09323d;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  body.night-mode .lp-name {
+    color: #f8fafc !important;
+  }
+  .lp-meta {
+    font-size: 9.5px;
+    font-weight: 600;
+    color: #475569;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  body.night-mode .lp-meta {
+    color: #cbd5e1 !important;
+  }
+  .lp-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #ffffff;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    padding: 4px 8px;
+    border-radius: 99px;
+    box-shadow: 0 3px 8px rgba(16, 185, 129, 0.35);
+    animation: lpBadgeBounce 0.45s 0.15s both;
+  }
+  .lp-timer-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3.5px;
+    width: 100%;
+    background: linear-gradient(90deg, #0ea5e9, #10b981);
+    transform-origin: left center;
+    animation: lpBarShrink 1.5s linear forwards;
+  }
+  @keyframes lpPopIn {
+    from { opacity: 0; transform: scale(0.7) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes lpPopOut {
+    from { opacity: 1; transform: scale(1); }
+    to   { opacity: 0; transform: scale(0.85); }
+  }
+  @keyframes lpPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.55); }
+    70%  { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  }
+  @keyframes lpBadgeBounce {
+    0%   { opacity: 0; transform: scale(0.6); }
+    70%  { transform: scale(1.08); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes lpBarShrink {
+    from { transform: scaleX(1); }
+    to   { transform: scaleX(0); }
+  }
 </style>
 <style id="gemini-live-style"></style>
 </head>
@@ -9780,6 +9927,82 @@ initAppLock();
   }
 
   attachAllStaffAvatars();
+})();
+  // ===== 1.5in x 2in Login Success Popup (1.5s Animation) =====
+(function setupLoginSuccessPopup() {
+  if (!document.getElementById('loginSuccessPopup')) {
+    const pop = document.createElement('div');
+    pop.id = 'loginSuccessPopup';
+    document.body.appendChild(pop);
+  }
+
+  let lpTimer1 = null;
+  let lpTimer2 = null;
+
+  window.showLoginWelcomePopup = function(userObj) {
+    const pop = document.getElementById('loginSuccessPopup');
+    if (!pop || !userObj) return;
+    clearTimeout(lpTimer1);
+    clearTimeout(lpTimer2);
+
+    const sid = String(userObj.id || '').trim();
+    const photoUrl = (typeof window.getStaffPhotoUrl === 'function')
+      ? window.getStaffPhotoUrl(sid)
+      : ((state && state.staffPhotos && state.staffPhotos[sid]) || '');
+    const initial = String(userObj.name || 'S').trim().charAt(0).toUpperCase();
+    const photoHtml = photoUrl
+      ? `<img class="lp-photo" src="${photoUrl}" alt="">`
+      : `<div class="lp-photo-fallback">${esc(initial)}</div>`;
+
+    pop.className = 'show';
+    pop.innerHTML = `
+      <div class="lp-card" onclick="closeLoginWelcomePopup()">
+        <div class="lp-photo-wrap">${photoHtml}</div>
+        <div class="lp-info">
+          <div class="lp-name">${esc(userObj.name)}</div>
+          <div class="lp-meta">${esc(userObj.subText || '')}</div>
+        </div>
+        <div class="lp-status">✓ LOGIN SUCCESS</div>
+        <div class="lp-timer-bar"></div>
+      </div>
+    `;
+
+    lpTimer1 = setTimeout(() => {
+      pop.classList.add('closing');
+      lpTimer2 = setTimeout(() => {
+        pop.className = '';
+        pop.innerHTML = '';
+      }, 250);
+    }, 1500);
+  };
+
+  window.closeLoginWelcomePopup = function() {
+    const pop = document.getElementById('loginSuccessPopup');
+    if (!pop) return;
+    clearTimeout(lpTimer1);
+    clearTimeout(lpTimer2);
+    pop.className = '';
+    pop.innerHTML = '';
+  };
+
+  if (typeof window.unlockAppWithId === 'function') {
+    const origUnlock = window.unlockAppWithId;
+    window.unlockAppWithId = function() {
+      const wasLocked = document.body.classList.contains('app-locked');
+      const res = origUnlock.apply(this, arguments);
+      const isNowUnlocked = !document.body.classList.contains('app-locked');
+      if (wasLocked && isNowUnlocked) {
+        try {
+          const raw = sessionStorage.getItem(APP_SESSION_KEY);
+          if (raw) {
+            const u = JSON.parse(raw);
+            if (u) showLoginWelcomePopup(u);
+          }
+        } catch (e) {}
+      }
+      return res;
+    };
+  }
 })();
 </script>
 
