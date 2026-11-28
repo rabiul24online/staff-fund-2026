@@ -2460,6 +2460,30 @@
     .kpi-pct-ring-fg { stroke: #0f172a !important; }
     .kpi-pct-bar { display: none !important; }
   }
+  /* ===== Live Sync Floating Toast ===== */
+  .live-sync-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%) translateY(20px);
+    z-index: 5500;
+    background: linear-gradient(135deg, #065f46, #10b981);
+    color: #ffffff;
+    padding: 9px 16px;
+    border-radius: 99px;
+    font-size: 12.5px;
+    font-weight: 700;
+    box-shadow: 0 8px 22px rgba(6, 95, 70, 0.38);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    white-space: nowrap;
+  }
+  .live-sync-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 </style>
 <style id="gemini-live-style"></style>
 </head>
@@ -10408,6 +10432,124 @@ initAppLock();
   });
 
   window.applyAllKpiPercentages();
+})();
+  // ===== Real-Time Live Auto-Sync Across All Devices =====
+(function setupLiveAutoSync() {
+  if (!document.getElementById('liveSyncToast')) {
+    const toast = document.createElement('div');
+    toast.id = 'liveSyncToast';
+    toast.className = 'live-sync-toast';
+    document.body.appendChild(toast);
+  }
+
+  let liveToastTimer = null;
+  function showLiveToast(msg) {
+    const el = document.getElementById('liveSyncToast');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(liveToastTimer);
+    liveToastTimer = setTimeout(() => { el.classList.remove('show'); }, 2800);
+  }
+
+  let isLiveChecking = false;
+  let isCloudPushing = false;
+  let isPushPending = false;
+  let lastKnownCloudTs = Number(state && state._lastUpdated) || 0;
+
+  const origSaveState = saveState;
+  saveState = function(skipCloud) {
+    const nextTs = Math.max(Date.now(), lastKnownCloudTs + 1);
+    lastKnownCloudTs = nextTs;
+    origSaveState(true);
+    state._lastUpdated = nextTs;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    if (!skipCloud) scheduleCloudPush();
+  };
+
+  scheduleCloudPush = function() {
+    const urls = getActiveDriveUrls();
+    if (!urls.length) return;
+    isPushPending = true;
+    setSyncPill('🔄 Live Saving...', 'syncing');
+    clearTimeout(cloudPushTimer);
+    cloudPushTimer = setTimeout(() => { pushToCloud(); }, 120);
+  };
+
+  const origPushToCloud = pushToCloud;
+  pushToCloud = async function() {
+    isPushPending = false;
+    isCloudPushing = true;
+    try {
+      await origPushToCloud();
+      lastKnownCloudTs = Math.max(lastKnownCloudTs, Number(state && state._lastUpdated) || 0);
+    } finally {
+      isCloudPushing = false;
+    }
+  };
+
+  window.checkLiveCloudUpdate = async function() {
+    if (isLiveChecking || isCloudPushing || isPushPending || document.hidden) return;
+    const ae = document.activeElement;
+    if (ae && ae.classList && ae.classList.contains('cell-input')) return;
+
+    const urls = getActiveDriveUrls();
+    if (!urls.length) return;
+
+    isLiveChecking = true;
+    try {
+      const results = await Promise.allSettled(
+        urls.map(u => fetch(u.url + (u.url.includes('?') ? '&' : '?') + 't=' + Date.now(), {
+          method: 'GET',
+          cache: 'no-store',
+          redirect: 'follow'
+        }).then(r => r.text()).then(txt => JSON.parse(txt)))
+      );
+
+      let newestData = null;
+      let newestTs = 0;
+      let okCount = 0;
+
+      results.forEach(res => {
+        if (res.status === 'fulfilled' && res.value && res.value.status === 'ok' && res.value.data && res.value.data.staffDir) {
+          okCount++;
+          const ts = Number(res.value.data._lastUpdated) || 0;
+          if (ts > newestTs) {
+            newestTs = ts;
+            newestData = res.value.data;
+          }
+        }
+      });
+
+      const localTs = Math.max(Number(state && state._lastUpdated) || 0, lastKnownCloudTs);
+      if (newestData && newestTs > localTs) {
+        lastKnownCloudTs = newestTs;
+        state = normalizeState(newestData);
+        state._lastUpdated = newestTs;
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+        if (typeof applyGeminiPatches === 'function') applyGeminiPatches();
+        populateDropdowns();
+        renderAll();
+
+        const tStr = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        setSyncPill(`✅ Live Synced (${okCount}/${urls.length}) • ${tStr}`, 'synced');
+        if (!document.body.classList.contains('app-locked')) {
+          showLiveToast('⚡ নতুন হিসাব লাইভ আপডেট হয়েছে!');
+        }
+      }
+    } catch (e) {
+    } finally {
+      isLiveChecking = false;
+    }
+  };
+
+  setInterval(window.checkLiveCloudUpdate, 5000);
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) window.checkLiveCloudUpdate();
+  });
+  window.addEventListener('focus', () => { window.checkLiveCloudUpdate(); });
+  window.addEventListener('online', () => { window.checkLiveCloudUpdate(); });
 })();
 </script>
 
