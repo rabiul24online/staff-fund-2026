@@ -2484,6 +2484,50 @@
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
+  /* ===== Posted By (Poster Name & Staff ID) Column ===== */
+  .posted-by-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 115px;
+    line-height: 1.3;
+  }
+  .posted-by-name {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary-dark);
+  }
+  body.night-mode .posted-by-name {
+    color: #f8fafc !important;
+  }
+  .posted-by-id {
+    display: inline-block;
+    width: fit-content;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 99px;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+  }
+  body.night-mode .posted-by-id {
+    background: #1e293b !important;
+    color: #38bdf8 !important;
+    border: 1px solid #334155;
+  }
+  .posted-by-via {
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .stmt-posted-note {
+    font-size: 10.5px;
+    color: var(--muted);
+    margin-top: 2px;
+    font-weight: 600;
+  }
 </style>
 <style id="gemini-live-style"></style>
 </head>
@@ -10550,6 +10594,196 @@ initAppLock();
   });
   window.addEventListener('focus', () => { window.checkLiveCloudUpdate(); });
   window.addEventListener('online', () => { window.checkLiveCloudUpdate(); });
+})();
+  // ===== Track & Display Who Posted Each Entry (Name & Staff ID) =====
+(function setupPostedByTracking() {
+  function getCurrentPosterInfo() {
+    let loginUser = null;
+    try {
+      const raw = (typeof APP_SESSION_KEY !== 'undefined') ? sessionStorage.getItem(APP_SESSION_KEY) : null;
+      if (raw) loginUser = JSON.parse(raw);
+    } catch (e) {}
+
+    const authUser = (typeof activeUserSession !== 'undefined') ? activeUserSession : null;
+    let id = loginUser && loginUser.id ? String(loginUser.id) : '';
+    let name = loginUser && loginUser.name ? String(loginUser.name) : '';
+    let passName = '';
+
+    if (authUser && !authUser.isMaster && authUser.name) {
+      if (!name || id === 'ADMIN' || id === 'CUSTOM') {
+        name = authUser.name;
+        const matched = (state.staffDir || []).find(s =>
+          String(s.name).toLowerCase().includes(String(authUser.name).toLowerCase())
+        );
+        id = matched ? String(matched.id) : 'PASS';
+      } else if (!name.toLowerCase().includes(String(authUser.name).toLowerCase())) {
+        passName = authUser.name;
+      }
+    }
+
+    if (!name) {
+      name = (authUser && authUser.name) ? authUser.name : 'Unknown';
+      id = id || 'ADMIN';
+    }
+
+    const pin = (id && id !== 'ADMIN' && id !== 'CUSTOM' && id !== 'PASS')
+      ? String(id).padStart(4, '0')
+      : id;
+
+    return { id, pin, name, passName };
+  }
+
+  function buildPostedByHtml(pb) {
+    if (!pb || !pb.name) {
+      return '<span style="color:var(--muted);font-size:11.5px;">—</span>';
+    }
+    const sid = String(pb.id || '').trim();
+    const pin = pb.pin || (sid && sid !== 'ADMIN' && sid !== 'CUSTOM' && sid !== 'PASS' ? sid.padStart(4, '0') : sid);
+    const photo = (typeof window.getStaffPhotoUrl === 'function' && sid) ? window.getStaffPhotoUrl(sid) : '';
+    const imgHtml = photo ? `<img class="staff-avatar-img" src="${photo}" alt="" style="width:20px;height:20px;margin-right:5px;">` : '';
+    const idHtml = pin ? `<span class="posted-by-id">ID: ${esc(pin)}</span>` : '';
+    const viaHtml = pb.passName ? `<div class="posted-by-via">Pass: ${esc(pb.passName)}</div>` : '';
+    return `
+      <div class="posted-by-cell">
+        <div class="posted-by-name">${imgHtml}<span>${esc(pb.name)}</span></div>
+        ${idHtml}${viaHtml}
+      </div>
+    `;
+  }
+
+  function attachPosterToNewItems(prevLogLen, prevOiLen, prevExpLen, poster) {
+    const addedLog = state.postLog.length - prevLogLen;
+    for (let i = 0; i < addedLog; i++) {
+      if (state.postLog[i]) state.postLog[i].postedBy = poster;
+    }
+    for (let i = prevOiLen; i < state.otherIncome.length; i++) {
+      state.otherIncome[i].postedBy = poster;
+    }
+    for (let i = prevExpLen; i < state.expenses.length; i++) {
+      state.expenses[i].postedBy = poster;
+    }
+  }
+
+  if (typeof window._executePostFundEntry === 'function') {
+    const origPostEntry = window._executePostFundEntry;
+    window._executePostFundEntry = function() {
+      const prevLogLen = state.postLog.length;
+      const prevOiLen = state.otherIncome.length;
+      const prevExpLen = state.expenses.length;
+      const poster = getCurrentPosterInfo();
+      const res = origPostEntry.apply(this, arguments);
+      attachPosterToNewItems(prevLogLen, prevOiLen, prevExpLen, poster);
+      saveState();
+      renderAll();
+      return res;
+    };
+  }
+
+  if (typeof window._executePostMcspAll === 'function') {
+    const origPostMcsp = window._executePostMcspAll;
+    window._executePostMcspAll = function() {
+      const prevLogLen = state.postLog.length;
+      const prevOiLen = state.otherIncome.length;
+      const prevExpLen = state.expenses.length;
+      const poster = getCurrentPosterInfo();
+      const res = origPostMcsp.apply(this, arguments);
+      attachPosterToNewItems(prevLogLen, prevOiLen, prevExpLen, poster);
+      saveState();
+      renderAll();
+      return res;
+    };
+  }
+
+  function enhanceTableWithPoster(tableId, getItemForRow) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+
+    const headTr = table.querySelector('thead tr');
+    if (headTr && !headTr.querySelector('.th-posted-by')) {
+      const th = document.createElement('th');
+      th.className = 'th-posted-by';
+      th.textContent = 'পোস্টিংকারী (Posted By)';
+      headTr.insertBefore(th, headTr.lastElementChild);
+    }
+
+    table.querySelectorAll('tbody tr').forEach(tr => {
+      if (tr.querySelector('.td-posted-by')) return;
+      if (tr.cells.length === 1 && tr.cells[0].hasAttribute('colspan')) {
+        const cs = parseInt(tr.cells[0].getAttribute('colspan'), 10);
+        if (!isNaN(cs)) tr.cells[0].setAttribute('colspan', String(cs + 1));
+        return;
+      }
+      const item = getItemForRow(tr);
+      const td = document.createElement('td');
+      td.className = 'td-posted-by';
+      td.innerHTML = buildPostedByHtml(item ? item.postedBy : null);
+      tr.insertBefore(td, tr.lastElementChild);
+    });
+
+    const footTr = table.querySelector('tfoot tr');
+    if (footTr && !footTr.querySelector('.tf-posted-by')) {
+      const td = document.createElement('td');
+      td.className = 'tf-posted-by';
+      footTr.insertBefore(td, footTr.lastElementChild);
+    }
+  }
+
+  function enhanceStmtPosterNotes() {
+    const stmtIdEl = document.getElementById('stmt-staff-id');
+    if (!stmtIdEl) return;
+    const sid = stmtIdEl.value.trim();
+
+    const oiItems = (state.otherIncome || []).filter(r => String(r.id) === sid);
+    document.querySelectorAll('#stmt-oi-table tbody tr').forEach((tr, idx) => {
+      const item = oiItems[idx];
+      if (item && item.postedBy && tr.cells.length >= 6 && !tr.querySelector('.stmt-posted-note')) {
+        const note = document.createElement('div');
+        note.className = 'stmt-posted-note';
+        note.textContent = `Posted by: ${item.postedBy.name} (${item.postedBy.pin || item.postedBy.id})`;
+        tr.cells[5].appendChild(note);
+      }
+    });
+
+    const expItems = (state.expenses || []).filter(r => String(r.id) === sid);
+    document.querySelectorAll('#stmt-exp-table tbody tr').forEach((tr, idx) => {
+      const item = expItems[idx];
+      if (item && item.postedBy && tr.cells.length >= 5 && !tr.querySelector('.stmt-posted-note')) {
+        const note = document.createElement('div');
+        note.className = 'stmt-posted-note';
+        note.textContent = `Posted by: ${item.postedBy.name} (${item.postedBy.pin || item.postedBy.id})`;
+        tr.cells[4].appendChild(note);
+      }
+    });
+  }
+
+  window.applyPostedByColumns = function() {
+    enhanceTableWithPoster('de-log-table', tr => {
+      const sl = tr.cells[0] ? tr.cells[0].textContent.trim() : '';
+      return (state.postLog || []).find(x => String(x.sl) === sl) || null;
+    });
+    enhanceTableWithPoster('oi-table', tr => {
+      const idx = parseInt(tr.cells[0] ? tr.cells[0].textContent : '', 10) - 1;
+      return (!isNaN(idx) && state.otherIncome[idx]) ? state.otherIncome[idx] : null;
+    });
+    enhanceTableWithPoster('exp-table', tr => {
+      const idx = parseInt(tr.cells[0] ? tr.cells[0].textContent : '', 10) - 1;
+      return (!isNaN(idx) && state.expenses[idx]) ? state.expenses[idx] : null;
+    });
+    enhanceStmtPosterNotes();
+  };
+
+  ['renderAll', 'renderDataEntry', 'renderOtherIncome', 'renderExpenseRegister', 'renderStaffStatement'].forEach(fnName => {
+    const orig = window[fnName];
+    if (typeof orig === 'function') {
+      window[fnName] = function() {
+        const res = orig.apply(this, arguments);
+        window.applyPostedByColumns();
+        return res;
+      };
+    }
+  });
+
+  window.applyPostedByColumns();
 })();
 </script>
 
