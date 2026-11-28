@@ -2365,6 +2365,101 @@
       border: 1px solid #cbd5e1 !important;
     }
   }
+  /* ===== Animated KPI Percentage Badge & Progress Bar ===== */
+  .kpi-card {
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-bottom-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .kpi-bottom-row .kpi-value {
+    margin-top: 0 !important;
+    min-width: 0;
+  }
+  .kpi-pct-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 9px 4px 6px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
+    flex-shrink: 0;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+    animation: kpiPctPop 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .kpi-pct-ring {
+    width: 20px;
+    height: 20px;
+    transform: rotate(-90deg);
+    flex-shrink: 0;
+  }
+  .kpi-pct-ring-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.28);
+    stroke-width: 3;
+  }
+  .kpi-pct-ring-fg {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 3;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .kpi-pct-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.14);
+    overflow: hidden;
+  }
+  .kpi-pct-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, rgba(255,255,255,0.65), #ffffff);
+    border-radius: 0 4px 4px 0;
+    transition: width 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+  }
+  .kpi-pct-fill::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.75), transparent);
+    animation: kpiShine 1.8s ease-in-out infinite;
+  }
+  @keyframes kpiPctPop {
+    from { opacity: 0; transform: scale(0.75) translateY(6px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes kpiShine {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(150%); }
+  }
+  @media print {
+    .kpi-pct-badge {
+      background: #f1f5f9 !important;
+      color: #000000 !important;
+      border: 1px solid #64748b !important;
+      box-shadow: none !important;
+    }
+    .kpi-pct-ring-bg { stroke: #cbd5e1 !important; }
+    .kpi-pct-ring-fg { stroke: #0f172a !important; }
+    .kpi-pct-bar { display: none !important; }
+  }
 </style>
 <style id="gemini-live-style"></style>
 </head>
@@ -10178,6 +10273,141 @@ initAppLock();
   }
 
   window.formatStmtHeaderLayout();
+})();
+  // ===== Animated KPI Percentage Engine =====
+(function setupKpiPercentages() {
+  const RING_CIRC = 56.55; // 2 * Math.PI * 9
+
+  function fmtPctText(p) {
+    const num = Number(p) || 0;
+    const rounded = Math.round(num * 100) / 100;
+    if (Math.abs(rounded % 1) < 0.005) return Math.round(rounded) + '%';
+    return rounded.toFixed(2).replace(/\.?0+$/, '') + '%';
+  }
+
+  function enhanceCardWithPct(card, targetPct) {
+    if (!card) return;
+    const valEl = card.querySelector('.kpi-value');
+    if (!valEl) return;
+
+    // পুরনো ব্যাজ থাকলে সরানো
+    card.querySelectorAll('.kpi-pct-badge, .kpi-pct-bar').forEach(el => el.remove());
+
+    let row = card.querySelector('.kpi-bottom-row');
+    if (!row) {
+      row = document.createElement('div');
+      row.className = 'kpi-bottom-row';
+      valEl.parentNode.insertBefore(row, valEl);
+      row.appendChild(valEl);
+    }
+
+    const clampPct = Math.max(0, Math.min(100, Number(targetPct) || 0));
+    const badge = document.createElement('div');
+    badge.className = 'kpi-pct-badge';
+    badge.innerHTML = `
+      <svg class="kpi-pct-ring" viewBox="0 0 24 24" aria-hidden="true">
+        <circle class="kpi-pct-ring-bg" cx="12" cy="12" r="9"></circle>
+        <circle class="kpi-pct-ring-fg" cx="12" cy="12" r="9"
+          stroke-dasharray="${RING_CIRC}" stroke-dashoffset="${RING_CIRC}"></circle>
+      </svg>
+      <span class="kpi-pct-text">0%</span>
+    `;
+    row.appendChild(badge);
+
+    const bar = document.createElement('div');
+    bar.className = 'kpi-pct-bar';
+    bar.innerHTML = `<div class="kpi-pct-fill"></div>`;
+    card.appendChild(bar);
+
+    const fgCircle = badge.querySelector('.kpi-pct-ring-fg');
+    const txtEl = badge.querySelector('.kpi-pct-text');
+    const fillEl = bar.querySelector('.kpi-pct-fill');
+
+    // রিং ও প্রগ্রেস বার অ্যানিমেশন শুরু
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (fgCircle) fgCircle.style.strokeDashoffset = String(RING_CIRC * (1 - clampPct / 100));
+        if (fillEl) fillEl.style.width = clampPct + '%';
+      });
+    });
+
+    // ০% থেকে আসল % পর্যন্ত স্মুথ কাউন্ট-আপ অ্যানিমেশন
+    const duration = 850;
+    const startTime = performance.now();
+    function step(now) {
+      const progress = Math.min(1, (now - startTime) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      if (txtEl) txtEl.textContent = fmtPctText((Number(targetPct) || 0) * eased);
+      if (progress < 1) requestAnimationFrame(step);
+      else if (txtEl) txtEl.textContent = fmtPctText(targetPct);
+    }
+    requestAnimationFrame(step);
+  }
+
+  window.applyAllKpiPercentages = function() {
+    if (typeof computeMetrics !== 'function') return;
+    const m = computeMetrics();
+    const incBase = m.totalInc > 0 ? m.totalInc : 0;
+    const pctOfInc = (v) => incBase > 0 ? (v / incBase) * 100 : 0;
+
+    // ১. Dashboard KPI Cards (মোট স্টাফ কার্ড বাদে আয়, ব্যয়, নিট ব্যালেন্স)
+    const dashCards = document.querySelectorAll('#dash-kpis .kpi-card');
+    if (dashCards.length >= 4) {
+      enhanceCardWithPct(dashCards[1], incBase > 0 ? 100 : 0);
+      enhanceCardWithPct(dashCards[2], pctOfInc(m.totalExp));
+      enhanceCardWithPct(dashCards[3], pctOfInc(m.netBalance));
+    }
+
+    // ২. Data Entry KPI Cards
+    const deCards = document.querySelectorAll('#de-live-kpis .kpi-card');
+    if (deCards.length >= 5) {
+      enhanceCardWithPct(deCards[0], pctOfInc(m.totalSub));
+      enhanceCardWithPct(deCards[1], pctOfInc(m.totalOI));
+      enhanceCardWithPct(deCards[2], incBase > 0 ? 100 : 0);
+      enhanceCardWithPct(deCards[3], pctOfInc(m.totalExp));
+      enhanceCardWithPct(deCards[4], pctOfInc(m.netBalance));
+    }
+
+    // ৩. Fund Balance & Monthly Ledger KPI Cards
+    const ledgerCards = document.querySelectorAll('#ledger-kpis .kpi-card');
+    if (ledgerCards.length >= 4) {
+      const now = new Date();
+      const curKey = now.getFullYear() + '-' + pad2(now.getMonth() + 1);
+      const curRow = m.monthlyRows.find(r => r.key === curKey);
+      const curMonthInc = curRow ? curRow.totInc : 0;
+      enhanceCardWithPct(ledgerCards[0], incBase > 0 ? 100 : 0);
+      enhanceCardWithPct(ledgerCards[1], pctOfInc(m.totalExp));
+      enhanceCardWithPct(ledgerCards[2], pctOfInc(m.netBalance));
+      enhanceCardWithPct(ledgerCards[3], pctOfInc(curMonthInc));
+    }
+
+    // ৪. Staff Statement KPI Cards
+    const stmtCards = document.querySelectorAll('#stmt-kpis .kpi-card');
+    const stmtIdEl = document.getElementById('stmt-staff-id');
+    if (stmtCards.length >= 5 && stmtIdEl && typeof getStaffTotals === 'function') {
+      const t = getStaffTotals(stmtIdEl.value.trim());
+      const sInc = t.subTotal + t.oiTotal;
+      const sPct = (v) => sInc > 0 ? (v / sInc) * 100 : 0;
+      enhanceCardWithPct(stmtCards[0], sInc > 0 ? 100 : 0);
+      enhanceCardWithPct(stmtCards[1], sPct(t.subTotal));
+      enhanceCardWithPct(stmtCards[2], sPct(t.oiTotal));
+      enhanceCardWithPct(stmtCards[3], sPct(t.expTotal));
+      enhanceCardWithPct(stmtCards[4], sPct(t.net));
+    }
+  };
+
+  ['renderAll', 'renderStaffStatement'].forEach(fnName => {
+    const orig = window[fnName];
+    if (typeof orig === 'function') {
+      window[fnName] = function() {
+        const res = orig.apply(this, arguments);
+        window.applyAllKpiPercentages();
+        return res;
+      };
+    }
+  });
+
+  window.applyAllKpiPercentages();
 })();
 </script>
 
